@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title><%= title %></title>
+	  	<meta charset="utf-8"/>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	 	<meta name="robots" content="noindex, nofollow" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<% if (settings.env === 'development') { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
+			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
+		<% } else { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
+			<script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
+		<% } %>	
+	</head>
+
+	<body>
+		<% if (layout === 'dashboard') { %>
+			<% include dashboard %>
+		<% } %>
+
+		<% if (layout === 'add-interview') { %>
+			<% include interviews/add %>
+		<% } %>
+
+		<% if (layout === 'remove-interview') { %>
+			<% include interviews/remove %>
+		<% } %>
+
+		<% if (layout === 'interview') { %>
+			<% include interviews/interview %>
+		<% } %>
+
+		<% if (layout === 'remove-deliverable') { %>
+			<% include interviews/deliverables/remove %>
+		<% } %>
+
+		<% if (layout === 'add-deliverable') { %>
+			<% include interviews/deliverables/add %>
+		<% } %>
+
+		<% if (layout === 'update-deliverable') { %>
+			<% include interviews/deliverables/update %>
+		<% } %>
+
+		<% if (layout === 'lock-interview') { %>
+			<% include interviews/lock %>
+		<% } %>
+
+		<% if (layout === 'clone-interview') { %>
+			<% include interviews/clone %>
+		<% } %>
+
+		<% if (layout === 'live-interview') { %>
+			<% include interviews/live %>
+		<% } %>
+
+		<% if (layout === 'on-complete-interview') { %>
+			<% include interviews/on_complete %>
+		<% } %>
+
+		<% if (layout === 'completed-interviews') { %>
+			<% include interviews/completed %>
+		<% } %>
+
+		<% if (layout === 'report-interview') { %>
+			<% include interviews/report %>
+		<% } %>
+
+		<% if (layout === 'users') { %>
+			<% include users/users %>
+		<% } %>
+
+		<% if (layout === 'add-users') { %>
+			<% include users/add %>
+		<% } %>
+
+		<% if (layout === 'remove-users') { %>
+			<% include users/remove %>
+		<% } %>
+
+		<% if (layout === 'user') { %>
+			<% include users/user %>
+		<% } %>
+
+		<% if (layout === 'error') { %>
+			<% include error %>
+		<% } %>
+
+		<script>site.init();</script>
+	</body>
+</html>

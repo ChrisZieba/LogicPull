@@ -1,0 +1,4 @@
+uploads/*
+generated/*
+logs/*
+public/javascripts/preload/*

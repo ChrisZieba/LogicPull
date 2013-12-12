@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<title>LogicPull - Complete Registration</title>
+		<meta name="robots" content="noindex, nofollow" />
+
+		<% if (settings.env === 'development') { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
+		<% } else { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
+		<% } %>
+	</head>
+	<body>
+		<div id="admin">
+			<div class="header-container">
+				<div class="header">
+					<h1><a href="/manager"><img src="/images/logo.png"></a></h1>
+					<div class="acc"></div>
+				</div>
+			</div>
+
+			<div class="clear"></div>
+			<div class="nav-container">
+				<div class="nav">
+					<ul class="nav-buttons">
+						<li class="nav-b-au"><a href="/">help</a></li>
+					</ul>
+
+				</div>	
+			</div>
+
+			<div class="clear"></div>
+
+			<div class="contents-container">
+				<div class="contents">
+					<div class="title"><h1>Complete Registration</h1></div>
+					<div class="clear"></div>
+					<div class="side">
+						<h2>Help</h2>
+						<p>If a user is already registered, submitting this form will <strong>overwrite</strong> their account information.</p>
+					</div>
+
+					<div class="wide">
+
+						<p>This user will be able to login to the manager once they follow the instructions they are sent via email.</p>
+						<br>
+						<% if (msg && ! msg.valid) { %>
+							<div class="error">
+								<%- msg %>
+							</div>
+						<% } %>
+						<form method="post" action="">
+							<input type="hidden" name="_csrf" value="<%= token %>"/>
+							<table class="add-table table">
+								<tbody class="b">
+									<tr>
+										<td>
+											<div class="label">Name:</div>
+											<input type="text" name="name" class="ab">
+
+										</td>
+									</tr>
+						            <tr>
+						            	<td>
+						            		<div class="label">Password:</div>
+						            		<input type="password" name="password" class="ab">
+
+						            	</td>
+						            </tr>
+						            <tr>
+						            	<td>
+						            		<div class="label">Verify Password:</div>
+						            		<input type="password" name="verify_password" class="ab">
+
+						            	</td>
+						            </tr>
+								</tbody>
+							</table>
+
+							<div class="clear"></div>
+							<input type="submit" value="Complete Registration" class="right"/>
+							<br>
+						</form>
+
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

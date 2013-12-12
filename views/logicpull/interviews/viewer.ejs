@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title><%= title %></title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="language" content="en" />
+	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width,height=device-height">
+	<meta name="description" content="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud."/>
+	<script>var BASE_URL = '<%= settings.base_url %>';</script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/plugins/datepicker.min.js"></script>
+
+	<% if (env === 'development') { %>
+		<script type="text/javascript" src="/javascripts/viewer.js?v=<%= settings.version %>"></script>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/viewer.css?v=<%= settings.version %>" />
+	<% } else { %>
+		<script type="text/javascript" src="/javascripts/viewer.min.js?v=<%= settings.version %>"></script>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/viewer.min.css?v=<%= settings.version %>" />
+	<% } %>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="login-container">
+			<div class="cover"></div>
+			<div class="popup-container">
+				<div class="toolbar">
+					<span>You need to login or register first</span>
+					<div id="l-d-close" class="close">x</div>
+				</div>
+				<div class="popup">
+					<div class="section divide">
+						<h3>REGISTER</h3>
+						<p class="tagline">We will only use your email if you ever reset your password.</p>
+						<form id="ltf-register" method="post" action="/post/register">
+							<input type="hidden" name="_csrf" value="<%= token %>"/>
+							<ul>
+								<li><div id="sf-h-error" class="error"></div></li>
+								<li>
+									<label>Email:</label>
+									<input type="text" name="email" class="textfield">
+								</li>
+								<li>
+									<label>Password:</label>
+									<input type="password" name="password" class="textfield">
+								</li>
+								<li>
+									<label>Verify Password:</label>
+									<input type="password" name="verify_password" class="textfield">
+								</li>
+								<li>
+									<input type="submit" value="Create a new account" />
+									<span id="ltf-r-loader" class="login-loader"></span>
+								</li>
+							</ul>
+						</form>
+					</div>
+					<div class="section">
+						<h3>LOGIN</h3>
+						<p class="tagline">If you have lost or forgotton your password, it can be <a href="/interviews/reset" target="_blank" class="recover-password">reset here</a>.</p>
+						<form id="ltf-login" method="post" action="/login">
+							<input type="hidden" name="_csrf" value="<%= token %>" />
+							<ul>
+								<li><div id="sf-g-error" class="error"></div></li>
+								<li>
+									<label>Email:</label>
+									<input type="text" name="email" class="textfield" />
+								</li>
+								<li>
+									<label>Password:</label>
+									<input type="password" name="password" class="textfield" />
+								</li>
+								<li>
+									<input type="submit" value="Login" />
+									<span id="ltf-loader" class="login-loader"></span>
+								</li>
+
+							</ul>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="saves-container">
+			<div class="cover"></div>
+			<div class="popup-container">
+				<div class="toolbar">
+					<span>Your Saved Interviews</span>
+					<div id="s-d-close" class="close">x</div>
+				</div>
+				<div class="popup">
+					<p>If you choose to load an existing interview, your current interview will be lost, <strong>unless you save it first</strong>. </p><br>
+					<div id="data-payload"></div>
+				</div>
+			</div>
+		</div>
+		<div id="note-container">
+			<div class="cover"></div>
+			<div class="popup-container">
+				<div class="toolbar">
+					<span>Save your current interview</span>
+					<div id="t-d-close" class="close">x</div>
+				</div>
+				<div class="popup">
+					<p>You can add an <strong>optional</strong> note to your saved interview. If you save many interviews in a day, a note will help you distinguish between them.</p><br>
+					<textarea name="t-d-note" class="note"></textarea>
+					<div id="vfh-save" class="pr-btn">Save</div>
+				</div>
+			</div>
+		</div>
+		<div id="youtube-container">
+			<div class="cover"></div>
+			<div class="popup-container">
+				<div class="toolbar">
+					<span>Youtube</span>
+					<div id="y-d-close" class="close">x</div>
+				</div>
+				<div class="popup"></div>
+			</div>
+		</div>
+		<div class="header-container">
+			<div class="header">
+				<h1><a href="/"><img src="/images/logo.png" alt="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud" width="225" height="55" /></a></h1>
+			</div>
+
+		</div>
+		<div class="sub-header-container">
+			<div class="sub-header">
+				<div id="back" class="icon" title="Go back the previous question">Back</div>
+				<div class="history">
+					<select id="progress"></select>
+
+				</div>
+				<div id="fraction" class="fractional-d notranslate">...</div>
+				<div id="open" class="icon" title="Open a previously saved interview">Open</div>
+				<div id="save" class="icon" title="Save your interview and complete it at a later time">Save</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="container">
+			<div id="main">
+				<div class="question"><div style="text-align:center;">Loading Interview ...</div></div>
+			</div>
+		</div>
+		<div class="footer-container">
+			<div class="footer">
+				<ul class="legal">
+					<li class="notranslate">&copy; 2012-2013 LogicPull. All Rights Reserved.</li>
+					<li><a href="/">Help</a></li>
+				</ul>
+
+				<div class="disclaimer"><strong>Disclaimer:</strong> The information contained in this website is for general information purposes only. Any reliance you place on such information is therefore strictly at your own risk. In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss.</div>
+			</div>
+		</div>
+	</div> <!-- wrapper -->
+
+	<div id="vars" class="none">
+		<div id="interview-id" class="notranslate"><%= id %></div>
+	</div>
+
+	<script>
+		window.onload = function() {
+			Viewer.interview.init();
+		};
+	</script>
+</body>
+</html>

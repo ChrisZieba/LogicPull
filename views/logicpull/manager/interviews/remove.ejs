@@ -1,0 +1,44 @@
+<div id="admin">
+
+	<% include ../header %>
+
+	<div class="contents-container">
+		<div class="contents">
+			<div class="title"><h1>Remove an Interview</h1></div>
+			<div class="clear"></div>
+			<div class="side">
+				<h2>Help</h2>
+				<p>A new interview must contain a valid name, and description.</p>
+			</div>
+
+			<div class="wide">
+				<p><strong><%= interview.name %> - </strong><%= interview.description %></p>
+				<br>
+				<div class="clear"></div>
+				<form method="post" action="">
+	        		<input type="hidden" name="_csrf" value="<%= token %>"/>
+	        		<input type="hidden" name="interview" value="<%= interview.id %>"/>
+					<table class="add-table table">
+						<tbody class="b">
+				            <tr>
+				            	<td>
+									<p><strong>This action will remove an entire interview from our system. This includes every output 
+										ever produced from the live interview, the editable graph, and any data that was 
+										attached to the interview. If you are unsure about this, just leave it. 
+										Once removed it is gone forever, and there is no way of getting the data back!</strong></p>
+									<br>
+				            	</td>
+				            </tr>
+						</tbody>
+					</table>
+					<div class="clear"></div>
+	        		<input type="submit" name="confirm" value="Yes, I am sure I want to delete this interview." class="right"/>
+	        		<a class="confirm right" href="/manager"><span>Cancel, and go Back</span></a>
+				   	<div class="clear"></div>
+				</form>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

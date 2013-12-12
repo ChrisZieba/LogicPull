@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">	
+    <head>
+		<title>LogicPull Manager - Editor</title>
+		<meta http-equiv="content-type" content="text/php; charset=utf-8" />		
+        <noscript><meta http-equiv="refresh" content="0; URL=logicpull.com"/></noscript>
+		<script>
+			if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
+				alert('Your browser does not support all the features required to run the editor.');
+				window.location = "http://logicpull.com";
+			}
+		</script>
+		<script>var BASE_URL = '<%= settings.base_url %>';</script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="/javascripts/plugins/d3.v2.min.js"></script>
+		<script src="/javascripts/preload/<%= data %>?d=<%- Date.now() %>"></script>
+		<script src="/javascripts/plugins/wysihtml5-rules.js"></script>
+		
+		<% if (env === 'development') { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/editor.css?v=<%= settings.version %>" />
+			<script src="/javascripts/plugins/wysihtml5-0.3.0.js"></script>
+			<script src="/javascripts/editor/init.js"></script>
+			<script src="/javascripts/editor/socket.js"></script>
+			<script src="/javascripts/editor/utils.js"></script>
+			<script src="/javascripts/editor/validation.js"></script>
+			<script src="/javascripts/editor/main.js"></script>
+			<script src="/javascripts/editor/menu.js"></script>
+			<script src="/javascripts/editor/graph.js"></script>
+			<script src="/javascripts/editor/settings.js"></script>
+			<script src="/javascripts/editor/interview.js"></script>
+			<script src="/javascripts/editor/list.js"></script>
+			<script src="/javascripts/editor/thumbnail.js"></script>
+			<script src="/javascripts/editor/debug.js"></script>
+			<script src="/javascripts/editor/details/manager.js"></script>
+			<script src="/javascripts/editor/details/tabs.js"></script>
+			<script src="/javascripts/editor/details/contents/question.js"></script>
+			<script src="/javascripts/editor/details/contents/learnmore.js"></script>
+			<script src="/javascripts/editor/details/contents/fields/common.js"></script>
+			<script src="/javascripts/editor/details/contents/fields/text.js"></script>
+			<script src="/javascripts/editor/details/contents/fields/textarea.js"></script>
+			<script src="/javascripts/editor/details/contents/fields/radio.js"></script>
+			<script src="/javascripts/editor/details/contents/fields/number.js"></script>
+			<script src="/javascripts/editor/details/contents/fields/checkbox.js"></script>
+			<script src="/javascripts/editor/details/contents/fields/date.js"></script>
+			<script src="/javascripts/editor/details/contents/fields/text_dropdown.js"></script>
+			<script src="/javascripts/editor/details/contents/fields/number_dropdown.js"></script>
+			<script src="/javascripts/editor/details/contents/advanced.js"></script>
+			<script src="/javascripts/editor/details/contents/buttons.js"></script>
+		<% } else { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/editor.min.css?v=<%= settings.version %>" />
+			<script src="/javascripts/plugins/wysihtml5-0.3.0.min.js"></script>
+			<script src="/javascripts/editor.min.js?v=<%= settings.version %>"></script>
+		<% } %>
+    </head>
+    <body>
+		<div id="pi">
+			<div id="menu">
+				<ul id="main-menu-nav">
+					<li>File
+						<ul>
+							<li data-main-menu-command="save" class="mmli main-menu">Save</li>
+							<li data-main-menu-command="null" class="mmli"><a href="/manager">Quit</a></li>
+						</ul>
+					</li>
+					<li>Edit
+						<ul>
+							<li data-main-menu-command="add" class="mmli main-menu">Add Question</li>
+							<li data-main-menu-command="remove" class="mmli main-menu">Remove Question</li>
+							<li data-main-menu-command="clone" class="mmli main-menu">Clone Question</li>
+							<li class="seperator">Seperator</li>
+							<li data-main-menu-command="sort-a" class="mmli main-menu">Sort By ID</li>
+							<li data-main-menu-command="sort-b" class="mmli main-menu">Sort By Step</li>
+							<li data-main-menu-command="sort-c" class="mmli main-menu">Sort By Name</li>
+							<li class="seperator">Seperator</li>
+							<li data-main-menu-command="edit-q" class="disabled main-menu">Edit Question</li>
+							
+						</ul>
+					</li>
+					<li>View
+						<ul>
+							<li data-main-menu-command="graph" class="disabled main-menu">Graph</li>
+							<li data-main-menu-command="preview" class="mmli main-menu">Preview</li>
+							<li data-main-menu-command="settings" class="mmli main-menu">Settings</li>
+							<li class="seperator">Seperator</li>
+							<li data-main-menu-command="scale-down" class="mmli main-menu">Zoom out Graph</li>
+							<li data-main-menu-command="scale-up" class="mmli main-menu">Zoom in Graph</li>
+						</ul>
+
+					</li>
+					<li>Tools
+						<ul>
+							<li data-main-menu-command="order" class="mmli main-menu">Order Graph</li>
+							<li data-main-menu-command="search" class="disabled main-menu">Search</li>
+						</ul>
+					</li>
+					<li>Help
+						<ul>
+							<li data-main-menu-command="null" class="mmli"><a href="/">Documentation</a></li>
+							<li data-main-menu-command="null" class="mmli" target="_blank"><a href="https://twitter.com/LogicPull">Twitter</a></li>
+							<li class="seperator">Seperator</li>
+							<li data-main-menu-command="null" class="mmli"><a href="/">About LogicPull</a></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="clear"></div>
+				<ul class="sub">
+					<li title="Admin Dashboard" data-sub-menu-command="home" class="home fli sub-menu"><a href="/manager" style="float:left;width:22px;height:20px;">Admin Dashboard</a></li>
+					<li title="Save Interview" data-sub-menu-command="save" class="save fli sub-menu">Save</li>
+					<li title="Settings" data-sub-menu-command="settings" class="tools fli sub-menu">Settings</li>
+					<li class="seperator">Seperator</li>
+					<li title="Clone Question" data-sub-menu-command="clone" class="clone fli sub-menu">Copy</li>
+					<li title="Add Question" data-sub-menu-command="add" class="add fli sub-menu">Add</li>
+					<li title="Delete Question" data-sub-menu-command="remove" class="remove fli sub-menu">Remove</li>
+					<li title="Sort List by ID" data-sub-menu-command="sort-a" class="sort-a fli sub-menu">Sort ID's</li>
+					<li title="Sort List by Steps" data-sub-menu-command="sort-b" class="sort-b fli sub-menu">Sort Steps</li>
+					<li title="Sort List by Names" data-sub-menu-command="sort-c" class="sort-c fli sub-menu">Sort Names</li>
+					<li class="seperator">Seperator</li>
+					<li title="Preview Interview" data-sub-menu-command="preview" class="preview fli sub-menu">Preview Interview</li>
+					<li title="Preview Question" data-sub-menu-command="preview-q" class="preview-q-disabled sub-menu">Preview Question</li>
+					<li title="Edit Question" data-sub-menu-command="edit-q" class="edit-q-disabled sub-menu">Edit Question</li>
+					<li class="seperator">Seperator</li>
+					<li title="Zoom out of Graph" data-sub-menu-command="scale-down" class="scale-down fli sub-menu">Scale Down</li>
+					<li title="Zoom in Graph" data-sub-menu-command="scale-up" class="scale-up fli sub-menu">Scale Up</li>
+					<li title="Tidy Graph" data-sub-menu-command="order" class="order fli sub-menu">Order Graph</li>
+				</ul>
+			</div>
+			
+			<div id="side">
+				<div class="pen-tab-container">
+					<div class="pen-tab-item">Questions</div>
+				</div>
+				<div class="q-d-list-container">
+					<div id="q-d-list"></div>
+				</div>
+			</div>	<!--side-->
+
+			<div class="main">
+				<div class="pen-tab-container">
+					<div class="pen-tab-item">Display</div>
+				</div>
+				<div class="q-gra-s-container">
+					<div id="container"></div>
+				</div>
+			</div>
+
+			<div id="q-d" class="question none">
+				<div class="question-menu">
+					<ul id="tabs-menu-list" class="tabs unselectable">
+						<li data-tab-command="tab-1" class="tab-menu">Question</li>
+						<li data-tab-command="tab-2" class="tab-menu">Learn More</li>
+						<li data-tab-command="tab-3" class="tab-menu">Fields</li>
+						<li data-tab-command="tab-4" class="tab-menu">Buttons</li>
+						<li data-tab-command="tab-5" class="tab-menu">Advanced</li>
+					</ul>
+				</div>
+				<div id="q-d-close" class="close">x</div>
+				<div class="q-d-f-container">
+					<div class="contents-wrapper">
+						<div class="contents">
+							<div id="tab-contents">
+								<div id="tab-1" class="tab">
+									<table class="table question-table">
+										<tbody>
+										<tr>
+											<td class="title">Step</td>
+											<td>
+												<div id="q-d-step-container"></div>
+
+											</td>
+										</tr>
+										<tr class="separator"></tr>
+										<tr>
+											<td class="title">Name</td>
+											<td>
+												<input id="q-d-name" type="text" data-question-textbox-id="name" class="ac question-textbox" />
+
+											</td>
+										</tr>
+										<tr class="separator"></tr>
+										<tr>
+											<td class="title">Text</td>
+											<td>
+												<div id="q-d-text" class="text">						
+													<div class="frame">
+
+													  	<div id="q-d-text-toolbar" class="toolbar" style="display: none;">
+														    <a title="bold" data-wysihtml5-command="bold" class="bold unselectable" title="CTRL+B">bold</a>
+														    <a data-wysihtml5-command="italic" class="italic unselectable" title="CTRL+I">italic</a>
+														    <a data-wysihtml5-command="underline" class="underline unselectable" title="CTRL+I">underline</a>
+														    <span class="seperator unselectable">seperator</span>
+														    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" class="format-block-h1 unselectable">h1</a>
+														    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" class="format-block-h2 unselectable">h2</a>
+														    <span class="seperator unselectable">seperator</span>
+														    <a data-wysihtml5-command="justifyLeft" class="justify-left unselectable" title="CTRL+I">justify left</a>
+														    <a data-wysihtml5-command="justifyCenter" class="justify-center unselectable" title="CTRL+I">underline</a>
+														    <a data-wysihtml5-command="justifyRight" class="justify-right unselectable" title="CTRL+I">underline</a>
+														    <span class="seperator unselectable">seperator</span>
+														    <a data-wysihtml5-command="createLink" class="create-link unselectable">insert link</a>
+														    <a data-wysihtml5-command="insertUnorderedList" class="insert-unordered-list unselectable">insertUnorderedList</a>
+														    <a data-wysihtml5-command="insertOrderedList" class="insert-ordered-list unselectable">insertOrderedList</a>
+														    <span class="seperator unselectable">seperator</span>
+														    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver" class="silver unselectable">Silver</a>
+														    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red" class="red unselectable">Red</a>
+														    <span class="seperator unselectable">seperator</span>
+														    <a data-wysihtml5-command="undo" class="undo unselectable">undo</a>
+														    <a data-wysihtml5-command="redo" class="redo unselectable">redo</a>
+														    <a data-wysihtml5-action="change_view" class="switch-view unselectable">switch to html view</a>
+														    <div class="clear"></div>
+															<div class="create-link-container" data-wysihtml5-dialog="createLink" style="display: none;">
+														      	<label>
+														        	<input data-wysihtml5-dialog-field="href" value="http://" class="create-link-container-input">
+														      	</label>
+														      	<div class="ico cl-cancel" data-wysihtml5-dialog-action="cancel">Cancel</div>
+														      	<div class="ico cl-ok" data-wysihtml5-dialog-action="save">OK</div>
+														    </div>
+													  	</div>
+													  	<div class="clear"></div>
+														<textarea id="q-d-text-frame"></textarea>
+													</div> 
+												</div>
+											</td>
+										</tr>
+										<tr class="separator"></tr>
+											<td class="title">Loop 1</td>
+											<td>
+												<input id="q-d-loop1" type="text" data-question-textbox-id="loop1" class="ac question-textbox" />
+											</td>
+										</tr>
+										</tbody>
+									</table>
+									<div class="clear"></div>
+								</div>
+								<div id="tab-2" class="tab">
+									<table class="table lm-table">
+										<tbody>
+										<tr>
+											<td class="title">Title</td>
+											<td><input type="text" id="q-d-lm-title" data-lm-textbox-id="title" class="ab lm-textbox" /></td>
+										</tr>
+										<tr class="separator"></tr>
+										<tr>
+											<td class="title">Text</td>
+											<td>
+												<div id="q-d-lm" class="text">						
+													<div class="frame">
+													  	<div id="q-d-lm-toolbar" class="toolbar" style="display: none;">
+															    <a title="bold" data-wysihtml5-command="bold" class="bold unselectable" title="CTRL+B">bold</a>
+														    <a data-wysihtml5-command="italic" class="italic unselectable" title="CTRL+I">italic</a>
+														    <a data-wysihtml5-command="underline" class="underline unselectable" title="CTRL+I">underline</a>
+
+														    <span class="seperator unselectable">seperator</span>
+
+														    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1" class="format-block-h1 unselectable">h1</a>
+														    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2" class="format-block-h2 unselectable">h2</a>
+
+														    <span class="seperator unselectable">seperator</span>
+
+
+														    <a data-wysihtml5-command="justifyLeft" class="justify-left unselectable" title="CTRL+I">justify left</a>
+														    <a data-wysihtml5-command="justifyCenter" class="justify-center unselectable" title="CTRL+I">underline</a>
+														    <a data-wysihtml5-command="justifyRight" class="justify-right unselectable" title="CTRL+I">underline</a>
+
+														    <span class="seperator unselectable">seperator</span>
+
+														    <a data-wysihtml5-command="createLink" class="create-link unselectable">insert link</a>
+														    <a data-wysihtml5-command="insertUnorderedList" class="insert-unordered-list unselectable">insertUnorderedList</a>
+														    <a data-wysihtml5-command="insertOrderedList" class="insert-ordered-list unselectable">insertOrderedList</a>
+
+														    <span class="seperator unselectable">seperator</span>
+
+														    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="silver" class="silver unselectable">Silver</a>
+														    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red" class="red unselectable">Red</a>
+
+														    <span class="seperator unselectable">seperator</span>
+
+														    <a data-wysihtml5-command="undo" class="undo unselectable">undo</a>
+														    <a data-wysihtml5-command="redo" class="redo unselectable">redo</a>
+														    <a data-wysihtml5-action="change_view" class="switch-view unselectable">switch to html view</a>
+														    <!-- end the toolbar -->
+
+														    <div class="clear"></div>
+															<div class="create-link-container" data-wysihtml5-dialog="createLink" style="display: none;">
+														      	<label>
+														        	<input data-wysihtml5-dialog-field="href" value="http://" class="create-link-container-input">
+														      	</label>
+														      	<div class="ico cl-cancel" data-wysihtml5-dialog-action="cancel">Cancel</div>
+														      	<div class="ico cl-ok" data-wysihtml5-dialog-action="save">OK</div>
+														    </div>
+													  	</div>
+													  	<div class="clear"></div>
+														<textarea id="q-d-lm-frame"></textarea>
+													</div> 
+												</div> <!--q-d question-->
+											</td>
+										</tr>
+										</tbody>
+									</table>
+									<div class="clear"></div>
+								</div>
+								<div id="tab-3" class="tab">
+									<div class="current-fields">
+										<div id="cf-list-container">
+											<div id="cf-list"></div>
+											<ul class="cf-list-controls">
+												<li data-field-cmd="add" class="add unselectable cfia">Add</li>
+												<li data-field-cmd="up" class="up unselectable cfia">Remove</li>
+												<li data-field-cmd="down" class="down unselectable cfia">Copy</li>
+												<li data-field-cmd="remove" class="remove unselectable cfia">Paste</li>
+											</ul>
+										</div>
+										<div id="field-item"></div>
+									</div>
+								</div>
+								<div id="tab-4" class="tab">
+									<div class="current-buttons">
+										<div id="cb-list-container">
+											<div id="cb-list"></div>
+											<ul class="cb-list-controls">
+												<li data-button-cmd="add" class="add unselectable cbia">Add</li>
+												<li data-button-cmd="up" class="up unselectable cbia">Remove</li>
+												<li data-button-cmd="down" class="down unselectable cbia">Copy</li>
+												<li data-button-cmd="remove" class="remove unselectable cbia">Paste</li>
+											</ul>
+										</div>
+										<div id="button-item"></div>
+									</div>
+								</div>
+								<div id="tab-5" class="tab">
+									<div class="current-advanced">
+										<div id="ca-list-container">
+											<div id="ca-list"></div>
+
+											<ul class="ca-list-controls">
+												<li data-button-cmd="add" class="add unselectable caia">Add</li>
+												<li data-button-cmd="up" class="up unselectable caia">Remove</li>
+												<li data-button-cmd="down" class="down unselectable caia">Copy</li>
+												<li data-button-cmd="remove" class="remove unselectable caia">Paste</li>
+											</ul>
+
+										</div>
+										<div id="advanced-item"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div> <!--contents wrapper -->
+				</div> <!-- q-d-f-container-->
+			</div> <!-- class=main-->
+
+			<div id="m-settings" class="settings none">
+				<div class="pen-tab-container">
+					<div class="pen-tab-item">Settings</div>
+				</div>
+				<div id="m-settings-close" class="close"></div>
+				<div class="q-settings-container">
+					<div class="contents-wrapper">
+						<div class="contents">
+							<table class="table settings-table">
+								<tbody>
+								<tr>
+									<td class="title"><span>Name</span></td>
+									<td><div id="settings-name"></div></td>
+								</tr>
+								<tr class="separator"></tr>
+								<tr>
+									<td class="title">
+										<span>Description</span>
+									</td>
+									<td>
+										<div id="settings-description"></div>
+									</td>
+								</tr>
+								<tr class="separator"></tr>
+								<tr>
+									<td class="title">
+										<span>Start</span>
+									</td>
+									<td>
+										<div id="settings-start-container"></div>
+									</td>
+								</tr>
+								<tr class="separator"></tr>
+								<tr>
+									<td class="title">
+										<span>Steps</span>
+									</td>
+									<td>
+										<div id="settings-steps-container"></div>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</div><!--contents-wrapper-->
+				</div>
+			</div>
+
+			<div id="m-preview" class="qwsxcdg none">
+				<div class="pen-tab-container">
+					<div class="pen-tab-item">Preview</div>
+				</div>
+				<div id="m-preview-close" class="close"></div>
+				<div class="q-preview-container">
+					<div class="contents-wrapper">
+						<div class="contents">
+							<div id="w-preview"></div>
+						</div>
+					</div>
+				</div>
+			</div><!-- preview-->
+
+			<div id="aux">
+				<div class="pen-tab-container">
+					<div class="pen-tab-item">Thumbnail</div>
+				</div>
+				<div class="q-aux-container">
+					<div id="thumbnail"></div>
+					<div id="debug" class="none"></div>
+				</div>
+			</div>
+		</div> <!--pi-->
+	</body>
+	<script>
+		// canvas is global because it is used in a lot of places and probably cheaper than the overhead of calling it everywhere
+		var canvas = d3.select("#container")
+			.append("svg")
+			.attr("width", 20000)
+			.attr("height", 40000)
+			.attr("id", "canvas")
+			.append('svg:g');
+
+		Editor.settings.set('<%= interview %>','<%= interview_settings.name %>', '<%= interview_settings.description %>', '<%= interview_settings.start %>', '<%- interview_settings.steps %>');
+
+	</script>
+</html>

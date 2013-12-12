@@ -1,0 +1,72 @@
+<div id="admin">
+	<% include ../header %>
+	<div class="contents-container">
+		<div class="contents">
+			<div class="title"><h1>Change the On-Complete settings</h1></div>
+			<div class="clear"></div>
+			<div class="side">
+				<h2>Help</h2>
+				<p>These setting will control what actions to take when the finish button on an interview is clicked.</p>
+			</div>
+			<div class="wide">
+				<p><strong><%= interview.name %></strong> - <%= interview.description %></p>
+				<br>
+				<% if (msg) { %>
+					<div class="error">
+						<%- msg %>
+					</div>
+				<% } %>
+
+				<div class="clear"></div>
+				<form method="post" action="">
+					<input type="hidden" name="_csrf" value="<%= token %>"/>
+					<input type="hidden" name="interview" value="<%= interview.id %>"/>
+					<table class="add-table table">
+						<tbody class="b">
+							<tr>
+								<td>Email deliverables to client:
+									<div class="nfo-con">
+										<div class="display">?</div>
+										<div class="body">If this is checked, a final question in the interview will ask the client to enter an email, where deliverables will be sent.</div>
+									</div>
+								</td>
+								<td>
+									<% if (interview.on_complete.email_deliverables_to_client) { %>
+										<input type="checkbox" name="email_deliverables_to_client" checked="checked" />
+									<% } else { %>
+										<input type="checkbox" name="email_deliverables_to_client" />
+									<% } %>
+								</td>
+							</tr>
+							<tr>
+								<td>Email Notifications
+									<div class="nfo-con">
+										<div class="display">?</div>
+										<div class="body">Notify the emails provided when a client completes an interview. If you enter more than one email, they must be seperated by a semi-colon.</div>
+									</div>
+								</td>
+								<td><input name="email_notification" type="text" class="ab" value="<%= interview.on_complete.email_notification %>" /></td>
+							</tr>
+							<tr>
+								<td>Deliverables
+									<div class="nfo-con">
+										<div class="display">?</div>
+										<div class="body">The deliverables created by an interview can be emailed to selected individuals by entering a semi-colon delimited (;) list here.</div>
+									</div>
+								</td>
+								<td><input name="email_deliverables" type="text" class="ab" value="<%= interview.on_complete.email_deliverables %>"/></td>
+							</tr>
+						</tbody>
+					</table>
+					<br>
+					<input type="submit" name="confirm" value="Update the On-Complete Settings" class="right"/>
+					<a class="confirm right" href="/manager/interview/<%= interview.id %> "><span>Cancel, and go Back</span></a>
+					<div class="clear"></div>
+				</form>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+</div>

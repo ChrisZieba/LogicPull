@@ -1,0 +1,121 @@
+<div id="admin">
+
+	<% include ../header %>
+	
+	<div class="contents-container">
+		<div class="contents">
+			<div class="title"><h1><%= interview.name %></h1></div>
+			<div class="clear"></div>
+			<div class="span-17 left">
+				<table class="interviews-table table">
+					<tbody class="b">
+			            <tr>
+			            	<td><div class="label">Name:</div></td>
+			            	<td><%= interview.name %></td>
+			            </tr>
+			            <tr>
+			            	<td><div class="label">Creator:</div></td>
+			            	<td><%= user.name %><br><%= user.email %></td>
+			            </tr>
+			            <tr>
+			            	<td><div class="label">Description:</div></td>
+			            	<td><%= interview.description %></td>
+			            </tr>
+			            <tr>
+			            	<td><div class="label">Locked:</div></td>
+			            	<td><%= interview.locked %></td>
+			            </tr>
+			            <tr>
+			            	<td><div class="label">Live:</div></td>
+			            	<td><%= interview.live %></td>
+			            </tr>
+			            <tr>
+			            	<td><div class="label">Creation:</div></td>
+			            	<td><%= interview.creation_date.toLocaleDateString() %> <%= interview.creation_date.toLocaleTimeString() %></td>
+			            </tr>
+					</tbody>
+				</table>
+
+				<div class="clear"></div>
+
+				<table class="interviews-table table">
+					<thead class="a">
+						<tr>
+							<th colspan="6">Deliverables</th>
+						</tr>
+						<tr class="b">
+							<th>Input Filename</th>
+							<th>Modified</th>
+							<th>Description</th>
+							<th>Output Type</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% if (interview.deliverables.length !== 0) { %>
+							<% for (var i=0; i < interview.deliverables.length; i++) { %>
+								<tr>
+									<td><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" target="_blank"><%= interview.deliverables[i].input.name %></a></td>
+									<td><%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> by <strong><%= interview.deliverables[i].input.creator.name %></strong></td>
+									<td><%= interview.deliverables[i].description %></td>
+									<td><strong><%= interview.deliverables[i].output.type.toUpperCase() %></strong></td>
+									<td>
+										<ul class="options-menu">
+											<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interview.id %>/deliverables/update/<%= i %>">Update</a></li>
+											<li title="Remove this stylesheet" class="remove"><a href="/manager/interview/<%= interview.id %>/deliverables/remove/<%= i %>">Remove</a></li>
+										</ul>
+									</td>
+								</tr>
+							<% } %>
+						<% } else { %>
+							<tr><td colspan="4" class="center">&lt;There are currently no user defined deliverables. This means that when a user completes an interview, only the xml answer set will be generated.&gt;</td></tr>
+						<% } %>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="span-5 right">
+				<table class="side-table table">
+					<thead class="b">
+						<tr>
+							<th>Quick Links</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><div class="ql-con"><span class="ql-preview">+</span><a href="<%= interview.live_url %>" title="Live Interview">View Live</a></div></td>
+						</tr>
+						<tr>
+							<td><div class="ql-con"><span class="ql-stage">+</span><a href="<%= interview.stage_url %>" title="Live Interview">View Stage</a></div></td>
+						</tr>
+						<tr>
+							<td><div class="ql-con"><span class="ql-edit">+</span><a href="<%= interview.edit_url %>" title="Edit Interview">Open in editor</a></div></td>
+						</tr>
+
+						<tr>
+							<td><div class="ql-con"><span class="ql-add">+</span><a href="/manager/interview/<%= interview.id %>/deliverables/add" title="Add Deliverable">Add Deliverable</a></div></td>
+						</tr>
+						<tr>
+							<td><div class="ql-con"><span class="ql-report">+</span><a href="/manager/interview/<%= interview.id %>/report" title="Interview report">View Report</a></div></td>
+						</tr>
+						<tr>
+							<td><div class="ql-con"><span class="ql-lock">+</span><a href="/manager/interview/<%= interview.id %>/lock" title="Lock/Unlock Interview"> 
+								<% if (interview.locked) { %>
+									Unlock
+								<% } else { %>
+									Lock
+								<% } %>							
+								Interview</a></div></td>
+						</tr>
+						<tr>
+							<td><div class="ql-con"><span class="ql-live">+</span><a href="/manager/interview/<%= interview.id %>/live" title="Change Live Status">Change Live Status</a></div></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

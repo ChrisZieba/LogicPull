@@ -1,0 +1,50 @@
+<div id="admin">
+	<% include ../header %>
+	<div class="contents-container">
+		<div class="contents">
+			<div class="title"><h1>Change the Status of this Interview</h1></div>
+			<div class="clear"></div>
+			<div class="side">
+				<h2>Help</h2>
+				<p>You must name the interview something else, and it is recommended that you change the description. This will also make copies of the style sheets used for the deliverables.</p>
+			</div>
+			<div class="wide">
+				<p><strong><%= interview.name %></strong> - <%= interview.description %></p>
+				<br><br>
+				<div class="clear"></div>
+				<form method="post" action="">
+	        		<input type="hidden" name="_csrf" value="<%= token %>"/>
+	        		<input type="hidden" name="interview" value="<%= interview.id %>"/>
+	        		<input type="hidden" name="live" value="<%= interview.live.toString() %>"/>
+					<table class="add-table table">
+						<tbody class="b">
+				            <tr>
+				            	<td>
+									<% if (interview.live) { %>
+					        			<p>This interview is curently live to the world. If you change this to false, users will see a splash screen when trying to view the interview.</p>
+					        		<% } else { %>
+					        			<p>Making this interview live means making it available for end users to complete. If the interview is still being developed, it is best to keep this private until it is ready.</p>
+					        		<% } %>
+									
+									<br>
+				
+				            	</td>
+				            </tr>
+						</tbody>
+					</table>
+					<br>
+					<% if (interview.live) { %>
+	        			<input type="submit" name="confirm" value="Make this interview private for now" class="right" />
+	        		<% } else { %>
+	        			<input type="submit" name="confirm" value="Make this interview available to the world" class="right" />
+	        		<% } %>
+	        		<a class="confirm right" href="/manager/interview/<%= interview.id %> "><span>Cancel, and go Back</span></a>
+					<div class="clear"></div>
+				</form>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+</div>

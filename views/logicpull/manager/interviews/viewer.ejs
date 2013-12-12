@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title><%= title %></title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="language" content="en" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="description" content="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud"/>
+	<script>var BASE_URL = '<%= settings.base_url %>';</script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/plugins/datepicker.min.js"></script>
+
+	<% if (env === 'development') { %>
+		<script type="text/javascript" src="/javascripts/viewer.js?v=<%= settings.version %>"></script>
+		<link rel="stylesheet" media="screen" type="text/css" href="/stylesheets/viewer.css?v=<%= settings.version %>" />
+	<% } else { %>
+		<script type="text/javascript" src="/javascripts/viewer.min.js?v=<%= settings.version %>"></script>
+		<link rel="stylesheet" media="screen" type="text/css" href="/stylesheets/viewer.min.css?v=<%= settings.version %>" />
+	<% } %>
+
+</head>
+	<body>
+		<div id="wrapper">
+			<div id="youtube-container">
+				<div class="cover"></div>
+				<div class="popup-container">
+					<div class="toolbar">
+						<span>Youtube</span>
+						<div id="y-d-close" class="close">x</div>
+					</div>
+					<div class="popup"></div>
+				</div>
+			</div>
+			<div class="sub-header-container">
+				<div class="sub-header">
+					<div id="back" class="icon" title="Go back the previous question">Back</div>
+					<div class="history">
+						<select id="progress"></select>
+					</div>
+					<div id="fraction" class="fractional-d notranslate">...</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="container">
+				<div id="main">
+					<div class="question"><div style="text-align:center;">Loading Interview ...</div></div>
+				</div>
+			</div>
+		</div>
+		<div id="vars" class="none">
+			<div id="interview-id" class="notranslate"><%= id %></div>
+		</div>
+		<script>
+			window.onload = function() { 
+				Viewer.interview.init();
+			};
+		</script>
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>LogicPull - Login</title>
+	  	<meta charset="utf-8">
+	  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	 	<meta name="description" content="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud."/>
+		<% if (settings.env === 'development') { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
+		<% } else { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
+		<% } %>
+	</head>
+
+	<body>
+		<div id="container">
+			<div id="login-container">
+				<form method="post" action="/manager/login">
+					<input type="hidden" name="_csrf" value="<%= token %>"/>
+					<p>
+						<label>Email:</label>
+						<input type="text" name="email" class="textfield">
+					</p>
+					<p>
+						<label>Password:</label>
+						<input type="password" name="password" class="textfield">
+					</p>
+					<p>
+						<input type="submit" value="login" class="login-button right" />
+					</p>
+					<div class="clear"></div>
+					<% if (msg) { %>
+						<br/>
+						<p class="red center"><%= msg %></p>
+					<% } %>
+				</form>
+				<br/>
+			</div>
+			<div class="login-help">
+				<a href="<%= settings.base_url %>">LogicPull</a>
+				<span class="separator">|</span>
+				<a href="/manager/reset">Reset Password</a>
+			</div>
+		</div>
+	</body>
+</html>

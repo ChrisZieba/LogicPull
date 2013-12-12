@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+	  	<meta charset="utf-8"/>
+	  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	  	<title>LogicPull - Reset Password</title>
+	 	<meta name="robots" content="noindex, nofollow" />
+		<% if (settings.env === 'development') { %>
+			<link rel="stylesheet" type="text/css" href="/interviews.css?v=<%= settings.version %>">
+		<% } else { %>
+			<link rel="stylesheet" type="text/css" href="/interviews.min.css?v=<%= settings.version %>">
+		<% } %>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div class="header-container">
+				<div class="header">
+					<h1><a href="<%= settings.manager_url %>"><img src="/logo.png"></a></h1>
+					<div class="acc"></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="nav-container">
+				<div class="nav">
+					<ul class="nav-buttons">
+						<li class="nav-b-au"><a href="<%= settings.help_url %>">help</a></li>
+					</ul>
+				</div>	
+			</div>
+			<div class="clear"></div>
+			<div class="contents-container">
+				<div class="contents">
+					<div class="title"><h1>Reset your password</h1></div>
+					<div class="clear"></div>
+					<div class="side">
+						<h2>Help</h2>
+						<p>Your new password must be between 6 and 15 characters. Feel free to use any characters you wish. For more help you can contact <strong>support@logicpull.com</strong></p>
+					</div>
+					<div class="wide">
+						<p>Enter a new password and your account will be reset and you can begin logging in with your newly created password.</p>
+						<br>
+						<% if (msg && ! msg.valid) { %>
+							<div class="fail"><%= msg %></div>
+							<div class="clear"></div>
+						<% } %>
+						<form method="post" action="/reset/<%= reset_token %>">
+							<input type="hidden" name="_csrf" value="<%= token %>" />
+							<table class="add-table table">
+								<tbody class="b">
+						            <tr>
+						            	<td>
+						            		<div class="label">New Password:</div>
+						            		<input type="password" name="password" class="textfield" maxlength="15" />
+						            	</td>
+						            </tr>
+						            <tr>
+						            	<td>
+						            		<div class="label">Verify:</div>
+						            		<input type="password" name="verify_password" class="textfield" maxlength="15" />
+						            	</td>
+						            </tr>
+								</tbody>
+							</table>
+							<div class="clear"></div>
+							<input type="submit" value="Reset Password" class="right" />
+							<br>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

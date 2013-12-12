@@ -1,0 +1,49 @@
+<div id="admin">
+
+	<% include ../header %>
+	
+	<div class="contents-container">
+		<div class="contents">
+			<div class="title"><h1>Users</h1></div>
+			<div class="clear"></div>
+			<div class="span-17 left">
+				<table class="interviews-table table">
+					<thead class="b">
+						<tr><th colspan="3">Users</th></tr>
+						<tr>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Created</th>
+						</tr>
+					</thead>
+					<tbody class="a">
+						<% for (var j = 0; j < users.length; j++) { %>
+						<tr>
+							<td><%= users[j].name %></td>
+							<td><%= users[j].email %></td>
+							<td><%= users[j].created.toLocaleDateString() %> <%= users[j].created.toLocaleTimeString() %></td>
+						</tr>
+						<% } %>
+					</tbody>
+				</table>
+			</div>
+			<div class="span-5 right">
+				<table class="side-table table">
+					<thead class="b">
+						<tr>
+							<th>Quick Links</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><div class="ql-con"><span class="ql-add">+</span><a href="/manager/users/add" title="Add Deliverable">Add User</a></div></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
