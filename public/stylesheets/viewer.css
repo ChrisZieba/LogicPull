@@ -492,7 +492,7 @@ input[type=submit]:hover, button[type=submit]:hover, .pr-btn:hover {
 	padding: 1px;
 	float:left;
 	height:20px;
-	background: url('../images/icons.png') no-repeat;
+	background: url('../images/editor/icons.png') no-repeat;
 	text-indent:-9999px;
 	font-size:0;
 	cursor:pointer;
