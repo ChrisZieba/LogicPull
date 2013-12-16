@@ -137,6 +137,10 @@ You are solely responsible for all of Your Content that you upload, post or dist
 
 Author
 ------
+
 [@ChrisZieba](https://www.twitter.com/ChrisZieba)
+
+Copyright
+---------
 
 Copyright 2013 Chris Zieba
