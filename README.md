@@ -1,7 +1,7 @@
-[LogicPull](http://www.logicpull.com/)
+[LogicPull](https://www.logicpull.com/)
 ======================================
 
-[LogicPull](http://www.logicpull.com/) gives you the tools to quickly create advanced question and answer interviews for end-users. The answers are then combined with templates to produce all the documents you need.
+LogicPull gives you the tools to quickly create advanced question and answer interviews for end-users. The answers are then combined with templates to produce all the documents you need.
 
 Features
 --------
@@ -13,7 +13,7 @@ Please visit [LogicPull](http://www.logicpull.com/) for more information.
 [Installation](http://help.logicpull.com/portal/articles/installation)
 ------------
 
-A full installation tutorial on a Ubuntu 12.04.3 64 bit server is available at [here](http://help.logicpull.com/portal/articles/installation).
+A full installation tutorial on a Ubuntu 12.04.3 64 bit server is available [here](http://help.logicpull.com/portal/articles/installation-server). To build LogicPull locally, please see this [article](http://help.logicpull.com/portal/articles/installation-local).
 
 Demo
 ----
@@ -71,7 +71,6 @@ Docs
 
 * [Docs](http://help.logicpull.com/docs)
 * [Help](http://help.logicpull.com)
-* [Install](http://help.logicpull.com/portal/articles/installation)
 
 TODO
 ----
