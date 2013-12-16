@@ -10,11 +10,6 @@ Features
 
 Please visit [LogicPull](http://www.logicpull.com/) for more information.
 
-Installation
-------------
-
-A full installation tutorial on a Ubuntu 12.04.3 64 bit server is available [here](http://help.logicpull.com/portal/articles/installation-server). To build LogicPull locally, please see this [article](http://help.logicpull.com/portal/articles/installation-local).
-
 Demo
 ----
 
@@ -29,7 +24,12 @@ FAQ
   > You can collect answers to dynamic questions through a form built with our editor, then combine those answers with a template to produce PDF, RTF or DocX documents.
 
 * What are templates?
-  > LogicPull uses [EJS](http://embeddedjs.com/) to combine with answer sets to produce the documents you need. Please see this [article](http://help.logicpull.com/portal/articles/working-with-templates)
+  > LogicPull uses [EJS](http://embeddedjs.com/) to combine with answer sets to produce the documents you need. Please see this [article](http://help.logicpull.com/portal/articles/working-with-templates) for more information on how to work with templates.
+
+Installation
+------------
+
+A full installation tutorial on a Ubuntu 12.04.3 64 bit server is available [here](http://help.logicpull.com/portal/articles/installation-server). To build LogicPull locally, please see this [article](http://help.logicpull.com/portal/articles/installation-local).
 
 System Requirements 
 -------------------
