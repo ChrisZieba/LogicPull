@@ -1,7 +1,7 @@
 [LogicPull](https://www.logicpull.com/)
 ======================================
 
-LogicPull gives you the tools to quickly create advanced question and answer interviews for end-users. The answers are then combined with templates to produce all the documents you need. For more information on what LogicPull is please [take the tour](https://logicpull.com/tour).
+LogicPull gives you the tools to quickly create advanced question and answer interviews for end-users. The answers are then combined with templates to produce all the documents you need. Take the [tour](https://logicpull.com/tour) to find out more about what LogicPull.
 
 Features
 --------
@@ -50,7 +50,7 @@ The minimum memory requirement for LogicPull, and all its components is 256 MiB 
 Software Requirements
 ------------
 
-[LogicPull](https://www.logicpull.com/) uses the software packages listed below in our servr side tech stack. For detailed instruction on how to install LogicPull on a server, please see [here](http://help.logicpull.com/portal/articles/installation-server).
+[LogicPull](https://www.logicpull.com/) uses the software packages listed below in our server side tech stack. For detailed instruction on how to install LogicPull on a server, please see [here](http://help.logicpull.com/portal/articles/installation-server).
 
 | Package | Description | License |
 | --- | --- | --- |
