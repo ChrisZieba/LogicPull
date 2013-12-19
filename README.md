@@ -12,6 +12,7 @@ Features
 * Publish once on the web and everyone is updated
 * Simple user-friendly Manager to handle all of your interviews and documents
 * Handle conditional logic and nested looping when gathering user data
+* Save progress on client interviews and load them at a later time to be completed
 
 Docs
 ----
