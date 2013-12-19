@@ -3,15 +3,20 @@
 
 LogicPull gives you the tools to quickly create advanced question and answer interviews for end-users. The answers are then combined with templates to produce all the documents you need.
 
+Docs
+====
+
+* [Help](http://help.logicpull.com)
+
 Features
---------
+========
 
-[LogicPull](http://www.logicpull.com/) was initially developed to save time and money creating the many legal documents needed for a court preceding. It has since expanded to handle the assembly of PDF, DocX, RTF and XML documents for any project. It is a cloud based automated document assembly service. We give you the tools to quickly create an advanced question and answer interview to be completed by an end user, which in turn creates an answer set to be combined with a template to produce documents.
+[LogicPull](https://www.logicpull.com/) was initially developed to save time and money creating the many legal documents needed for a court preceding. It has since expanded to handle the assembly of PDF, DocX, RTF and XML documents for any project. It is a cloud based automated document assembly service. We give you the tools to quickly create an advanced question and answer interview to be completed by an end user, which in turn creates an answer set to be combined with a template to produce documents.
 
-Please visit [LogicPull](http://www.logicpull.com/) for more information.
+Please visit [LogicPull](https://www.logicpull.com/) for more information.
 
 Demo
-----
+====
 
 The viewer represents the intake system used by end-users, while the editor is the tool used to create them. 
 
@@ -39,7 +44,7 @@ The minimum memory requirement for LogicPull, and all its components is 256 MiB 
 Software Requirements
 ------------
 
-[LogicPull](http://www.logicpull.com/) uses the software packages listed below. For detailed instruction on how to install please see [here](http://help.logicpull.com/portal/articles/installation).
+[LogicPull](https://www.logicpull.com/) uses the software packages listed below in our servr side tech stack. For detailed instruction on how to install LogicPull on a server, please see [here](http://help.logicpull.com/portal/articles/installation-server).
 
 | Package | Description | License |
 | --- | --- | --- |
@@ -50,11 +55,8 @@ Software Requirements
 | [varnish 3.0.2](https://www.varnish-cache.org/) | Used to cache resources. | BSD |
 | [graphviz 2.26.3](http://www.graphviz.org/) | Open source graph visualization software, used in editor. | EPL |
 | [Apache FOP 1.1](http://xmlgraphics.apache.org/fop/) | Document assembler. | Apache |
-| [forever 0.10.0](https://github.com/nodejitsu/forever) | CLI tool to ensure scripts run continuously. | MIT |
-| [jQuery 1.8.3](http://jquery.com/) | JavaScript library used on front end. | MIT |
-| [jQuery DatePicker 1.6](http://jqueryui.com/datepicker/) | JavaScript date picker. | MIT |
 
-The below node modules can be installed by running `npm install`.
+The below node modules are built into [LogicPull](https://logicpull.com) and can be installed by running `npm install`.
 
 | Package | Description | License |
 | --- | --- | --- |
@@ -73,12 +75,9 @@ The below node modules can be installed by running `npm install`.
 | [nodemailer](https://github.com/andris9/Nodemailer) | Module for sending emails. | MIT |
 | [moment](https://github.com/moment/moment/) | Date library for parsing, validating, manipulating, and formatting dates. | MIT |
 | [accounting](https://github.com/josscrowcroft/accounting.js) | Library for number, money and currency formatting. | MIT |
-
-Docs
-----
-
-* [Docs](http://help.logicpull.com/docs)
-* [Help](http://help.logicpull.com)
+| [forever](https://github.com/nodejitsu/forever) | CLI tool to ensure scripts run continuously. | MIT |
+| [jQuery](http://jquery.com/) | JavaScript library used on front end. | MIT |
+| [jQuery DatePicker](http://jqueryui.com/datepicker/) | JavaScript date picker. | MIT |
 
 TODO
 ----
