@@ -1,22 +1,25 @@
 [LogicPull](https://www.logicpull.com/)
 ======================================
 
-LogicPull gives you the tools to quickly create advanced question and answer interviews for end-users. The answers are then combined with templates to produce all the documents you need.
-
-Docs
-====
-
-* [Help](http://help.logicpull.com)
+LogicPull gives you the tools to quickly create advanced question and answer interviews for end-users. The answers are then combined with templates to produce all the documents you need. For more information on what LogicPull is please [take the tour](https://logicpull.com/tour).
 
 Features
-========
+--------
 
 [LogicPull](https://www.logicpull.com/) was initially developed to save time and money creating the many legal documents needed for a court preceding. It has since expanded to handle the assembly of PDF, DocX, RTF and XML documents for any project. It is a cloud based automated document assembly service. We give you the tools to quickly create an advanced question and answer interview to be completed by an end user, which in turn creates an answer set to be combined with a template to produce documents.
 
-Please visit [LogicPull](https://www.logicpull.com/) for more information.
+* All your interview documents and completed data sets are stored in the cloud, so there's no more tracking down documents and leafing in changes
+* Publish once on the web and everyone is updated
+* Simple user-friendly Manager to handle all of your interviews and documents
+* Handle conditional logic and nested looping when gathering user data
+
+Docs
+----
+
+* [Help](http://help.logicpull.com)
 
 Demo
-====
+----
 
 The viewer represents the intake system used by end-users, while the editor is the tool used to create them. 
 
@@ -26,10 +29,13 @@ The viewer represents the intake system used by end-users, while the editor is t
 FAQ
 ---
 * What exactly can I do with LogicPull?
-  > You can collect answers to dynamic questions through a form built with our editor, then combine those answers with a template to produce PDF, RTF or DocX documents.
+  > You can collect answers to dynamic questions through a form built with our editor, then combine those answers with a template to produce PDF, RTF, XML or DocX documents.
 
 * What are templates?
   > LogicPull uses [EJS](http://embeddedjs.com/) to combine with answer sets to produce the documents you need. Please see this [article](http://help.logicpull.com/portal/articles/working-with-templates) for more information on how to work with templates.
+
+* Do I need a technical background to use LogicPull?
+  > LogicPull tries to make it as easy as possible to create, edit, and manage guided interviews. Writing templates does require a basic understanding of how conditional logic works.
 
 Installation
 ------------
