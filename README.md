@@ -49,11 +49,11 @@ FAQ
 
 * What browsers does LogicPull support?
   >  * Google Chrome
-     * Apple Safari 3.0+
-     * Mozilla Firefox 3.6+
-     * Opera 9.5+
-     * Microsoft Internet Explorer 7.0+
-     * iOS 2.0+
+  >  * Apple Safari 3.0+
+  >  * Mozilla Firefox 3.6+
+  >  * Opera 9.5+
+  >  * Microsoft Internet Explorer 7.0+
+  >  * iOS 2.0+
 
 Installation
 ------------
