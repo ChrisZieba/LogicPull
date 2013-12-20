@@ -8,16 +8,13 @@ Features
 
 [LogicPull](https://www.logicpull.com/) was initially developed to save time and money creating the many legal documents needed for a court preceding. It has since expanded to handle the assembly of PDF, DocX, RTF and XML documents for any project. It is a cloud based automated document assembly service. We give you the tools to quickly create an advanced question and answer interview to be completed by an end user, which in turn creates an answer set to be combined with a template to produce documents.
 
-* All your interview documents and completed data sets are stored in the cloud, so there's no more tracking down documents and leafing in changes
-* Publish once on the web and everyone is updated
-* Simple user-friendly Manager to handle all of your interviews and documents
-* Handle conditional logic and nested looping when gathering user data
-* Save progress on client interviews and load them at a later time to be completed
-
-Docs
-----
-
-* [Help](http://help.logicpull.com)
+* Multiple Document Formats Supported
+* Create Complex Branching Logic
+* Keep your Data and Documents in the Cloud
+* Save Progress on Client Interviews
+* Attach Custom Templates to Guided Interviews
+* Preview your Work Before it Goes Live
+* Send Processed Documents Automatically
 
 Demo
 ----
@@ -26,6 +23,11 @@ The viewer represents the intake system used by end-users, while the editor is t
 
 * [Viewer](https://interviews.logicpull.com/active/2): The Résumé Builder is just one the endless guided interviews which can be built with LogicPull. A dynamic series of questions concludes with a fully generated [PDF résumé](http://logicpull.com/demo/sample).
 * [Editor](https://logicpull.com/demo/editor/2): This is the tool used to create the Resume Builder. With our powerful editor it is fast and simple to create advanced interviews in the cloud for the purpose of automating document generation.
+
+Docs
+----
+
+* [Help](http://help.logicpull.com)
 
 FAQ
 ---
