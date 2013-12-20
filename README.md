@@ -24,13 +24,26 @@ The viewer represents the intake system used by end-users, while the editor is t
 * [Viewer](https://interviews.logicpull.com/active/2): The Résumé Builder is just one the endless guided interviews which can be built with LogicPull. A dynamic series of questions concludes with a fully generated [PDF résumé](http://logicpull.com/demo/sample).
 * [Editor](https://logicpull.com/demo/editor/2): This is the tool used to create the Resume Builder. With our powerful editor it is fast and simple to create advanced interviews in the cloud for the purpose of automating document generation.
 
-There is also a more [advanced demo] which demonstrates the following features:
+There is also a more [advanced demo](https://interviews.logicpull.com/active/3) which demonstrates the following features:
 
 * Nested Looping
 * Field Validation
 * Saving and resuming interviews
 * [Advanced Functions](http://help.logicpull.com/docs)
 * Popovers and embedded Youtube videos
+
+
+1. Basic
+   * [Viewer](https://interviews.logicpull.com/active/2): The Résumé Builder is just one the endless guided interviews which can be built with LogicPull. A dynamic series of questions concludes with a fully generated [PDF résumé](http://logicpull.com/demo/sample).
+   * [Editor](https://logicpull.com/demo/editor/2): This is the tool used to create the Resume Builder. With our powerful editor it is fast and simple to create advanced interviews in the cloud for the purpose of automating document generation.
+2. Advanced
+   * [Viewer](https://interviews.logicpull.com/active/3): This demo demonstrates more of the functionality and features that LogicPull offers.
+      - Nested Looping
+      - Field Validation
+      - Saving and resuming interviews
+      - [Advanced Functions](http://help.logicpull.com/docs)
+      - Popovers and embedded Youtube videos
+   * [Editor](https://logicpull.com/demo/editor/3)
 
 Docs
 ----
