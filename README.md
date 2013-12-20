@@ -47,6 +47,14 @@ FAQ
 * Do I need a technical background to use LogicPull?
   > LogicPull tries to make it as easy as possible to create, edit, and manage guided interviews. Writing templates does require a basic understanding of how conditional logic works.
 
+* What browsers does LogicPull support?
+  >  * Google Chrome
+     * Apple Safari 3.0+
+     * Mozilla Firefox 3.6+
+     * Opera 9.5+
+     * Microsoft Internet Explorer 7.0+
+     * iOS 2.0+
+
 Installation
 ------------
 
