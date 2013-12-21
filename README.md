@@ -6,7 +6,7 @@ LogicPull gives you the tools to quickly create advanced question and answer int
 Features
 --------
 
-[LogicPull](https://www.logicpull.com/) was initially developed to save time and money creating the many legal documents needed for a court preceding. It has since expanded to handle the assembly of PDF, DocX, RTF and XML documents for any project. It is a cloud based automated document assembly service. We give you the tools to quickly create an advanced question and answer interview to be completed by an end user, which in turn creates an answer set to be combined with a template to produce documents.
+[LogicPull](https://www.logicpull.com/) was initially developed to save time and money creating the many legal documents needed for a court proceeding. It has since expanded to handle the assembly of PDF, DocX, RTF and XML documents for any project. It is a cloud based automated document assembly service. We give you the tools to quickly create an advanced question and answer interview to be completed by an end user, which in turn creates an answer set to be combined with a template to produce documents.
 
 * Multiple Document Formats Supported
 * Create Complex Branching Logic
