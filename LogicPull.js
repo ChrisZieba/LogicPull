@@ -66,7 +66,7 @@ app.configure(function () {
 			path: '/',  
 			httpOnly: true,  
 			maxAge: 1000*60*60*24*30*12,
-			//secure: true,
+			secure: true,
 			domain: '.' + app.get('base_vhost')
 		}
 	}));
