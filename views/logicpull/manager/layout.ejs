@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 	<head>
 		<title><%= title %></title>
 	  	<meta charset="utf-8"/>
@@ -8,9 +7,11 @@
 	 	<meta name="robots" content="noindex, nofollow" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<% if (settings.env === 'development') { %>
+			<script src="/javascripts/bootstrap.js %>"></script>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
 			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
 		<% } else { %>
+			<script src="/javascripts/bootstrap.min.js %>"></script>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
 			<script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
 		<% } %>	
