@@ -1,4 +1,4 @@
-/*	Copyright 2013 Chris Zieba <zieba.chris@gmail.com>
+/*	Copyright 2014 Chris Zieba <zieba.chris@gmail.com>
 
     This program is free software: you can redistribute it and/or modify it under the terms of the GNU
     Affero General Public License as published by the Free Software Foundation, either version 3 of the
@@ -115,7 +115,26 @@ exports.development = {
 
 		// this is the default port used for the flash socket transport. 
 		// change if you are running multiple socket servers with flash socket transport enabled
-		socket_flash_policy_port: 10843
+		socket_flash_policy_port: 10843,
+
+	// SESSION
+
+		// set a random sectret session code for your app
+		session_secret: 'dsfwer789y9hdfghj32423',
+
+	// COOKIE
+
+		// By default the cookie is transmitted over any page
+		cookie_path: "/",
+
+		// Directs browsers not to expose cookies through channels other than HTTP and HTTPS
+		http_only: true,
+
+		// Set the cookie expiration date
+		cookie_max_age: 1000*60*60*24*30*12,
+
+		// Set to true to make sure the cookie is transmitted over HTTPS
+		cookie_secure: false
 };
 
 exports.production = {
@@ -225,5 +244,24 @@ exports.production = {
 
 		// this is the default port used for the flash socket transport. 
 		// change if you are running multiple socket servers with flash socket transport enabled
-		socket_flash_policy_port: 10843
+		socket_flash_policy_port: 10843,
+
+	// SESSION
+
+		// set a random sectret session code for your app
+		session_secret: 'dsfwer789y9hdfghj32423',
+
+	// COOKIE
+
+		// By default the cookie is transmitted over any page
+		cookie_path: "/",
+
+		// Directs browsers not to expose cookies through channels other than HTTP and HTTPS
+		http_only: true,
+
+		// Set the cookie expiration date
+		cookie_max_age: 1000*60*60*24*30*12,
+
+		// Set to true to make sure the cookie is transmitted over HTTPS
+		cookie_secure: false
 };
