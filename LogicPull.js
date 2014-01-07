@@ -61,12 +61,12 @@ app.configure(function () {
 	app.use(express.session({
 		store: sessionStore,
 		// change this
-		secret: '076ee61d645ba10a125ea872414e433b2',
+		secret: app.get('session_secret'),
 		cookie: {  
-			path: '/',  
-			httpOnly: true,  
-			maxAge: 1000*60*60*24*30*12,
-			secure: true,
+			path: app.get('cookie_path'),  
+			httpOnly: app.get('cookie_http_only'),  
+			maxAge: app.get('cookie_max_age'),
+			secure: app.get('cookie_secure'),
 			domain: '.' + app.get('base_vhost')
 		}
 	}));
