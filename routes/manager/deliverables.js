@@ -279,7 +279,9 @@ module.exports = function (app) {
 									id: req.session.user.id,
 									name: req.session.user.name
 								},
-								modified: new Date()
+								modified: new Date(),
+								form: old_deliverable.input.form,
+								looper: old_deliverable.input.looper
 							},
 							output: {
 								type: old_deliverable.output.type,
