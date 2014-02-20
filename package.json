@@ -5,7 +5,7 @@
   	"private": false,
   	"license" : "AGPLv3",
   	"engines" : { 
-  		"node" : ">=0.8.8"
+  		"node" : ">=0.8.9"
   	},
 	"devDependencies": {
 		"grunt": "~0.4.1",

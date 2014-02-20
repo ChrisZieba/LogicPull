@@ -224,7 +224,7 @@ Editor.details.contents.fields.textDropdown = (function () {
 
 		output.push('<div class="field-property">');
 		output.push('<div class="b-label">Default: </div>');
-		output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default_textdropdown" data-field-index="' + index + '"/>');
+		output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
 		output.push('</div>');
 
 		return output.join('');			
@@ -244,7 +244,7 @@ Editor.details.contents.fields.textDropdown = (function () {
 			output.push(common.fieldType(type));
 			output.push(common.fieldName(field.name, index));
 			output.push(common.fieldLabel(field.label, index));
-			output.push(fieldDefault(field.def, index));
+			output.push(common.fieldDefault(field.def, index));
 			output.push(common.fieldValidation(field.validation, type, index));
 			// this is specific only to the text dropdown fields
 			output.push(buildTextDropdownValues(field.values));
