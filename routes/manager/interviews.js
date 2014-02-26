@@ -360,18 +360,17 @@ module.exports = function (app) {
 			return;
 		}
 
-		function copyDeliverable (file) {
-			fs.readFile(app.get('base_location') + "uploads/deliverables/" + interview_to_clone.name + "-" + interview_to_clone.id + "/" + file.input.name, function (err, data) {
+		function copyDeliverable (file, name) {
+			fs.readFile(app.get('base_location') + "uploads/deliverables/" + interview_to_clone.name + "-" + interview_to_clone.id + "/" + name, function (err, data) {
 				if (err) {
-					console.log(err);
 					throw err;
-				} 
-				fs.writeFile(app.get('base_location') + "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + file.input.name, data, function (err) {
-					if (err) {
-						console.log(err);
-						throw err;
-					}
-				});
+				} else {
+					fs.writeFile(app.get('base_location') + "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + name, data, function (err) {
+						if (err) {
+							throw err;
+						}
+					});
+				}
 			});			
 		}
 
@@ -405,6 +404,18 @@ module.exports = function (app) {
 					interview.distance = interview_to_clone.distance;
 					interview.data = interview_to_clone.data;
 
+					// The paths in the deliverables need to be updated
+					if (interview.deliverables.length !== 0) {
+						for (var k = 0; k < interview.deliverables.length; k+=1) {
+							interview.deliverables[k].input.id = require('crypto').createHash('md5').update(interview.deliverables[k].input.name + interview.id + (k+1)).digest("hex");
+							interview.deliverables[k].input.path = "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + interview.deliverables[k].input.name
+
+							if (interview.deliverables[k].input.form && interview.deliverables[k].input.form.name) {
+								interview.deliverables[k].input.form.path = "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + interview.deliverables[k].input.form.name
+							}
+						}
+					} 
+
 					interview.save(function(err){
 						if (err) {
 							console.log(err);
@@ -430,16 +441,15 @@ module.exports = function (app) {
 										console.log(err);
 										throw err;
 									}
-									// copy any deliverables over
-									deliverables = interview_to_clone.deliverables;
 
-									// check if there are any
-									if (deliverables.length !== 0) {
-										for (var i = 0; i < deliverables.length; i+=1) {
-											copyDeliverable(deliverables[i]);
+									if (interview.deliverables.length !== 0) {
+										for (var k = 0; k < interview.deliverables.length; k+=1) {
+											copyDeliverable(interview.deliverables[k], interview.deliverables[k].input.name);
+											if (interview.deliverables[k].input.form && interview.deliverables[k].input.form.name) {
+												copyDeliverable(interview.deliverables[k], interview.deliverables[k].input.form.name);
+											}
 										}
 									} 
-									// success
 									res.redirect('/manager');
 								});
 							});
