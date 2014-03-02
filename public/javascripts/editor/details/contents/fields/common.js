@@ -412,7 +412,7 @@ Editor.details.contents.fields.common = (function () {
 
 			output.push('<div class="field-property">');
 			output.push('<div class="b-label">Name: </div>'); 
-			output.push('<input type="text" value="' + name +'" class="field-textbox ac" data-field-textbox-id="name" data-field-index="' + index + '" />');
+			output.push('<input type="text" value="' + name.replace(/"/g, '&quot;') +'" class="field-textbox ac" data-field-textbox-id="name" data-field-index="' + index + '" />');
 			output.push('</div>');
 			return output.join('');		
 		},
@@ -426,7 +426,7 @@ Editor.details.contents.fields.common = (function () {
 
 			output.push('<div class="field-property">');
 			output.push('<div class="b-label">Label: </div>');
-			output.push('<input type="text" value="' + label +'" class="field-textbox ac" data-field-textbox-id="label" data-field-index="' + index + '" />');
+			output.push('<input type="text" value="' + label.replace(/"/g, '&quot;') +'" class="field-textbox ac" data-field-textbox-id="label" data-field-index="' + index + '" />');
 			output.push('</div>');
 
 			return output.join('');		
@@ -441,7 +441,7 @@ Editor.details.contents.fields.common = (function () {
 
 			output.push('<div class="field-property">');
 			output.push('<div class="b-label">Default: </div>');
-			output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
+			output.push('<input type="text" value="' + default_value.replace(/"/g, '&quot;') +'" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
 			output.push('</div>');
 
 			return output.join('');			
@@ -486,7 +486,7 @@ Editor.details.contents.fields.common = (function () {
 							output.push('<div class="b-label">Minimun length: </div>');
 
 							if (validation[p] !== null) {
-								output.push('<input type="text" value="' + validation[p] + '" class="field-textbox ac" data-field-textbox-id="min_length" data-field-index="' + index + '"/>');
+								output.push('<input type="text" value="' + validation[p].replace(/"/g, '&quot;') + '" class="field-textbox ac" data-field-textbox-id="min_length" data-field-index="' + index + '"/>');
 							} else {
 								output.push('<input type="text" value="" class="field-textbox ac" data-field-textbox-id="min_length" data-field-index="' + index + '"/>');
 							}
@@ -498,7 +498,7 @@ Editor.details.contents.fields.common = (function () {
 							output.push('<div class="b-label">Maximum length: </div>');
 
 							if (validation[p] !== null) {
-								output.push('<input type="text" value="' + validation[p] + '" class="field-textbox ac" data-field-textbox-id="max_length" data-field-index="' + index + '"/>');
+								output.push('<input type="text" value="' + validation[p].replace(/"/g, '&quot;') + '" class="field-textbox ac" data-field-textbox-id="max_length" data-field-index="' + index + '"/>');
 							} else {
 								output.push('<input type="text" value="" class="field-textbox ac" data-field-textbox-id="max_length" data-field-index="' + index + '"/>');
 							}
@@ -510,7 +510,7 @@ Editor.details.contents.fields.common = (function () {
 							output.push('<div class="b-label">Less than: </div>');
 
 							if (validation[p] !== null) {
-								output.push('<input type="text" value="' + validation[p] + '" class="field-textbox ac" data-field-textbox-id="less_than" data-field-index="' + index + '"/>');
+								output.push('<input type="text" value="' + validation[p].replace(/"/g, '&quot;') + '" class="field-textbox ac" data-field-textbox-id="less_than" data-field-index="' + index + '"/>');
 							} else {
 								output.push('<input type="text" value="" class="field-textbox ac" data-field-textbox-id="less_than" data-field-index="' + index + '"/>');  
 							}
@@ -522,7 +522,7 @@ Editor.details.contents.fields.common = (function () {
 							output.push('<div class="b-label">Greater than: </div>');
 
 							if (validation[p] !== null) {
-								output.push('<input type="text" value="' + validation[p] + '" class="field-textbox ac" data-field-textbox-id="greater_than" data-field-index="' + index + '"/>');
+								output.push('<input type="text" value="' + validation[p].replace(/"/g, '&quot;') + '" class="field-textbox ac" data-field-textbox-id="greater_than" data-field-index="' + index + '"/>');
 							} else {
 								output.push('<input type="text" value="" class="field-textbox ac" data-field-textbox-id="greater_than" data-field-index="' + index + '"/>');  
 							}
@@ -534,7 +534,7 @@ Editor.details.contents.fields.common = (function () {
 							output.push('<div class="b-label">Minimum date: </div>');
 
 							if (validation[p] !== null) {
-								output.push('<input type="text" value="' + validation[p] + '" class="field-textbox ac" data-field-textbox-id="min_date" data-field-index="' + index + '"/>');
+								output.push('<input type="text" value="' + validation[p].replace(/"/g, '&quot;') + '" class="field-textbox ac" data-field-textbox-id="min_date" data-field-index="' + index + '"/>');
 							} else {
 								output.push('<input type="text" value="" class="field-textbox ac" data-field-textbox-id="min_date" data-field-index="' + index + '"/>');  
 							}
@@ -546,7 +546,7 @@ Editor.details.contents.fields.common = (function () {
 							output.push('<div class="b-label">Maximum date: </div>');
 
 							if (validation[p] !== null) {
-								output.push('<input type="text" value="' + validation[p] + '" class="field-textbox ac" data-field-textbox-id="max_date" data-field-index="' + index + '"/>');
+								output.push('<input type="text" value="' + validation[p].replace(/"/g, '&quot;') + '" class="field-textbox ac" data-field-textbox-id="max_date" data-field-index="' + index + '"/>');
 							} else {
 								output.push('<input type="text" value="" class="field-textbox ac" data-field-textbox-id="max_date" data-field-index="' + index + '"/>');  
 							}

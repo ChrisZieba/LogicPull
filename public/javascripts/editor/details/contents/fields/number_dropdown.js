@@ -30,7 +30,7 @@ Editor.details.contents.fields.numberDropdown = (function () {
 
 		output.push('<div class="field-property">');
 		output.push('<div class="b-label">Default: </div>');
-		output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default_number" data-field-index="' + index + '"/>');
+		output.push('<input type="text" value="' + default_value.replace(/"/g, '&quot;') +'" class="field-textbox ac" data-field-textbox-id="default_number" data-field-index="' + index + '"/>');
 		output.push('</div>');
 
 		return output.join('');			
