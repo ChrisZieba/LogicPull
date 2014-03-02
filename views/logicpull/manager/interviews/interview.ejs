@@ -74,7 +74,6 @@
 							<th>Filename</th>
 							<th>Description</th>
 							<th>Output (Type)</th>
-							<th>Modified</th>
 							<th>Options</th>
 						</tr>
 					</thead>
@@ -82,12 +81,12 @@
 						<% if (interview.deliverables.length !== 0) { %>
 							<% for (var i=0; i < interview.deliverables.length; i++) { %>
 								<tr>
-									<td><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" target="_blank"><%= interview.deliverables[i].input.name %></a></td>
+									<td><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" target="_blank"><%= interview.deliverables[i].input.name %></a>
+										<br>
+										<strong>Modified: </strong><%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> by <strong><%= interview.deliverables[i].input.creator.name %>
+									</td>
 									<td><%= interview.deliverables[i].description %></td>
 									<td><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong></td>
-									<td><%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> by <strong><%= interview.deliverables[i].input.creator.name %></strong></td>
-									
-									
 									<td>
 										<ul class="options-menu">
 											<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interview.id %>/deliverables/update/<%= i %>">Update</a></li>
