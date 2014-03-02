@@ -41,7 +41,7 @@ module.exports = function (app) {
 			var interview = res.locals.interview;
 
 			// validate the input that came from the form, and make sure a file was chosen for upload
-			if (validator.check(sanitizor.clean(req.body.description), ['required',{'maxlength': 100}]) && req.files.file ) {
+			if (validator.check(sanitizor.clean(req.body.description), ['required',{'maxlength': 100}]) && validator.check(sanitizor.clean(req.body.outname), ['required','variable',{'maxlength': 35}]) && req.files.file ) {
 				// have to do another check here for the filename 
 				if (req.files.file.name !== '' && req.files.file.size !== 0) {
 					// this will move the uploaded file from the tmp folder to the uploads folder
@@ -87,7 +87,7 @@ module.exports = function (app) {
 							},
 							output: {
 								type: req.body.output,
-								name: validator.check(sanitizor.clean(req.body.outname), ['variable',{'maxlength': 15}]) ? sanitizor.clean(req.body.outname) : ""
+								name: req.body.outname
 							},
 							description: req.body.description
 						};
@@ -105,7 +105,7 @@ module.exports = function (app) {
 						});	
 					});
 				} else {
-					view('manager/layout', '<ul><li>The input file must be a valid template file.</li><li>PLease make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
+					view('manager/layout', '<ul><li>The input file must be a valid template file.</li><li>The Name of the output must be letters, numbers and/or underscores.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
 				}
 			} else {
 				view('manager/layout', '<ul><li>The input file must be a valid template file.</li><li>PLease make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
