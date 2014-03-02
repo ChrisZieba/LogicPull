@@ -129,13 +129,19 @@
 						<td><div class="ql-con"><span class="ql-report">+</span><a href="/manager/interview/<%= interview.id %>/report" title="Interview report">View Report</a></div></td>
 					</tr>
 					<tr>
-						<td><div class="ql-con"><span class="ql-lock">+</span><a href="/manager/interview/<%= interview.id %>/lock" title="Lock/Unlock Interview"> 
-							<% if (interview.locked) { %>
-								Unlock
-							<% } else { %>
-								Lock
-							<% } %>							
-							Interview</a></div></td>
+						<td>
+							<div class="ql-con">
+								<span class="ql-lock">+</span>
+								<a href="/manager/interview/<%= interview.id %>/lock" title="Lock/Unlock Interview"> 
+									<% if (interview.locked) { %>
+										Unlock
+									<% } else { %>
+										Lock
+									<% } %>							
+									Interview
+								</a>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<td><div class="ql-con"><span class="ql-live">+</span><a href="/manager/interview/<%= interview.id %>/live" title="Change Live Status">Change Live Status</a></div></td>
