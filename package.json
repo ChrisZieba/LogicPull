@@ -1,11 +1,11 @@
 {
   	"name": "LogicPull",
-  	"version": "0.8.6",
+  	"version": "0.8.7",
   	"description": "Automated document assembly.",
   	"private": false,
   	"license" : "AGPLv3",
   	"engines" : { 
-  		"node" : ">=0.8.9"
+  		"node" : ">=0.8.8"
   	},
 	"devDependencies": {
 		"grunt": "~0.4.1",
