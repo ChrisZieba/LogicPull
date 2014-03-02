@@ -82,7 +82,7 @@
 							<% for (var i=0; i < interview.deliverables.length; i++) { %>
 								<tr>
 									<td><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" target="_blank"><%= interview.deliverables[i].input.name %></a>
-										<br>
+										<br/>
 										<strong>Modified: </strong><%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> by <strong><%= interview.deliverables[i].input.creator.name %>
 									</td>
 									<td><%= interview.deliverables[i].description %></td>
