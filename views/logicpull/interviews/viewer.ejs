@@ -11,6 +11,12 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/plugins/datepicker.min.js"></script>
 
+	<script>
+		$(window).bind('beforeunload', function(){
+			return 'If you leave this page any unsaved information will be lost.';
+		});
+	</script>
+
 	<% if (env === 'development') { %>
 		<script type="text/javascript" src="/javascripts/viewer.js?v=<%= settings.version %>"></script>
 		<link rel="stylesheet" type="text/css" href="/stylesheets/viewer.css?v=<%= settings.version %>" />
