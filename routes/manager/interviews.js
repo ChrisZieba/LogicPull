@@ -408,10 +408,10 @@ module.exports = function (app) {
 					if (interview.deliverables.length !== 0) {
 						for (var k = 0; k < interview.deliverables.length; k+=1) {
 							interview.deliverables[k].input.id = require('crypto').createHash('md5').update(interview.deliverables[k].input.name + interview.id + (k+1)).digest("hex");
-							interview.deliverables[k].input.path = "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + interview.deliverables[k].input.name
+							interview.deliverables[k].input.path = "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + interview.deliverables[k].input.name;
 
 							if (interview.deliverables[k].input.form && interview.deliverables[k].input.form.name) {
-								interview.deliverables[k].input.form.path = "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + interview.deliverables[k].input.form.name
+								interview.deliverables[k].input.form.path = "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + interview.deliverables[k].input.form.name;
 							}
 						}
 					} 
