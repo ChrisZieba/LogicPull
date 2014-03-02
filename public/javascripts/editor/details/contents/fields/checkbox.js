@@ -171,11 +171,11 @@ Editor.details.contents.fields.checkbox = (function () {
 
 		output.push('<div class="field-checkbox-value-property">');
 		output.push('<div class="d-label">ID: </div>');
-		output.push('<input type="text" value="' + value.id +'" class="checkbox-field-textbox ae" data-field-textbox-id="checkbox_id" />');
+		output.push('<input type="text" value="' + value.id.replace(/"/g, '&quot;') +'" class="checkbox-field-textbox ae" data-field-textbox-id="checkbox_id" />');
 		output.push('</div>');
 		output.push('<div class="field-checkbox-value-property">');
 		output.push('<div class="d-label">Label: </div>');
-		output.push('<input type="text" value="' + value.label +'" class="checkbox-field-textbox ae" data-field-textbox-id="checkbox_label" />');
+		output.push('<input type="text" value="' + value.label.replace(/"/g, '&quot;') +'" class="checkbox-field-textbox ae" data-field-textbox-id="checkbox_label" />');
 		output.push('</div>');
 
 		return output.join('');		

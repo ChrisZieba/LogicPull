@@ -55,7 +55,7 @@ Editor.details.contents.fields.date = (function () {
 
 		output.push('<div class="field-property">');
 		output.push('<div class="b-label">Default: </div>');
-		output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default_date" data-field-index="' + index + '"/>');
+		output.push('<input type="text" value="' + default_value.replace(/"/g, '&quot;') +'" class="field-textbox ac" data-field-textbox-id="default_date" data-field-index="' + index + '"/>');
 		output.push('</div>');
 
 		return output.join('');			
@@ -95,7 +95,7 @@ Editor.details.contents.fields.date = (function () {
 		output.push('</div>');
 		output.push('<div class="field-property">');
 		output.push('<div class="b-label">Message: </div>');
-		output.push('<input type="text" value="' + message +'" class="field-textbox ac" data-field-textbox-id="validate_message" data-field-index="' + index + '"/>');
+		output.push('<input type="text" value="' + message.replace(/"/g, '&quot;') +'" class="field-textbox ac" data-field-textbox-id="validate_message" data-field-index="' + index + '"/>');
 		output.push('</div>');
 
 		return output.join('');					

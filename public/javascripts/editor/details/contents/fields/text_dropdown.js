@@ -172,7 +172,7 @@ Editor.details.contents.fields.textDropdown = (function () {
 		output.push('</div>');
 		output.push('<div class="field-textdropdown-value-property">');
 		output.push('<div class="d-label">Label: </div>');
-		output.push('<input type="text" value="' + value.label +'" class="textdropdown-field-textbox ae" data-field-textbox-id="textdropdown_label" />');
+		output.push('<input type="text" value="' + value.label.replace(/"/g, '&quot;') +'" class="textdropdown-field-textbox ae" data-field-textbox-id="textdropdown_label" />');
 		output.push('</div>');
 
 		return output.join('');		
@@ -224,7 +224,7 @@ Editor.details.contents.fields.textDropdown = (function () {
 
 		output.push('<div class="field-property">');
 		output.push('<div class="b-label">Default: </div>');
-		output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
+		output.push('<input type="text" value="' + default_value.replace(/"/g, '&quot;') +'" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
 		output.push('</div>');
 
 		return output.join('');			
