@@ -52,7 +52,7 @@ Editor.thumbnail = (function () {
 				switch (input_type) {
 					case 'text':
 						if (input_default !== null && typeof input_default !== undefined && input_default !== '') {
-							output.push('<ul><li><input type="text" value="' + input_default + '" size="40" class="textbox" readonly="readonly" /></li></ul>');
+							output.push('<ul><li><input type="text" value="' + input_default.replace(/"/g, '&quot;') + '" size="40" class="textbox" readonly="readonly" /></li></ul>');
 						} else {
 							output.push('<ul><li><input type="text" size="40" class="textbox" readonly="readonly" /></li></ul>');
 						}
@@ -66,7 +66,7 @@ Editor.thumbnail = (function () {
 						break;
 					case 'number':
 						if (input_default !== null && typeof input_default !== undefined && input_default !== '') {
-							output.push('<ul><li><input type="text" value="' + input_default + '" size="40" class="textbox" readonly="readonly" /></li></ul>');
+							output.push('<ul><li><input type="text" value="' + input_default.replace(/"/g, '&quot;') + '" size="40" class="textbox" readonly="readonly" /></li></ul>');
 						} else {
 							output.push('<ul><li><input type="text" size="40" class="textbox" readonly="readonly" /></li></ul>');
 						}
