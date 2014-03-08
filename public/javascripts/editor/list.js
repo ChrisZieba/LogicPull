@@ -64,7 +64,7 @@ Editor.list = (function () {
 		return output.join("");
 	};
 
-	// sort by step, and then sort each step by name
+	// Sort by step, and then sort each step by name
 	var sortBySteps = function () {
 		var output = [];
 		var jo_flag;
@@ -75,14 +75,17 @@ Editor.list = (function () {
 
 		arr2.push('none');
 
-		// we need to put each step in its own array, so we sort them individually by name
+		// we need to put each step in its own array, so we can sort each step by its name
 		for (var j = 0; j < arr2.length; j+=1) {
 			// a new array to hold all the questions from the step
 			bucket.push([]);
 
+			// go through eqach question
 			for (var key in questions) {
 				if (questions.hasOwnProperty(key)) {
-					if (questions[key].step === arr2[j]) {
+					console.log(questions[key].step);
+					console.log($('<div/>').html(arr2[j]).text());
+					if (questions[key].step === $('<div/>').html(arr2[j]).text()) {
 						// look for the right place to put the new question. If the array is empty we don't need to sort anything out
 						if (bucket[j].length === 0) {
 							bucket[j].push({
@@ -107,7 +110,7 @@ Editor.list = (function () {
 								}
 							}
 							// if all the elements are sorted just push
-							if ( !jo_flag) {
+							if (!jo_flag) {
 								bucket[j].push({
 									name: questions[key].name,
 									step: questions[key].step,
