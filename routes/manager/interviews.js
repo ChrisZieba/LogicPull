@@ -629,6 +629,113 @@ module.exports = function (app) {
 		return null;
 	});
 
+	// Export the interview data
+	app.all('/manager/interview/:interview/export_interview',[auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('clone_interview')], function (req, res) {
+		function view (template, msg) {
+			// the logic to see if an interview was valid is done in the middleware
+			var data = {
+				title: 'LogicPull | Export Interview Data',
+				name: req.session.user.name,
+				layout:'export-interview',
+				msg: msg
+			};
+
+			res.render(template, data);	
+			return;
+		}
+
+		if (req.method === 'POST') {
+			var id = req.body.interview;
+			models.Interviews.findOne({ 'id': id }, {'data':1, 'description':1, 'steps':1, '_id':0}, function (err, doc) {
+				if (err) {
+					console.log(err);
+					throw err;
+				} 
+
+				var filename = "interview_" + id + "_export.json";
+				var file_location = app.get('base_location') + "generated/tmp/" + filename;
+
+				fs.writeFile(file_location, JSON.stringify(doc,null,4), function (err) {
+					if (err) {
+						console.log(err);
+						callback(err);
+					} 
+					res.download(file_location, filename, function (err) {
+						if (err) {
+							console.log(err);
+							throw err;
+						} 
+						res.end('success', 'UTF-8');
+					});
+				});
+			});
+		} else {
+			view('manager/layout', null);
+		}
+	});
+
+
+	// lock or unlock the interview
+	app.all('/manager/interview/:interview/import_interview',[auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('edit_interviews')], function (req, res) {
+		var form = null;
+
+		function view (template, msg) { 
+			var data = {
+				title: 'LogicPull | Import Interview Data',
+				name: req.session.user.name,
+				layout:'import-interview',
+				msg: msg
+			};
+
+			res.render(template, data);
+		}
+
+		if (req.method === 'POST') {
+			// this is the interview attached in the auth.validateInterview middleware
+			var interview = res.locals.interview;
+
+			// validate the input that came from the form, and make sure a file was chosen for upload
+			if (req.files.file) {
+				// have to do another check here for the filename 
+				if (req.files.file.name !== '' && req.files.file.size !== 0) {
+					fs.readFile(req.files.file.path, 'utf-8', function(err, content) {
+						if (err) {
+							throw err;
+						}
+
+						var json_data = null;
+
+						try {
+							json_data = JSON.parse(content);
+						} catch (e) {
+							view('manager/layout', '<ul><li>The file you attempted to upload was not valid JSON.</li></ul>');
+						}
+
+						if (json_data) {
+							//update the interview in the database
+							models.Interviews.update({id: interview.id}, {'data': json_data.data, 'description': json_data.description, 'steps': json_data.steps}, function (err) {
+								if (err) {
+									console.log(err);
+									throw err;
+								} 
+								res.redirect('manager/interview/' + interview.id);
+							});	
+						}
+						
+						
+					});
+				} else {
+					view('manager/layout', '<ul><li>The input file must be a valid JSON file.</li></ul>');
+				}
+			} else {
+				view('manager/layout', '<ul><li>The input file must be a valid JSON file.</li></ul>');
+			}
+		} else {
+			// this is a get request...just show the form
+			view('manager/layout', null);
+		}
+	});
+
 	// this is the report for an interview
 	app.get('/manager/interview/:interview/report',[auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('view_report')], function (req, res) {
 		var ordered = utils.dfs(res.locals.interview.start, res.locals.interview.data, []);
