@@ -41,6 +41,14 @@
 			<% include interviews/deliverables/add %>
 		<% } %>
 
+		<% if (layout === 'import-interview') { %>
+			<% include interviews/import %>
+		<% } %>
+
+		<% if (layout === 'export-interview') { %>
+			<% include interviews/export %>
+		<% } %>
+
 		<% if (layout === 'update-deliverable') { %>
 			<% include interviews/deliverables/update %>
 		<% } %>
