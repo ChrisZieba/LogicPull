@@ -52,6 +52,9 @@ exports.development = {
 
 		// emails sent by LogicPull (notifications, deliverables, etc.) will be from this email address
 		email_from: "Support <support@logicpull.com>",
+
+		// When this is enabled you must supply an auth_user and auth_password for smtp authentication
+		email_enable_auth: true,
 		
 		// The user to authenticate when connecting to the email server
 		email_auth_user: "info@logicpull.com",
@@ -181,6 +184,9 @@ exports.production = {
 		// emails sent by LogicPull (notifications, deliverables, etc.) will be from this email address
 		// e.g. Support <support@comcast.com>
 		email_from: "",
+		
+		// When this is enabled you must supply an auth_user and auth_password for smtp authentication
+		email_enable_auth: true,
 		
 		// The user to authenticate when connecting to the email server, e.g. info@comcast.com
 		email_auth_user: "",
