@@ -251,13 +251,19 @@ module.exports = function (app) {
 
 							if ( !app.get('disable_email_password_reset')) {
 								// send out the email
-								var transport = nodemailer.createTransport("SMTP", {
-									host: app.get('email_host'),
-									auth: {
+								var transport_options = {
+									host: app.get('email_host')
+								};
+
+								// check if smtp auth is required
+								if (app.get('email_enable_auth')) {
+									transport_options.auth = {
 										user: app.get('email_auth_user'),
 										pass: app.get('email_auth_pass')
-									}
-								});
+									};
+								}
+
+								var transport = nodemailer.createTransport("SMTP", transport_options);
 
 								var message = {
 									from: app.get('email_from'),
