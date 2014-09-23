@@ -17,7 +17,7 @@ Editor.thumbnail = (function () {
 
 	var buildThumbnail = function (data) {
 		var output = [];
-		var field, label_class, input_name, input_label, input_type, input_default, input_validation, input_values, value, button, button_type, min, max;
+		var field, label_class, input_name, input_label, input_type, input_default, input_validation, input_values, value, button, button_type, min, max, descending;
 
 		output.push('<div class="aux-thumb-xtra"><span class="bold">[' + data.qid + '] </span><span class="">' + data.name +'</span></div><div class="clear"></div><br>');
 		output.push('<div class="aux-thumb-xtra"><table class="thumbnail-table"><thead><tr><th>Question</th></tr></thead><tr><td style="background:#f0f0f0">');
@@ -165,21 +165,40 @@ Editor.thumbnail = (function () {
 
 							max = Math.max(field.start, field.end);
 							min = Math.min(field.start, field.end);
+							descending = field.descending;
 
 							if (input_default !== null && typeof input_default !== 'undefined' && input_default !== '') {
 								output.push('<option value="">none</option>');
-								for (var m = min; m <= max; m+=1) {
-									if (input_default === m) {
-										output.push('<option selected="selected">' + m + '</option>');									
-									} else {
-										output.push('<option >' + m + '</option>');	
+
+								if (descending === 'yes') {
+									for (var m = max; m >= min; m-=1) {
+										if (input_default === m) {
+											output.push('<option selected="selected">' + m + '</option>');									
+										} else {
+											output.push('<option>' + m + '</option>');	
+										}
+									}
+								} else {
+									for (var m = min; m <= max; m+=1) {
+										if (input_default === m) {
+											output.push('<option selected="selected">' + m + '</option>');									
+										} else {
+											output.push('<option>' + m + '</option>');	
+										}
 									}
 								}
 							} else {
 								// set the first item to selected...one needs to be selected for validation purposes
 								output.push('<option value="" selected="selected">none</option>');
-								for (var s = min; s <= max; s+=1) {
-									output.push('<option >' + s + '</option>');	
+
+								if (descending === 'yes') {
+									for (var s = max; s >= min; s-=1) {
+										output.push('<option>' + s + '</option>');	
+									}
+								} else {
+									for (var s = min; s <= max; s+=1) {
+										output.push('<option>' + s + '</option>');	
+									}
 								}
 							}
 
