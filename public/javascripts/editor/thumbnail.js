@@ -169,9 +169,9 @@ Editor.thumbnail = (function () {
 
 							if (input_default !== null && typeof input_default !== 'undefined' && input_default !== '') {
 								output.push('<option value="">none</option>');
-
+								var m;
 								if (descending === 'yes') {
-									for (var m = max; m >= min; m-=1) {
+									for (m = max; m >= min; m-=1) {
 										if (input_default === m) {
 											output.push('<option selected="selected">' + m + '</option>');									
 										} else {
@@ -179,7 +179,7 @@ Editor.thumbnail = (function () {
 										}
 									}
 								} else {
-									for (var m = min; m <= max; m+=1) {
+									for (m = min; m <= max; m+=1) {
 										if (input_default === m) {
 											output.push('<option selected="selected">' + m + '</option>');									
 										} else {
@@ -190,13 +190,13 @@ Editor.thumbnail = (function () {
 							} else {
 								// set the first item to selected...one needs to be selected for validation purposes
 								output.push('<option value="" selected="selected">none</option>');
-
+								var s;
 								if (descending === 'yes') {
-									for (var s = max; s >= min; s-=1) {
+									for (s = max; s >= min; s-=1) {
 										output.push('<option>' + s + '</option>');	
 									}
 								} else {
-									for (var s = min; s <= max; s+=1) {
+									for (s = min; s <= max; s+=1) {
 										output.push('<option>' + s + '</option>');	
 									}
 								}
