@@ -21,6 +21,27 @@ Editor.details.contents.fields.numberDropdown = (function () {
 
 	"use strict";
 
+	var eventListeners = function () {
+		// when a checkbox changed its value, change it in the questions object
+		$(".field-checkbox").live("change", function () {
+			var qid = Editor.main.getCurrentQuestion();
+			var index = $(this).data('field-index');	
+			var field_id_type = $(this).data('field-checkbox-id');	
+
+			//save the value to the questions object
+			// run the validation when a textbox changes, and save it if it passes
+			switch (field_id_type) {
+				case 'descending':
+					if ($(this).is(":checked")) {
+						questions[qid].fields[index][field_id_type] = 'yes';
+					} else {
+						questions[qid].fields[index][field_id_type] = 'no';
+					}
+					break;
+			}
+		});
+	};
+
 	var fieldDefault = function (default_value, index) {
 		var output = [];
 
@@ -58,7 +79,28 @@ Editor.details.contents.fields.numberDropdown = (function () {
 		return output.join('');			
 	};
 
+	var fieldDescending = function (descending, index) {
+		var output = [];
+
+		output.push('<div class="field-property">');
+		output.push('<div class="b-label">Descending: </div>');
+
+		if (descending === 'yes') {
+			output.push('<input type="checkbox" checked="yes" class="field-checkbox" data-field-checkbox-id="descending" data-field-index="' + index + '"/>');
+		} else {
+			output.push('<input type="checkbox" class="field-checkbox" data-field-checkbox-id="descending" data-field-index="' + index + '" />');
+		}
+
+		output.push('</div>');
+		return output.join('');			
+	};
+
 	return {
+
+		init: function () {
+			eventListeners();
+		},
+
 		buildNumberDropdownField: function (field, index) {
 
 			var output = [];
@@ -73,6 +115,7 @@ Editor.details.contents.fields.numberDropdown = (function () {
 			output.push(fieldDefault(field.def, index));
 			output.push(fieldStart(field.start, index));
 			output.push(fieldEnd(field.end, index));
+			output.push(fieldDescending(field.descending, index));
 			output.push(common.fieldValidation(field.validation, type, index));
 
 			return output.join('');	
@@ -86,6 +129,7 @@ Editor.details.contents.fields.numberDropdown = (function () {
 				"def": '',
 				"start": 0,
 				"end": 10,
+				"descending": 'no',
 				"validation": {
 					"required": 'no'
 				}

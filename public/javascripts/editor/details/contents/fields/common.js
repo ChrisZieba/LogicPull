@@ -374,6 +374,7 @@ Editor.details.contents.fields.common = (function () {
 			Editor.details.contents.fields.radio.init();
 			Editor.details.contents.fields.checkbox.init();
 			Editor.details.contents.fields.date.init();
+			Editor.details.contents.fields.numberDropdown.init();
 			Editor.details.contents.fields.textDropdown.init();
 		},
 
