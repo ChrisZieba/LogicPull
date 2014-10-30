@@ -1,6 +1,6 @@
 {
   	"name": "LogicPull",
-  	"version": "0.8.12",
+  	"version": "0.8.13",
   	"description": "Automated document assembly.",
   	"private": false,
   	"license" : "AGPLv3",
