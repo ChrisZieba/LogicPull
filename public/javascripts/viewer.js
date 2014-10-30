@@ -203,7 +203,7 @@ Viewer.interview = (function() {
 		var previous, login_path;
 
 		// the help tooltip
-		$(".help-tooltip, .field-tooltip").live('click',function () {
+		$('document').on('click', ".help-tooltip, .field-tooltip", function () {
 			// we need to figure out the best position to show the learn more so its not off the screen
 			var pointer = $(this).children(".pointer");
 			var tooltip = $(this).children(".body");
@@ -231,7 +231,7 @@ Viewer.interview = (function() {
 			}
 		});
 
-		$(".lm-display, .lm-data").live('click',function () {
+		$("body").on('click', ".lm-display, .lm-data", function () {
 			var target = $('.lm-data');
 
 			if (target.is(':hidden')) {
@@ -242,7 +242,7 @@ Viewer.interview = (function() {
 		});
 
 		// when youtube video links are clicked
-		$(".youtube-popout").live('click',function () {
+		$("body").on('click', ".youtube-popout", function () {
 			var popup = $("#youtube-container .popup");
 			var link = $(this).find('.video-link a:first').attr('href');
 			var width = popup.width();
@@ -372,7 +372,7 @@ Viewer.interview = (function() {
 		});
 
 		// when the close button on a popup modal is clicked
-		$("#l-d-close").live("click", function () {
+		$("body").on('click', "#l-d-close", function () {
 			// hide the login incase it was shown
 			if ($("#login-container").is(":visible")) {
 				$("#login-container").hide();
@@ -380,7 +380,7 @@ Viewer.interview = (function() {
 		});
 
 		// when the close button on a popup modal is clicked
-		$("#s-d-close").live("click", function () {
+		$("body").on('click', "#s-d-close", function () {
 			// hide the login incase it was shown
 			if ($("#saves-container").is(":visible")) {
 				$("#saves-container").hide();
@@ -388,7 +388,7 @@ Viewer.interview = (function() {
 		});
 
 		// when the close button on a popup modal is clicked
-		$("#t-d-close").live("click", function () {
+		$("body").on('click', "#t-d-close", function () {
 			// hide the login incase it was shown
 			if ($("#note-container").is(":visible")) {
 				$("#note-container").hide();
@@ -396,7 +396,7 @@ Viewer.interview = (function() {
 		});
 
 		// when the close button on a popup modal is clicked
-		$("#y-d-close").live("click", function () {
+		$("body").on('click', "#y-d-close", function () {
 			// hide the login incase it was shown
 			if ($("#youtube-container").is(":visible")) {
 				// clear out the contents so the video stops playing..ie8 has a black screen so clear the iframe to fix it
@@ -407,7 +407,7 @@ Viewer.interview = (function() {
 		});
 
 		// when the user clicks an options icon to load a previous 
-		$(".partial-sav-int").live("click", function () {
+		$("body").on('click', ".partial-sav-int", function () {
 			// get the id of the record that corresponds to the saved data in the databases
 			if (click_partial_allowed) {
 				var interview = $('#interview-id').html();
@@ -431,11 +431,14 @@ Viewer.interview = (function() {
 
 
 		// listen for when the button to continue is clicked
-		$(".button").live("click", function () {
+		$("body").on('click', ".button", function () {
+
+			console.log(qid)
 			if (click_continue_allowed) {
 				var text_selector = $('.text');
 				var interview = $('#interview-id').html();
-				var qid = $(this).html();
+				var qid = $(this).data('qid');
+
 				var socket = Viewer.socket.getSocket();
 				var data = {
 					id: id,
@@ -444,8 +447,8 @@ Viewer.interview = (function() {
 					fields: Viewer.interview.collectFieldData(qid)
 				};
 				
-				$('.continue-button').css('background-position','-298px -47px');
-				$(this).prepend('<span class="loading"></span>');
+				// $('.continue-button').css('background-position','-298px -47px');
+				// $(this).prepend('<span class="loading"></span>');
 
 				click_continue_allowed = false;
 				socket.emit('question', data);
@@ -453,7 +456,7 @@ Viewer.interview = (function() {
 		});	
 
 		// listen for when the login is clicked
-		$("#ltf-login").live("submit", function (e) {
+		$("body").on('click', "#ltf-login", function () {
 			// show the login spinner
 			$("#ltf-loader").css('display','inline-block');
 
@@ -510,7 +513,7 @@ Viewer.interview = (function() {
 		});	
 
 		// listen for when the register form is trying to be submitted
-		$("#ltf-register").live("submit", function (e) {
+		$("body").on('click', "#ltf-register", function () {
 			// show the login spinner
 			$("#ltf-r-loader").css('display','inline-block');
 
@@ -566,7 +569,7 @@ Viewer.interview = (function() {
 		});	
 
 		// when the user clicks the save button for an interview
-		$("#vfh-save").live("click", function () {
+		$("body").on('click', "#vfh-save", function () {
 			if (save) {
 				var socket = Viewer.socket.getSocket();
 				var interview = $('#interview-id').html();
@@ -586,7 +589,7 @@ Viewer.interview = (function() {
 		});	
 
 		// listen for when the finish button is clicked
-		$("#finish-interview").live("click", function () {
+		$("body").on('click', "#finish-interview", function () {
 			if (finish_interview_allowed) {
 				var interview = $('#interview-id').html();
 				var qid = $(this).html();
@@ -609,12 +612,12 @@ Viewer.interview = (function() {
 		});	
 
 		// exit an interview without processing
-		$("#exit-interview").live("click", function () {
+		$("body").on('click', "#exit-interview", function () {
 			window.location.replace(BASE_URL);
 		});	
 
 		// when the very last question with the send button is clicked
-		$("#complete-interview").live("click", function () {
+		$("body").on('click', "#complete-interview", function () {
 			if (complete_interview_allowed) {
 				var interview = $('#interview-id').html();
 				var socket = Viewer.socket.getSocket();
@@ -666,7 +669,7 @@ Viewer.interview = (function() {
 		});
 
 		// when we focus on a field with an answer
-		$('.id-field').live('click', function () {
+		$("body").on('click', ".id-field", function () {
 			var split = this.id.split(":");
 			var name = split[0];
 			var container = $("#" + name + "-var-container");
@@ -677,7 +680,7 @@ Viewer.interview = (function() {
 		});
 
 		// listen when a check box is clicked, which has a NOTA in the list
-		$('.id-cb').live('click', function () {
+		$("body").on('click', ".id-cb", function () {
 			// get the name of the field by splitting before the dash (name-4)
 			var name = this.id.split('-')[0];
 
@@ -688,7 +691,7 @@ Viewer.interview = (function() {
 		});
 
 		// listen when the nota check box is clicked
-		$("input[id$='-nota']").live('click', function () {
+		$("body").on('click', "input[id$='-nota']", function () {
 			var name = this.id.split('-')[0];
 
 			// when we click on the nota, we need to remove the check from every other box
@@ -700,7 +703,7 @@ Viewer.interview = (function() {
 			$(this).attr('checked', true);
 		});
 
-		$("#header .scale ul li").click(function () {
+		$("body").on('click', "#header .scale ul li", function () {
 			var size = $(this).attr("class");
 
 			if (size === "small") {
@@ -712,16 +715,16 @@ Viewer.interview = (function() {
 			}
 		});	
 
-		$(".learnmore-button").live('click', function () {
-			if ($("#lmt").is(":visible")) {
-				$(this).css('background-position','-700px -7px');
-			} else {
-				$(this).css('background-position','-700px -56px');
-			}
-			$("#lmt").slideToggle("fast");
-		});	
+		// $("body").on('click', ".learnmore-button", function () {
+		// 	if ($("#lmt").is(":visible")) {
+		// 		$(this).css('background-position','-700px -7px');
+		// 	} else {
+		// 		$(this).css('background-position','-700px -56px');
+		// 	}
+		// 	$("#lmt").slideToggle("fast");
+		// });	
 
-		$(".prompt a, .helpbox a, .learnmore a").live('click', function (e) {
+		$("body").on('click', ".prompt a, .helpbox a", function (e) {
 			var url = $(this).attr("href");
 			window.open(url);
 			e.preventDefault();
@@ -804,7 +807,7 @@ Viewer.interview = (function() {
 				$(this).css('position','static');
 			});
 
-			$(".question").fadeOut("fast", function () {
+			$("#question").fadeOut("fast", function () {
 				$(this).empty().html(question.content);
 				$(this).fadeIn("fast",function () {
 					// ie8 hack
@@ -820,6 +823,11 @@ Viewer.interview = (function() {
 
 				// only when the question is displayed can we issue the back button
 				back = true; 
+			});
+
+			$(".learnmore").fadeOut("fast", function () {
+				$(this).empty().html(question.learnmore);
+				$(this).fadeIn("fast");
 			});
 		},
 
@@ -839,54 +847,59 @@ Viewer.interview = (function() {
 		},
 
 		datePicker: function (pickers) {
+
+			if (!pickers) {
+				return;
+			}
 			// if there is a date field, we need to build the picker and show it
 			var dp;
 
-			if (pickers) {
-				for (var i = 0; i < pickers.length; i+=1) {
-					dp = $( "#" + pickers[i].name + "_picker" );
-					// this has to be initialized first 
-					dp.datepicker();
-					dp.datepicker('option', 'changeMonth', true);
-					dp.datepicker('option', 'changeYear', true);
-					dp.datepicker('option', 'yearRange', "1900:2100"); // these have to be set in order to sue monDate and MaxDate correctly
 
-					// this sets the format to whatever is given
-					if (pickers[i].format) {
-						dp.datepicker('option', 'dateFormat', pickers[i].format);
-					}
+			for (var i = 0; i < pickers.length; i+=1) {
+				dp = $( "#" + pickers[i].name + "_picker" );
+				// this has to be initialized first 
+				dp.datepicker();
+				dp.datepicker('option', 'changeMonth', true);
+				dp.datepicker('option', 'changeYear', true);
+				// these have to be set in order to sue monDate and MaxDate correctly
+				dp.datepicker('option', 'yearRange', "1900:2100"); 
 
-					for (var key in pickers[i].validation) {
-						if (pickers[i].validation.hasOwnProperty(key)) {
-							if (key === 'min_date') {
-								dp.datepicker('option', 'minDate', pickers[i].validation[key]);
-							} else if (key === 'max_date') {
-								if (pickers[i].validation[key].toUpperCase() === 'TODAY') {
-									dp.datepicker('option', 'maxDate', '0');
-								} else {
-									dp.datepicker('option', 'maxDate', pickers[i].validation[key]);
-								}
+				// this sets the format to whatever is given
+				if (pickers[i].format) {
+					dp.datepicker('option', 'dateFormat', pickers[i].format);
+				}
+
+				for (var key in pickers[i].validation) {
+					if (pickers[i].validation.hasOwnProperty(key)) {
+						if (key === 'min_date') {
+							dp.datepicker('option', 'minDate', pickers[i].validation[key]);
+						} else if (key === 'max_date') {
+							if (pickers[i].validation[key].toUpperCase() === 'TODAY') {
+								dp.datepicker('option', 'maxDate', '0');
+							} else {
+								dp.datepicker('option', 'maxDate', pickers[i].validation[key]);
 							}
 						}
 					}
-
-					// THE DEFAULT is for highlighting the date when the pop up opens...it does not set the date in the text field!
-					if (pickers[i].def) {
-						if (pickers[i].def.toUpperCase() === 'TODAY') {
-							dp.datepicker('option', 'defaultDate', null);
-						} else {
-							dp.datepicker('option', 'defaultDate', pickers[i].def);
-						}
-					}
-
-					if (pickers[i].set !== null) {
-						dp.datepicker("setDate", pickers[i].set);
-					}
-
-					// so Google translate doesn't break the date-picker
-					$('.ui-datepicker').addClass('notranslate');
 				}
+
+				// THE DEFAULT is for highlighting the date when the pop up opens...it does not set the date in the text field!
+				if (pickers[i].def) {
+					if (pickers[i].def.toUpperCase() === 'TODAY') {
+						dp.datepicker('option', 'defaultDate', null);
+					} else {
+						dp.datepicker('option', 'defaultDate', pickers[i].def);
+					}
+				}
+
+				if (pickers[i].set !== null) {
+					dp.datepicker("setDate", pickers[i].set);
+				}
+
+				// so Google translate doesn't break the date-picker
+				$('.ui-datepicker').addClass('notranslate');
 			}
+
 		},
 
 		setContinueGate: function (b) {
