@@ -29,7 +29,7 @@ Editor.details.contents.fields.number = (function () {
 
 		output.push('<div class="field-property">');
 		output.push('<div class="b-label">Default: </div>');
-		output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default_number" data-field-index="' + index + '"/>');
+		output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
 		output.push('</div>');
 
 		return output.join('');			
