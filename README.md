@@ -167,3 +167,7 @@ Copyright
 ---------
 
 Copyright 2013 Chris Zieba
+
+Changes
+- updated manager
+  - twitter bootstrap 3.3 default
