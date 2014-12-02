@@ -3,6 +3,14 @@
 
 LogicPull gives you the tools to quickly create advanced question and answer interviews for end-users. The answers are then combined with templates to produce all the documents you need. Take the [tour](https://logicpull.com/tour) to find out more about what LogicPull.
 
+** Version 1.0 Release **
+
+LogicPull is currently being updated and refactored to use udpated packages (See Software Requirements). Other notable improvements:
+
+  * Updated design using Twitter Bootstrap 3
+  * Better logic handling for traversing interviews [Issue #11](https://github.com/ChrisZieba/LogicPull/issues/11)
+  * More unit tests with full coverage of software
+
 Features
 --------
 
@@ -166,8 +174,4 @@ Author
 Copyright
 ---------
 
-Copyright 2013 Chris Zieba
-
-Changes
-- updated manager
-  - twitter bootstrap 3.3 default
+Copyright 2014 Chris Zieba
