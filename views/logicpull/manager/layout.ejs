@@ -6,7 +6,14 @@
 	  	<meta charset="utf-8"/>
 	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	 	<meta name="robots" content="noindex, nofollow" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/javascripts/plugins/metis-menu.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	    <!-- Custom Fonts -->
+	    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<% if (settings.env === 'development') { %>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
 			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
@@ -17,86 +24,138 @@
 	</head>
 
 	<body>
-		<% if (layout === 'dashboard') { %>
-			<% include dashboard %>
-		<% } %>
 
-		<% if (layout === 'add-interview') { %>
-			<% include interviews/add %>
-		<% } %>
+	<div id="wrapper">
+		<div id="topbar-wrapper">
+		sf
+		</div>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       <img src="/images/logo.png" />
+                    </a>
+                </li>
+                <li>
+                    <a href="/manager"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a>
+                </li>
+                <li>
+                    <a href="/manager/interviews"><i class="fa fa-list"></i> &nbsp;Interviews</a>
+                </li>
+                <li>
+                    <a href="/manager/users"><i class="fa fa-users"></i> &nbsp;Users</a>
+                </li>
+                <li>
+                    <a href="/manager/settings"><i class="fa fa-gear"></i> &nbsp;Settings</a>
+                </li>
+                <li>
+                    <a href="/manager/account"><i class="fa fa-user"></i> &nbsp;Account</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
 
-		<% if (layout === 'remove-interview') { %>
-			<% include interviews/remove %>
-		<% } %>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+				<% if (layout === 'dashboard') { %>
+					<% include dashboard %>
+				<% } %>
 
-		<% if (layout === 'interview') { %>
-			<% include interviews/interview %>
-		<% } %>
+				<% if (layout === 'add-interview') { %>
+					<% include interviews/add %>
+				<% } %>
 
-		<% if (layout === 'remove-deliverable') { %>
-			<% include interviews/deliverables/remove %>
-		<% } %>
+				<% if (layout === 'remove-interview') { %>
+					<% include interviews/remove %>
+				<% } %>
 
-		<% if (layout === 'add-deliverable') { %>
-			<% include interviews/deliverables/add %>
-		<% } %>
+				<% if (layout === 'interview') { %>
+					<% include interviews/interview %>
+				<% } %>
 
-		<% if (layout === 'import-interview') { %>
-			<% include interviews/import %>
-		<% } %>
+				<% if (layout === 'remove-deliverable') { %>
+					<% include interviews/deliverables/remove %>
+				<% } %>
 
-		<% if (layout === 'export-interview') { %>
-			<% include interviews/export %>
-		<% } %>
+				<% if (layout === 'add-deliverable') { %>
+					<% include interviews/deliverables/add %>
+				<% } %>
 
-		<% if (layout === 'update-deliverable') { %>
-			<% include interviews/deliverables/update %>
-		<% } %>
+				<% if (layout === 'import-interview') { %>
+					<% include interviews/import %>
+				<% } %>
 
-		<% if (layout === 'lock-interview') { %>
-			<% include interviews/lock %>
-		<% } %>
+				<% if (layout === 'export-interview') { %>
+					<% include interviews/export %>
+				<% } %>
 
-		<% if (layout === 'clone-interview') { %>
-			<% include interviews/clone %>
-		<% } %>
+				<% if (layout === 'update-deliverable') { %>
+					<% include interviews/deliverables/update %>
+				<% } %>
 
-		<% if (layout === 'live-interview') { %>
-			<% include interviews/live %>
-		<% } %>
+				<% if (layout === 'lock-interview') { %>
+					<% include interviews/lock %>
+				<% } %>
 
-		<% if (layout === 'on-complete-interview') { %>
-			<% include interviews/on_complete %>
-		<% } %>
+				<% if (layout === 'clone-interview') { %>
+					<% include interviews/clone %>
+				<% } %>
 
-		<% if (layout === 'completed-interviews') { %>
-			<% include interviews/completed %>
-		<% } %>
+				<% if (layout === 'live-interview') { %>
+					<% include interviews/live %>
+				<% } %>
 
-		<% if (layout === 'report-interview') { %>
-			<% include interviews/report %>
-		<% } %>
+				<% if (layout === 'on-complete-interview') { %>
+					<% include interviews/on_complete %>
+				<% } %>
 
-		<% if (layout === 'users') { %>
-			<% include users/users %>
-		<% } %>
+				<% if (layout === 'completed-interviews') { %>
+					<% include interviews/completed %>
+				<% } %>
 
-		<% if (layout === 'add-users') { %>
-			<% include users/add %>
-		<% } %>
+				<% if (layout === 'interviews') { %>
+					<% include interviews/interviews %>
+				<% } %>
 
-		<% if (layout === 'remove-users') { %>
-			<% include users/remove %>
-		<% } %>
+				<% if (layout === 'report-interview') { %>
+					<% include interviews/report %>
+				<% } %>
 
-		<% if (layout === 'user') { %>
-			<% include users/user %>
-		<% } %>
+				<% if (layout === 'users') { %>
+					<% include users/users %>
+				<% } %>
 
-		<% if (layout === 'error') { %>
-			<% include error %>
-		<% } %>
+				<% if (layout === 'add-users') { %>
+					<% include users/add %>
+				<% } %>
 
-		<script>site.init();</script>
+				<% if (layout === 'remove-users') { %>
+					<% include users/remove %>
+				<% } %>
+
+				<% if (layout === 'user') { %>
+					<% include users/user %>
+				<% } %>
+
+				<% if (layout === 'error') { %>
+					<% include error %>
+				<% } %>
+
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 	</body>
 </html>
