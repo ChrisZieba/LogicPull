@@ -108,7 +108,7 @@ module.exports = function (app) {
 					view('manager/layout', '<ul><li>The input file must be a valid template file.</li><li>The Name of the output must be letters, numbers and/or underscores.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
 				}
 			} else {
-				view('manager/layout', '<ul><li>The input file must be a valid template file.</li><li>PLease make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
+				view('manager/layout', '<ul><li>The input file must be a valid template file.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
 			}
 		} else {
 			// this is a get request...just show the form
@@ -300,10 +300,10 @@ module.exports = function (app) {
 						});	
 					});
 				} else {
-					view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>PLease make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
+					view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
 				}
 			} else {
-				view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>PLease make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
+				view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
 			}
 		} else {
 			// this is a get request...just show the form

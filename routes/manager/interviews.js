@@ -52,6 +52,43 @@ function validateEmails (input) {
 module.exports = function (app) {
 	"use strict";
 
+	app.get('/manager/interviews', [auth.validated], function (req, res) {
+
+		// the group id of the user.. so we can show only the relevant interviews
+		var group_id = req.session.user.group;
+		var user_id = req.session.user.id;
+		var interviews = models.Interviews.find({});
+		var outputs = models.Outputs.find({});
+
+		// make sure the group id of the logged in user matches that from the URL
+		interviews = interviews.where('group').equals(group_id).where('disabled').equals(false);
+		outputs = outputs.where('interview.group').equals(group_id);
+		outputs = outputs.limit(100).sort('-date');
+
+		interviews.exec(function(err, interviews) {
+			if (err) {
+				console.log(err);
+				throw err;
+			}
+
+			outputs.exec(function (err, outputs) {
+				if (err) {
+					console.log(err);
+					throw err;
+				} 
+				// send the output to the view
+				res.render('manager/layout', { 
+					title: 'LogicPull Manager | Interviews',
+					name: req.session.user.name,
+					layout: 'interviews',
+					interviews: interviews,
+					outputs: outputs,
+					user: req.session.user
+				});
+			});
+		});
+	});
+
 	// show an interview page
 	app.get('/manager/interview/:interview', [auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('edit_interviews')], function (req, res) {
 		var data = {
