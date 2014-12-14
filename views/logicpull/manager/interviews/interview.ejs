@@ -1,11 +1,9 @@
 <div class="row">
 	<div class="col-lg-12">
-
 		<h1><%= interview.name %></h1>
-
 		<div class="btn-group margin-20-bottom" role="group">
-			<button type="button" class="btn btn-default"><a href="<%= interview.live_url %>" title="Live Interview">View Interview</a></button>
-			<button type="button" class="btn btn-default"><a href="<%= interview.edit_url %>" title="Edit Interview">Open Editor</a></button>
+			<a class="btn btn-default" href="<%= interview.live_url %>" title="Live Interview">View Interview</a>
+			<a class="btn btn-default" href="<%= interview.edit_url %>" title="Edit Interview">Open Editor</a>
 			<div class="btn-group" role="group">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 					Dropdown
@@ -90,9 +88,7 @@
 		<h2>Deliverables</h2>
 
 		<div class="btn-group" role="group" aria-label="...">
-			<button type="button" class="btn btn-default"><a href="/manager/interview/<%= interview.id %>/deliverables/add" title="Add Deliverable">Add Deliverable</a></button>
-			<button type="button" class="btn btn-default">View Stage</button>
-			<button type="button" class="btn btn-default">Editor</button>
+			<a class="btn btn-default" href="/manager/interview/<%= interview.id %>/deliverables/add" title="Add Deliverable"><i class="fa fa-plus-square"></i> Add Deliverable</a>
 			<div class="btn-group" role="group">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 					Dropdown

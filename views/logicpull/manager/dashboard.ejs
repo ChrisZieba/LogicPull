@@ -9,45 +9,25 @@
 			<button type="button" class="btn btn-default">Right</button>
 		</div> -->
 
-		<% for (var j = 0; j < interviews.length; j++) { %>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><%= interviews[j].name %></h3>
-				</div>
-				<div class="panel-body">
-					Panel content
-				</div>
-			</div>
-		<% } %>
-
-
-		<table class="table table-bordered">
-			<thead class="b">
-				<tr><th colspan="4">Interviews</th></tr>
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Live</th>
-					<th>Options</th>
-				</tr>
-			</thead>
-			<tbody class="a">
-				<% for (var j = 0; j < interviews.length; j++) { %>
-				<tr>
-					<td><a href="/manager/interview/<%= interviews[j].id %>"><%= interviews[j].name %></a></td>
-					<td><%= interviews[j].description %></td>
-					<td><%= interviews[j].live %></td>
-					<td>
-						<ul class="options-menu">
-
-							<li title="Clone this interview" class="clone"><a href="/manager/interviews/clone/<%= interviews[j].id %>">Clone</a></li>
-							<li title="Remove this interview" class="remove"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
+		<ul class="list-group">
+			<% for (var j = 0; j < interviews.length; j++) { %>
+				<li class="list-group-item">
+					<div class="btn-group pull-right">
+						<a class="btn btn-xs btn-default" href="/manager/interview/<%= interviews[j].id %>"><i class="fa fa-gear"></i></a>
+						<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li title="Clone this interview"><a href="/manager/interviews/clone/<%= interviews[j].id %>">Clone</a></li>
+							<li class="divider"></li>
+							<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
 						</ul>
-					</td>
-				</tr>
-				<% } %>
-			</tbody>
-		</table>
+					</div>
+					<a href="/manager/interview/<%= interviews[j].id %>"><%= interviews[j].name %></a>
+				</li>
+			<% } %>
+		</ul>
 
 		<% if (user.privledges['view_completed_interviews']) { %>
 			<table class="table table-bordered">

@@ -2,67 +2,81 @@
 	<div class="col-lg-12">
 
 		<h1>Interviews</h1>
-<!-- 		<hr/>
-		<div class="btn-group" role="group" aria-label="...">
-			<button type="button" class="btn btn-default">Left</button>
-			<button type="button" class="btn btn-default">Middle</button>
-			<button type="button" class="btn btn-default">Right</button>
-		</div> -->
-
-		<div class="row">
-			
-			<% for (var j = 0; j < interviews.length; j++) {
-				if (interviews[j].live) { 
-					panel = "panel-success"; 
-				} else {
-					panel = "panel-default";
-				} 
-			%>
-				<div class="col-md-6">
-					<div class="panel <%= panel %>">
-						<div class="panel-heading clearfix">
-							<div class="btn-group pull-right">
-								<button type="button" class="btn btn-xs btn-default"><a href="/manager/interview/<%= interviews[j].id %>"><i class="fa fa-gear"></i></a></button>
-								<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									<span class="caret"></span>
-									<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li title="Clone this interview"><a href="/manager/interviews/clone/<%= interviews[j].id %>">Clone</a></li>
-									<li class="divider"></li>
-									<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
-								</ul>
-							</div>
-							<h3 class="panel-title"><strong><a href="/manager/interview/<%= interviews[j].id %>"><%= interviews[j].name %></a></strong></h3>
-						</div>
-						<div class="panel-body">
-							Panel content
-
-							<% if (interviews[j].deliverables.length !== 0) { %>
-								<% for (var i=0; i < interviews[j].deliverables.length; i++) { %>
-									<tr>
-										<td><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interviews[j].id %>/<%= interviews[j].deliverables[i].id %>" target="_blank"><%= interviews[j].deliverables[i].input.name %></a>
-											<br/><br/>
-											<strong>Last Modified: </strong><%= interviews[j].deliverables[i].input.modified.toLocaleDateString() %> <%= interviews[j].deliverables[i].input.modified.toLocaleTimeString() %>
-											<br/> 
-											<strong>By: </strong><%= interviews[j].deliverables[i].input.creator.name %>
-										</td>
-										<td><%= interviews[j].deliverables[i].description %></td>
-										<td><%= interviews[j].deliverables[i].output.name %> <strong>(<%= interviews[j].deliverables[i].output.type.toUpperCase() %>)</strong></td>
-										<td>
-											<ul class="options-menu">
-												<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interviews[j].id %>/deliverables/update/<%= i %>">Update</a></li>
-												<li title="Remove this stylesheet" class="remove"><a href="/manager/interview/<%= interviews[j].id %>/deliverables/remove/<%= i %>">Remove</a></li>
-											</ul>
-										</td>
-									</tr>
-								<% } %>
-							<% } %>
-						</div>
-					</div>
-				</div>
-			<% } %>
-			
+		<div class="btn-group margin-20-bottom" role="group">
+			<a class="btn btn-default" href="interviews/add" title="Live Interview"><i class="fa fa-plus-square"></i> Add Interview</a>
 		</div>
+
+		<% for (var j = 0; j < interviews.length; j++) {
+			if (interviews[j].live) { 
+				panel = "panel-success"; 
+			} else {
+				panel = "panel-default";
+			} 
+		%>
+
+		<div class="panel <%= panel %>">
+			<div class="panel-heading clearfix">
+				<div class="btn-group pull-right">
+					<a class="btn btn-xs btn-default" href="/manager/interview/<%= interviews[j].id %>"><i class="fa fa-gear"></i></a>
+					<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li title="Clone this interview"><a href="/manager/interviews/clone/<%= interviews[j].id %>">Clone</a></li>
+						<li class="divider"></li>
+						<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
+					</ul>
+				</div>
+				<h3 class="panel-title"><strong><a href="/manager/interview/<%= interviews[j].id %>"><%= interviews[j].name %></a></strong></h3>
+			</div>
+			<div class="panel-body">
+				<p><%= interviews[j].description %></p>
+
+				<% if (interviews[j].deliverables.length !== 0) { %>
+					<div class="row">
+					<% for (var i=0; i < interviews[j].deliverables.length; i++) { 
+						if (interviews[j].deliverables[i].output.type.toUpperCase() === 'PDF' || interviews[j].deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { 
+							deliverable_type = "fa-file-pdf-o"; 
+						} else {
+							deliverable_type = "fa-file-o";
+						} 
+					%>
+						
+						<div class="col-md-3">
+							<div class="well well-lg interview-deliverable">
+								<div class="media">
+									<div class="media-left">
+										<i class="fa <%= deliverable_type %> fa-4"></i>
+									</div>
+									<div class="media-body">
+										<p><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interviews[j].id %>/<%= interviews[j].deliverables[i].id %>"><%= interviews[j].deliverables[i].input.name %></a></p>
+<!-- 										<p class="light-grey"><i class="fa fa-clock-o"></i> <em><%= interviews[j].deliverables[i].input.modified.toLocaleDateString() %> <%= interviews[j].deliverables[i].input.modified.toLocaleTimeString() %></em></p> -->
+
+
+										<div class="btn-group">
+											<a class="btn btn-xs btn-default" href="/manager/interview/<%= interviews[j].id %>/deliverables/update/<%= i %>">Update</a>
+											<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+												<span class="caret"></span>
+												<span class="sr-only">Toggle Dropdown</span>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li title="Clone this interview"><a href="/manager/interview/<%= interviews[j].id %>/deliverables/update/<%= i %>">Update</a></li>
+												<li class="divider"></li>
+												<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
+											</ul>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					<% } %>
+					</div>
+				<% } %>
+			</div>
+		</div>
+
+			<% } %>
 	</div>
 </div>
