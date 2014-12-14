@@ -118,6 +118,11 @@ h1 {
 	color: green;
 }
 
+.light-grey {
+	color: #999;
+}
+
+
 .panel-title {
 	font-size: 20px;
 }
@@ -144,6 +149,43 @@ h1 {
 
 .margin-20-bottom {
 	margin-bottom: 20px;
+}
+
+.interview-deliverable:hover {
+/*	cursor: pointer;
+	border-color:#ccc;*/
+}
+
+.interview-deliverable .media p {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-ms-word-break: break-all;
+	word-break: break-all;
+
+	/* Non standard for webkit */
+	word-break: break-word;
+
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+
+.interview-deliverable .media-body {
+	font-size: 0.9em;
+	color:#333;
+}
+
+.fa-2 {
+	font-size: 2em;
+}
+
+.fa-3 {
+	font-size: 3em;
+}
+
+.fa-4 {
+	font-size: 4em;
 }
 
 @media(min-width:768px) {
