@@ -42,7 +42,7 @@ function validateEmails (input) {
 	var emails = input.split(',');
 
 	for (var i = 0; i < emails.length; i+=1) {
-		if ( ! validator.check(emails[i], ['email'])) {
+		if ( ! validator.check(emails[i].trim(), ['email'])) {
 			return false;
 		}
 	}
@@ -96,8 +96,8 @@ module.exports = function (app) {
 			name: req.session.user.name,
 			layout:'interview',
 			env: app.settings.env,
-			email_notification: res.locals.interview.on_complete.email_notification.split(','),
-			email_deliverables: res.locals.interview.on_complete.email_deliverables.split(','),
+			email_notification: res.locals.interview.on_complete.email_notification,
+			email_deliverables: res.locals.interview.on_complete.email_deliverables,
 			user: {
 				name: req.session.user.name,
 				email: req.session.user.email
@@ -551,7 +551,7 @@ module.exports = function (app) {
 			interview = req.body.interview;
 
 			models.Interviews.update({id: interview}, { live: live }, function (err) {
-				if(err){
+				if (err) {
 					console.log(err);
 					throw err;
 				} 
@@ -595,19 +595,15 @@ module.exports = function (app) {
 				// this is the interview id
 				interview = req.body.interview;
 
-				if (req.body.email_deliverables_to_client === "on") {
-					email_deliverables_to_client = true;
-				} else {
-					email_deliverables_to_client = false;
-				}
+				email_deliverables_to_client = (req.body.email_deliverables_to_client === "on") ? true : false;
 
 				on_complete = {
 					email_deliverables_to_client: email_deliverables_to_client, 
-					email_notification: email_notification,
-					email_deliverables: email_deliverables						
+					email_notification: (email_notification !== '') ? email_notification : null,
+					email_deliverables: (email_deliverables !== '') ? email_deliverables : null						
 				};
 
-				models.Interviews.update({id: interview}, { on_complete: on_complete }, function (err) {
+				models.Interviews.update({id: interview}, {on_complete: on_complete}, function (err) {
 					if (err) {
 						console.log(err);
 						throw err;
@@ -616,7 +612,7 @@ module.exports = function (app) {
 					res.redirect('/manager/interview/' + interview);
 				});	
 			} else {
-				view('manager/layout', '<p>There were problems with the information you entered.</p><br><ul><li>Any emails you enter must be valid. <strong>If you enter more than one email, they must be seperated by a semi-colon</strong></li></ul>');			
+				view('manager/layout', '<ul><li>Any emails you enter must be valid. <strong>If you enter more than one email, they must be seperated by a comma.</strong></li></ul>');			
 			}
 		} else {
 			view('manager/layout', null);

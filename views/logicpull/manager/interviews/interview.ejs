@@ -6,7 +6,7 @@
 			<a class="btn btn-default" href="<%= interview.edit_url %>" title="Edit Interview">Open Editor</a>
 			<div class="btn-group" role="group">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					Dropdown
+					Options
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
@@ -28,15 +28,14 @@
 					<!-- Default panel contents -->
 					<div class="panel-heading"><strong>Details</strong></div>
 					<div class="panel-body">
-						<p><%= interview.description %><br/>
-							<em><i class="fa fa-time"></i> Created: <%= interview.creation_date.toLocaleDateString() %> <%= interview.creation_date.toLocaleTimeString() %></em>
-						</p>
+						<p><strong>Description:</strong> <%= interview.description %></p>
+						<p><strong>Created:</strong> <%= interview.creation_date.toLocaleDateString() %> <%= interview.creation_date.toLocaleTimeString() %> (<i class="fa fa-user"></i> <%= user.name %> <em><i class="fa fa-email"></i> <%= user.email %></em>)</p>
+						
 					</div>
 
 					<ul class="list-group">
-						<li class="list-group-item"><i class="fa fa-user"></i> <%= user.name %><br><em><i class="fa fa-email"></i> <%= user.email %></em></li>
-						<li class="list-group-item"><i class="fa fa-lock"></i> Locked: <%= interview.locked.toString().toUpperCase() %></li>
-						<li class="list-group-item">Live: <%= interview.live.toString().toUpperCase() %></li>
+						<li class="list-group-item"><strong>Locked:</strong> <%= interview.locked.toString().toUpperCase() %> <a href="/manager/interview/<%= interview.id %>/lock" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a></li>
+						<li class="list-group-item"><strong>Live:</strong> <%= interview.live.toString().toUpperCase() %> <a href="/manager/interview/<%= interview.id %>/live" title="Change Live Status"><i class="fa fa-pencil"></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -46,32 +45,20 @@
 					<!-- Default panel contents -->
 					<div class="panel-heading"><strong>Settings</strong></div>
 					<div class="panel-body">
-					  On Complete:
+					  	<p>On Complete <a href="/manager/interview/<%= interview.id %>/on_complete" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a></p>
 
-					   Email deliverables to client: <%= interview.on_complete.email_deliverables_to_client.toString().toUpperCase() %>
+					  	<p>Email deliverables to client: <%= interview.on_complete.email_deliverables_to_client.toString().toUpperCase() %></p>
 
-		        		 <%  if (email_notification.length) { %>
-		        		 	<div><strong>Email Notification to:</strong></div>
-		    		 		<ul class="m-e-lst">
-		        		 		<% for (var j=0; j < email_notification.length; j++) { %>
-		        		 			<li><%= email_notification[j] %></li>
-		        		 		<% } %>
-		    		 		</ul>
-		    		 		<br/>
+		        		 <%  if (interview.on_complete.email_notification) { %>
+		        		 	<div><strong>Email Notification to:</strong> <%= interview.on_complete.email_notification %></div>
 		        		 <% } else { %>
-		        		 	<div><strong>Email Notification to:</strong> &lt;None&gt;</div><br/>
+		        		 	<div><strong>Email Notifications to:</strong> &lt;None&gt;</div>
 		        		 <% } %>
 
 		        		 <% if (email_deliverables) { %>
-		        		 	<div><strong>Email Deliverables to:</strong></div>
-		    		 		<ul class="m-e-lst">
-		    		 		<% for (var k=0; k < email_deliverables.length; k++) { %>
-		    		 			<li><%= email_deliverables[k] %></li>
-		    		 		<% } %>
-		    		 		</ul>
-		        		 	<br/>
+		        		 	<div><strong>Email Deliverables to:</strong> <%= interview.on_complete.email_deliverables %></div>
 		        		 <% } else { %>
-		        		 	<div><strong>Email Deliverables to: &lt;None&gt;</strong></div><br/>
+		        		 	<div><strong>Email Deliverables to:</strong> &lt;None&gt;</div>
 		        		 <% } %>
 
 					</div>
@@ -81,64 +68,60 @@
 
 		<br/>
 
-
-
-
-
 		<h2>Deliverables</h2>
 
-		<div class="btn-group" role="group" aria-label="...">
+		<div class="btn-group margin-20-bottom" role="group" aria-label="...">
 			<a class="btn btn-default" href="/manager/interview/<%= interview.id %>/deliverables/add" title="Add Deliverable"><i class="fa fa-plus-square"></i> Add Deliverable</a>
-			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					Dropdown
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">Dropdown link</a></li>
-					<li><a href="#">Dropdown link</a></li>
-				</ul>
-			</div>
 		</div>
 
+		<% if (interview.deliverables.length !== 0) { %>
 
-				<table class="interviews-table table">
-					<thead class="a">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Filename</th>
+						<th>Description</th>
+						<th>Output (Type)</th>
+						<th>Options</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<% for (var i=0; i < interview.deliverables.length; i++) { 
+						if (interview.deliverables[i].output.type.toUpperCase() === 'PDF' || interview.deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { 
+							deliverable_type = "fa-file-pdf-o"; 
+						} else {
+							deliverable_type = "fa-file-o";
+						} 
+					%>
 						<tr>
-							<th colspan="6">Deliverables</th>
+							<td>
+								<a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="<%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> (<%= interview.deliverables[i].input.creator.name %>)" target="_blank"><i class="fa <%= deliverable_type %>"></i> <%= interview.deliverables[i].input.name %></a>
+							</td>
+							<td><%= interview.deliverables[i].description %></td>
+							<td><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong></td>
+							<td>
+
+								<div class="btn-group pull-right">
+									
+									<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										<i class="fa fa-gear"></i>
+										<span class="caret"></span>
+										<span class="sr-only">Toggle Dropdown</span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interview.id %>/deliverables/update/<%= i %>">Update</a></li>
+										<li title="Remove this stylesheet" class="remove"><a href="/manager/interview/<%= interview.id %>/deliverables/remove/<%= i %>">Remove</a></li>
+									</ul>
+								</div>
+							</td>
 						</tr>
-						<tr class="b">
-							<th>Filename</th>
-							<th>Description</th>
-							<th>Output (Type)</th>
-							<th>Options</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% if (interview.deliverables.length !== 0) { %>
-							<% for (var i=0; i < interview.deliverables.length; i++) { %>
-								<tr>
-									<td><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" target="_blank"><%= interview.deliverables[i].input.name %></a>
-										<br/><br/>
-										<strong>Last Modified: </strong><%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %>
-										<br/> 
-										<strong>By: </strong><%= interview.deliverables[i].input.creator.name %>
-									</td>
-									<td><%= interview.deliverables[i].description %></td>
-									<td><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong></td>
-									<td>
-										<ul class="options-menu">
-											<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interview.id %>/deliverables/update/<%= i %>">Update</a></li>
-											<li title="Remove this stylesheet" class="remove"><a href="/manager/interview/<%= interview.id %>/deliverables/remove/<%= i %>">Remove</a></li>
-										</ul>
-									</td>
-								</tr>
-							<% } %>
-						<% } else { %>
-								<tr><td colspan="5" class="center">&lt;There are currently no user defined deliverables. This means that when a user completes an interview, only the xml answer set will be generated.&gt;</td></tr>
-						<% } %>
-					</tbody>
-				</table>
+					<% } %>
+				</tbody>
+			</table>
+		<% } else { %>
+			<p>This interview does not have any deliverables.</p>
+		<% } %>
 
 	</div>
 </div>

@@ -1,40 +1,33 @@
-<div id="admin">
-	<% include ../../header %>
-	<div class="contents-container">
-		<div class="contents">
-			<div class="title"><h1>Remove a Deliverable</h1></div>
-			<div class="clear"></div>
-			<div class="side">
-				<h2>Help</h2>
-				<p>When you remove a deliverable, the output document the style sheet generates will no longer be created. You can add this back later if you choose.</p>
-			</div>
-			<div class="wide">
+<div class="row">
+	<div class="col-lg-12">
+
+		<h1>Remove a Deliverable</h1>
+
+		<div class="row">
+			<div class="col-lg-8">
+
 				<p><strong><%= deliverable.name %></strong> - <%= interview.name %> - <%= interview.description %></p>
-				<br>
-				<div class="clear"></div>
-				<form method="post" action="">
-	        		<input type="hidden" name="_csrf" value="<%= token %>"/>
-	        		<input type="hidden" name="interview" value="<%= interview.id %>"/>
-	        		<input type="hidden" name="deliverable" value="<%= deliverable.id %>"/>
-					<table class="add-table table">
-						<tbody class="b">
-				            <tr>
-				            	<td>
-									<p>This action will remove a deliverable from being generated once the interview is completed. A deliverable is just an output file that transforms the answers into a form.</p>
-									<br>
-				            	</td>
-				            </tr>
-						</tbody>
-					</table>
-					<br>
-	        		<input type="submit" name="confirm" value="Yes, I want to delete this deliverable." class="right"/>
-	        		<a class="confirm right" href="/manager/interview/<%= interview.id %> "><span>Cancel, and go Back</span></a>
-					<div class="clear"></div>
+
+				<form role="form" method="post" action="" enctype="multipart/form-data">
+					<input type="hidden" name="_csrf" value="<%= token %>"/>
+					<input type="hidden" name="interview" value="<%= interview.id %>"/>
+					<input type="hidden" name="deliverable" value="<%= deliverable.id %>"/>
+
+					<div class="form-group">
+						<p class="help-block">This action will remove a deliverable from being generated once the interview is completed. A deliverable is just an output file that transforms the answers into a form.</p>
+					</div>
+
+					<button type="submit" class="btn btn-danger">Delete</button>
+					<a class="btn btn-default pull-right" href="/manager/interview/<%= interview.id %>">Cancel</a>
 				</form>
 			</div>
-			<div class="clear"></div>
+
+			<div class="col-lg-4">
+				<div class="well">
+					<h3>Help</h3>
+					<p>When you remove a deliverable, the output document the style sheet generates will no longer be created. You can add this back later if you choose.</p>
+				</div>
+			</div>			
 		</div>
 	</div>
-	<div class="clear"></div>
-</div>
 </div>

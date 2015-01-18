@@ -57,7 +57,11 @@
 							<% } %>
 
 						</td>
-						<td><%= outputs[k].date.toLocaleDateString() %></td>
+						<td>
+							<%= outputs[k].date.toLocaleDateString() %> 
+							<i class="fa fa-clock-o"></i> 
+							<em><%= outputs[k].date.toLocaleTimeString() %></em>
+						</td>
 					</tr>
 					<% } %>
 				</tbody>

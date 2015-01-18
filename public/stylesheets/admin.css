@@ -151,6 +151,10 @@ h1 {
 	margin-bottom: 20px;
 }
 
+.margin-20-top {
+	margin-top: 20px;
+}
+
 .interview-deliverable:hover {
 /*	cursor: pointer;
 	border-color:#ccc;*/

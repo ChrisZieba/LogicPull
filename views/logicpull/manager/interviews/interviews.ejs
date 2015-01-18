@@ -34,44 +34,52 @@
 				<p><%= interviews[j].description %></p>
 
 				<% if (interviews[j].deliverables.length !== 0) { %>
-					<div class="row">
-					<% for (var i=0; i < interviews[j].deliverables.length; i++) { 
-						if (interviews[j].deliverables[i].output.type.toUpperCase() === 'PDF' || interviews[j].deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { 
-							deliverable_type = "fa-file-pdf-o"; 
-						} else {
-							deliverable_type = "fa-file-o";
-						} 
-					%>
-						
-						<div class="col-md-3">
-							<div class="well well-lg interview-deliverable">
-								<div class="media">
-									<div class="media-left">
-										<i class="fa <%= deliverable_type %> fa-4"></i>
-									</div>
-									<div class="media-body">
-										<p><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interviews[j].id %>/<%= interviews[j].deliverables[i].id %>"><%= interviews[j].deliverables[i].input.name %></a></p>
-<!-- 										<p class="light-grey"><i class="fa fa-clock-o"></i> <em><%= interviews[j].deliverables[i].input.modified.toLocaleDateString() %> <%= interviews[j].deliverables[i].input.modified.toLocaleTimeString() %></em></p> -->
+					<div class="">
+						<a class="btn btn-primary" data-toggle="collapse" href="#collapse-deliverables" aria-expanded="false">
+							Deliverables
+						</a>
 
-
-										<div class="btn-group">
-											<a class="btn btn-xs btn-default" href="/manager/interview/<%= interviews[j].id %>/deliverables/update/<%= i %>">Update</a>
-											<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-												<span class="caret"></span>
-												<span class="sr-only">Toggle Dropdown</span>
-											</button>
-											<ul class="dropdown-menu" role="menu">
-												<li title="Clone this interview"><a href="/manager/interview/<%= interviews[j].id %>/deliverables/update/<%= i %>">Update</a></li>
-												<li class="divider"></li>
-												<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
-											</ul>
+					</div>
+					<div class="collapse" id="collapse-deliverables">
+						<div class="row">
+						<% for (var i=0; i < interviews[j].deliverables.length; i++) { 
+							if (interviews[j].deliverables[i].output.type.toUpperCase() === 'PDF' || interviews[j].deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { 
+								deliverable_type = "fa-file-pdf-o"; 
+							} else {
+								deliverable_type = "fa-file-o";
+							} 
+						%>
+							
+							<div class="col-md-3">
+								<div class="well well-lg interview-deliverable">
+									<div class="media">
+										<div class="media-left">
+											<i class="fa <%= deliverable_type %> fa-4"></i>
 										</div>
+										<div class="media-body">
+											<p><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interviews[j].id %>/<%= interviews[j].deliverables[i].id %>"><%= interviews[j].deliverables[i].input.name %></a></p>
+	<!-- 										<p class="light-grey"><i class="fa fa-clock-o"></i> <em><%= interviews[j].deliverables[i].input.modified.toLocaleDateString() %> <%= interviews[j].deliverables[i].input.modified.toLocaleTimeString() %></em></p> -->
 
+
+											<div class="btn-group">
+												<a class="btn btn-xs btn-default" href="/manager/interview/<%= interviews[j].id %>/deliverables/update/<%= i %>">Update</a>
+												<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+													<span class="caret"></span>
+													<span class="sr-only">Toggle Dropdown</span>
+												</button>
+												<ul class="dropdown-menu" role="menu">
+													<li title="Clone this interview"><a href="/manager/interview/<%= interviews[j].id %>/deliverables/update/<%= i %>">Update</a></li>
+													<li class="divider"></li>
+													<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
+												</ul>
+											</div>
+
+										</div>
 									</div>
 								</div>
 							</div>
+						<% } %>
 						</div>
-					<% } %>
 					</div>
 				<% } %>
 			</div>
