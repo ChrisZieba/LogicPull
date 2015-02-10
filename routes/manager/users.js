@@ -58,7 +58,7 @@ module.exports = function (app) {
 						throw err;
 					}
 					// if there is no user for that email OR there is a user but there group is different
-					if ( !user || (user && user.group !== group_id)) {
+					if (!user || (user && user.group !== group_id)) {
 						// look up the group id of the user who is trying to add a new user
 						models.Groups.findOne({ 'id': group_id }, function (err, group) {
 							if (err) {
@@ -109,7 +109,7 @@ module.exports = function (app) {
 								} 
 
 								// only send the email if supported
-								if ( !app.get('disable_email_new_users')) {
+								if (!app.get('disable_email_new_users')) {
 
 									var transport_options = {
 										host: app.get('email_host')
@@ -154,7 +154,7 @@ module.exports = function (app) {
 					}
 				});
 			} else {
-				view('<ul><li>The email field is required and must contain a valid email.</li><li>The password fields must be between 6 and 15 characters, and match.</li></ul>');			
+				view('<ul><li>The email field is required and must contain a valid email.</li></ul>');			
 			}
 		} else {
 			view(null);

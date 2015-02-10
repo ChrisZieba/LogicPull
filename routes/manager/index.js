@@ -196,6 +196,19 @@ module.exports = function (app) {
 		}
 	});
 
+	app.get('/manager/account', [auth.validated], function (req, res) {
+		var group_id = req.session.user.group;
+		var user_id = req.session.user.id;
+
+		// send the output to the view
+		res.render('manager/layout', { 
+			title: 'LogicPull Manager | Account',
+			name: req.session.user.name,
+			layout: 'account',
+			user: req.session.user
+		});
+	});
+
 	// keep this last!
 	app.get('*', function(req, res) {
 		res.status(404).render('manager/404',{

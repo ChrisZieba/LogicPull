@@ -53,8 +53,7 @@ module.exports = function (app) {
 	"use strict";
 
 	app.get('/manager/interviews', [auth.validated], function (req, res) {
-
-		// the group id of the user.. so we can show only the relevant interviews
+		// The group id of the user.. so we can show only the relevant interviews
 		var group_id = req.session.user.group;
 		var user_id = req.session.user.id;
 		var interviews = models.Interviews.find({});
