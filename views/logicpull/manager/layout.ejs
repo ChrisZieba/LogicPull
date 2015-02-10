@@ -13,7 +13,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	    <!-- Custom Fonts -->
-	    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<% if (settings.env === 'development') { %>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
 			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
@@ -26,9 +26,16 @@
 	<body>
 
 	<div id="wrapper">
-		<div id="topbar-wrapper">
-		sf
-		</div>
+<!-- 		<div id="topbar-wrapper">
+			<button id="label1" type="button" class="btn btn-default dropdown-toggle pull-right" data-toggle="dropdown" aria-expanded="false">
+				<span><i class="fa fa-user"></i> <%= name %></span>
+				<span class="caret"></span>
+			</button>
+			<ul class="pull-right dropdown-menu" aria-labelledby="label1">
+				<li><a href="/manager/logout">Logout</a></li>
+			</ul>
+		</div> -->
+
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
@@ -46,9 +53,9 @@
                 <li>
                     <a href="/manager/users"><i class="fa fa-users"></i> &nbsp;Users</a>
                 </li>
-                <li>
+<!--                 <li>
                     <a href="/manager/settings"><i class="fa fa-gear"></i> &nbsp;Settings</a>
-                </li>
+                </li> -->
                 <li>
                     <a href="/manager/account"><i class="fa fa-user"></i> &nbsp;Account</a>
                 </li>
@@ -139,11 +146,13 @@
 					<% include users/user %>
 				<% } %>
 
+				<% if (layout === 'account') { %>
+					<% include account/account %>
+				<% } %>
+
 				<% if (layout === 'error') { %>
 					<% include error %>
 				<% } %>
-
-
             </div>
         </div>
 

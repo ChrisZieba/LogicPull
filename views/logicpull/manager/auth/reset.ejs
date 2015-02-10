@@ -5,68 +5,58 @@
 	  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	  	<title>LogicPull - Reset Password</title>
 	 	<meta name="robots" content="noindex, nofollow" />
-
+	 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<% if (settings.env === 'development') { %>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
+			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
 		<% } else { %>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
-		<% } %>
+			<script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
+		<% } %>	
 	</head>
-	<body>
-		<div id="admin">
-			<div class="header-container">
-				<div class="header">
-					<h1><a href="/manager"><img src="/images/logo.png"></a></h1>
-					<div class="acc"></div>
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="nav-container">
-				<div class="nav">
 
-				</div>	
-			</div>
-			<div class="clear"></div>
-			<div class="contents-container">
-				<div class="contents">
-					<div class="title"><h1>Reset your password</h1></div>
-					<div class="clear"></div>
-					<div class="side">
-						<h2>Help</h2>
-						<p>Your new password must be between 6 and 15 characters. Feel free to use any characters you wish. For more help you can contact <strong>support@logicpull.com</strong></p>
-					</div>
-					<div class="wide">
-						<p>Enter a new password and your account will be reset and you can begin logging in with your newly created password.</p>
-						<br>
-						<% if (msg && ! msg.valid) { %>
-							<div class="error"><%= msg %></div>
-							<div class="clear"></div>
-						<% } %>
-						<form method="post" action="/manager/reset/<%= reset_token %>">
-							<input type="hidden" name="_csrf" value="<%= token %>" />
-							<table class="add-table table">
-								<tbody class="b">
-						            <tr>
-						            	<td>
-						            		<div class="label">New Password:</div>
-						            		<input type="password" name="password" class="ab" maxlength="15" />
-						            	</td>
-						            </tr>
-						            <tr>
-						            	<td>
-						            		<div class="label">Verify:</div>
-						            		<input type="password" name="verify_password" class="ab" maxlength="15" />
-						            	</td>
-						            </tr>
-								</tbody>
-							</table>
-							<div class="clear"></div>
-							<input type="submit" value="Reset Password" class="right" />
-							<br>
-						</form>
-					</div>
-				</div>
-			</div>
+	<body>
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-4 col-md-offset-4">
+		            <div class="panel panel-default login">
+		                <div class="panel-heading"> 
+		                	<strong class="">Reset your Password</strong>
+		                </div>
+		                <div class="panel-body">
+							<% if (msg && ! msg.valid) { %>
+								<div class="alert alert-danger" role="alert">
+									<%= msg %>
+								</div>
+							<% } %>
+
+		                    <form method="post" action="/manager/reset/<%= reset_token %>" class="form-horizontal" role="form">
+		                    	<input type="hidden" name="_csrf" value="<%= token %>"/>
+
+		                        <div class="form-group">
+		                            <label for="inputPassword" class="col-sm-3 control-label">New Password</label>
+		                            <div class="col-sm-9">
+		                                <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" >
+		                                <p class="help-block">Your new password must be between 6 and 15 characters. Feel free to use any characters you wish.</p>
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label for="inputPassword2" class="col-sm-3 control-label">Verify Password</label>
+		                            <div class="col-sm-9">
+		                                <input name="verify_password" type="password" class="form-control" id="inputPassword2" placeholder="Verify Password" >
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <div class="col-sm-offset-3 col-sm-9">
+		                               	<input type="submit" value="Reset Password" class="btn btn-primary" />
+		                            </div>
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
 		</div>
 	</body>
 </html>

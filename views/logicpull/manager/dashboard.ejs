@@ -30,9 +30,10 @@
 		</ul>
 
 		<% if (user.privledges['view_completed_interviews']) { %>
+			<h2>Recently Completed Interviews</h2>
+
 			<table class="table table-bordered">
 				<thead class="b">
-					<tr><th colspan="4">Recently Completed Interviews</th></tr>
 					<tr>
 						<th>Client</th>
 						<th>Interview</th>
@@ -41,7 +42,6 @@
 					</tr>
 				</thead>
 				<tbody class="a">
-
 					<% for (var k = 0; k < outputs.length; k++) { %>
 					<tr>
 						<td style="min-width: 85px;"><%= outputs[k].client_fullname %></td>
@@ -49,7 +49,7 @@
 						<td>
 							<% for (var l = 0; l < outputs[k].deliverables.length; l++) { %>
 								<% if (outputs[k].deliverables[l].type === 'pdf') { 
-									icon = "fa-file-pdf-o red"; 
+									icon = "fa-file-pdf-o"; 
 								} else {
 									icon ="rtf"
 								} %>
@@ -59,7 +59,6 @@
 						</td>
 						<td>
 							<%= outputs[k].date.toLocaleDateString() %> 
-							<i class="fa fa-clock-o"></i> 
 							<em><%= outputs[k].date.toLocaleTimeString() %></em>
 						</td>
 					</tr>

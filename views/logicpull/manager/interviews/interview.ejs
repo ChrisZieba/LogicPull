@@ -29,7 +29,7 @@
 					<div class="panel-heading"><strong>Details</strong></div>
 					<div class="panel-body">
 						<p><strong>Description:</strong> <%= interview.description %></p>
-						<p><strong>Created:</strong> <%= interview.creation_date.toLocaleDateString() %> <%= interview.creation_date.toLocaleTimeString() %> (<i class="fa fa-user"></i> <%= user.name %> <em><i class="fa fa-email"></i> <%= user.email %></em>)</p>
+						<p><strong>Created:</strong> <%= interview.creation_date.toLocaleDateString() %> <em><%= interview.creation_date.toLocaleTimeString() %></em> (<i class="fa fa-user"></i> <%= user.name %> <em><i class="fa fa-email"></i> <%= user.email %></em>)</p>
 						
 					</div>
 
@@ -88,20 +88,31 @@
 				<tbody>
 
 					<% for (var i=0; i < interview.deliverables.length; i++) { 
+						deliverable_type = "fa-file-o";
+
 						if (interview.deliverables[i].output.type.toUpperCase() === 'PDF' || interview.deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { 
 							deliverable_type = "fa-file-pdf-o"; 
-						} else {
-							deliverable_type = "fa-file-o";
 						} 
+
+						if (interview.deliverables[i].output.type.toUpperCase() === 'XML' || interview.deliverables[i].output.type.toUpperCase() === 'XML_MSACCESS') {
+							deliverable_type = "fa-file-code-o";
+						}
+
+						if (interview.deliverables[i].output.type.toUpperCase() === 'RTF' || interview.deliverables[i].output.type.toUpperCase() === 'ODT') {
+							deliverable_type = "fa-file-text-o";
+						}
+
+						if (interview.deliverables[i].output.type.toUpperCase() === 'DOC' || interview.deliverables[i].output.type.toUpperCase() === 'DOCX') {
+							deliverable_type = "fa-file-word-o";
+						}
 					%>
 						<tr>
 							<td>
-								<a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="<%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> (<%= interview.deliverables[i].input.creator.name %>)" target="_blank"><i class="fa <%= deliverable_type %>"></i> <%= interview.deliverables[i].input.name %></a>
+								<a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="Last Modified: <%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> (<%= interview.deliverables[i].input.creator.name %>)" target="_blank"><i class="fa <%= deliverable_type %>"></i> <%= interview.deliverables[i].input.name %></a>
 							</td>
 							<td><%= interview.deliverables[i].description %></td>
 							<td><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong></td>
 							<td>
-
 								<div class="btn-group pull-right">
 									
 									<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
