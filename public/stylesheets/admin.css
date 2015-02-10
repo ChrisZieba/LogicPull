@@ -15,18 +15,11 @@ h1 {
     padding-left: 225px;
 }
 
-#topbar-wrapper {
-    z-index: 1001;
-    position: fixed;
-    left: 0;
-    right:0;
-    height: 65px;
-    overflow-x: auto;
-    background: #222;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+.navbar .container-fluid, .navbar-collapse {
+    padding-left:0;
+}
+.navbar-collapse.in {
+    padding-left:30px;
 }
 
 #sidebar-wrapper {
@@ -192,7 +185,16 @@ h1 {
 	font-size: 4em;
 }
 
-@media(min-width:768px) {
+.login {
+    margin-top: 150px;
+}
+
+.error-template {
+    border:1px solid #e1e1e1; 
+    margin-top:100px
+}
+
+@media (min-width:768px) {
     #wrapper {
         padding-left: 225px;
     }
@@ -214,7 +216,7 @@ h1 {
     }
 
     #page-content-wrapper {
-        padding: 85px 20px 20px 20px;
+        padding: 20px 20px 20px 20px;
 
     }
 
