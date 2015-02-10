@@ -18,9 +18,17 @@
 							<span class="caret"></span>
 							<span class="sr-only">Toggle Dropdown</span>
 						</button>
+
 						<ul class="dropdown-menu" role="menu">
-							<li title="Clone this interview"><a href="/manager/interviews/clone/<%= interviews[j].id %>">Clone</a></li>
+							<li><a href="<%= interviews[j].stage_url %>" title="Staging Area">View Stage</a></li>
+							<li><a href="/manager/interview/<%= interviews[j].id %>/lock" title="Lock/Unlock Interview">Lock/Unlock Interview</a></li>
+							<li><a href="/manager/interview/<%= interviews[j].id %>/report" title="Interview report">View Report</a></li>
+							<li><a href="/manager/interview/<%= interviews[j].id %>/live" title="Change Live Status">Change Live Status</a></li>
+							<li><a href="/manager/interview/<%= interviews[j].id %>/on_complete" title="Edit On Complete options">View Settings</a></li>
+							<li><a href="/manager/interview/<%= interviews[j].id %>/import_interview" title="Import Interview data">Import Interview Data</a></li>
+							<li><a href="/manager/interview/<%= interviews[j].id %>/export_interview" title="Export Interview data">Export Interview Data</a></li>
 							<li class="divider"></li>
+							<li title="Clone this interview"><a href="/manager/interviews/clone/<%= interviews[j].id %>">Clone</a></li>
 							<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
 						</ul>
 					</div>
