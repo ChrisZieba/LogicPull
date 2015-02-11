@@ -80,8 +80,8 @@ Viewer.socket = (function() {
 				Viewer.interview.setInterviewID(packet.id);
 
 				// get rid of the loader
-				$('.continue-button').css('background-position','-298px -8px');
-				$('.finish-button').css('background-position','-432px -8px');
+				$('.continue-button').button('reset')
+				//$('.finish-button').css('background-position','-432px -8px');
 
 				$('.loading').remove();
 				//$('.loading-button').addClass('continue-button button');
@@ -118,24 +118,24 @@ Viewer.socket = (function() {
 				}
 			});
 
-			// this is when the server returns after the interview has been successfully saved
+			// This is the handler when the server returns after the interview has been successfully saved
 			socket.on('saved_progress', function (packet) {
 				// this sets the save variable to true again and allows the save button to be clicked again
 				Viewer.interview.saved(true);
 
 				if (packet.valid) {
 					// the progress was saved successfully
-					$("#note-container").hide();
+					$('#save-interview').modal('hide');
 				} else {
 					alert('Your interview could not be saved at this time. Please try again.');
 				}
 			});
 
+			// Show the user their saved interviews
 			socket.on('open_saved', function (packet) {
 				if (packet.valid) {
-					// now we can show them the saved interviews
-					$("#saves-container #data-payload").html(packet.data);
-					$("#saves-container").show();
+					$("#saves-data-payload").html(packet.data);
+					$('#open-saves').modal();
 				} else {
 					alert('There was a problem retrieving your saved interviews. Please try again.');
 				}
@@ -282,10 +282,10 @@ Viewer.interview = (function() {
 					success: function (res) {
 						if (res.logged_in) {
 							// if we get here the user is logged in and we can show the save popup and add in an optional note
-							$("#note-container").show();
+							$('#save-interview').modal();
 						} else {
 							// the user is not logged in so show them the login form
-							$("#login-container").show();
+							$('#login-register').modal();
 						}
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
@@ -295,7 +295,8 @@ Viewer.interview = (function() {
 			}
 		});
 
-		$('#open').click(function () {
+		// The open folder icon
+		$('#open').click(function (elem) {
 			// if the user is logged in fetch their id and then send it via socket to the server to retrieve the
 			var socket = Viewer.socket.getSocket();
 
@@ -324,7 +325,7 @@ Viewer.interview = (function() {
 							socket.emit('open_saves', data);	
 						} else {
 							// the user is not logged in so show them the login form
-							$("#login-container").show();
+							$('#login-register').modal();
 						}
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
@@ -335,7 +336,6 @@ Viewer.interview = (function() {
 		});
 
 		$('#back').click(function () {
-
 			var socket;
 			// get the value of the progress dropdown..this will tell us what qid we are on, and what index the array is on
 			var progress = document.getElementById('progress'); 
@@ -374,25 +374,19 @@ Viewer.interview = (function() {
 		// when the close button on a popup modal is clicked
 		$("body").on('click', "#l-d-close", function () {
 			// hide the login incase it was shown
-			if ($("#login-container").is(":visible")) {
-				$("#login-container").hide();
-			}
+			$("#login-register").modal('hide');
 		});
 
 		// when the close button on a popup modal is clicked
 		$("body").on('click', "#s-d-close", function () {
 			// hide the login incase it was shown
-			if ($("#saves-container").is(":visible")) {
-				$("#saves-container").hide();
-			}
+			$('#open-saves').modal('hide');
 		});
 
 		// when the close button on a popup modal is clicked
 		$("body").on('click', "#t-d-close", function () {
 			// hide the login incase it was shown
-			if ($("#note-container").is(":visible")) {
-				$("#note-container").hide();
-			}
+			$('#save-interview').modal('hide');
 		});
 
 		// when the close button on a popup modal is clicked
@@ -433,7 +427,6 @@ Viewer.interview = (function() {
 		// listen for when the button to continue is clicked
 		$("body").on('click', ".button", function () {
 
-			console.log(qid)
 			if (click_continue_allowed) {
 				var text_selector = $('.text');
 				var interview = $('#interview-id').html();
@@ -447,8 +440,7 @@ Viewer.interview = (function() {
 					fields: Viewer.interview.collectFieldData(qid)
 				};
 				
-				// $('.continue-button').css('background-position','-298px -47px');
-				// $(this).prepend('<span class="loading"></span>');
+				$(this).button('loading');
 
 				click_continue_allowed = false;
 				socket.emit('question', data);
@@ -456,15 +448,16 @@ Viewer.interview = (function() {
 		});	
 
 		// listen for when the login is clicked
-		$("body").on('click', "#ltf-login", function () {
+		$("body").on('click', "#ltf-login-btn", function (ev) {
 			// show the login spinner
-			$("#ltf-loader").css('display','inline-block');
+			//$("#ltf-loader").css('display','inline-block');
+			$(this).button('loading');
 
 			// this will prevent the form from being uploaded to the server the conventional way
-			e.preventDefault();
+			ev.preventDefault();
 
 			// the form data
-			var data = $(this).serialize();
+			var data = $('#ltf-login').serialize();
 
 			// this logs the user in 
 			$.ajax({
@@ -475,14 +468,14 @@ Viewer.interview = (function() {
 				cache: false,
 				success: function (res) {
 					// get rid of the loader
-					$("#ltf-loader").hide();
+					$('#ltf-login-btn').button('reset');
 
 					if (res.error) {
 						// this means the server did not log us in
 						$("#sf-g-error").html(res.msg).show();
 					} else {
 						// successful login..hide the login incase it was shown
-						$("#login-container").hide();
+						$('#login-register').modal('hide');
 						// hide any errors that may be showing
 						$("#sf-g-error").hide();
 						// clear the form
@@ -500,7 +493,7 @@ Viewer.interview = (function() {
 
 							socket.emit('open_saves', data);	
 						} else {
-							$("#note-container").show();
+							$('#save-interview').modal();
 						}
 					}
 				},
@@ -513,15 +506,15 @@ Viewer.interview = (function() {
 		});	
 
 		// listen for when the register form is trying to be submitted
-		$("body").on('click', "#ltf-register", function () {
+		$("body").on('click', "#ltf-register-btn", function (ev) {
 			// show the login spinner
-			$("#ltf-r-loader").css('display','inline-block');
+			$(this).button('loading');
 
 			// this will prevent the form from being uploaded to the server the conventional way
-			e.preventDefault();
+			ev.preventDefault();
 
 			// the form data
-			var data = $(this).serialize();
+			var data = $('#ltf-register').serialize();
 
 			// this logs the user in 
 			$.ajax({
@@ -532,14 +525,14 @@ Viewer.interview = (function() {
 				cache: false,
 				success: function (res) {
 					// get rid of the loader
-					$("#ltf-r-loader").hide();
+					$('#ltf-register-btn').button('reset');
 
 					if (res.error) {
 						// this means the server did not log us in
 						$("#sf-h-error").html(res.msg).show();
 					} else {
 						// successful login..hide the login incase it was shown
-						$("#login-container").hide();
+						$('#login-register').modal('hide');
 						// hide any errors that may be showing
 						$("#sf-h-error").hide();
 						// clear the form
@@ -556,7 +549,7 @@ Viewer.interview = (function() {
 							};
 							socket.emit('open_saves', data);	
 						} else {
-							$("#note-container").show();
+							$('#save-interview').modal();
 						}
 					}
 				},
@@ -724,10 +717,10 @@ Viewer.interview = (function() {
 		// 	$("#lmt").slideToggle("fast");
 		// });	
 
-		$("body").on('click', ".prompt a, .helpbox a", function (e) {
+		$("body").on('click', ".prompt a, .helpbox a", function (ev) {
 			var url = $(this).attr("href");
 			window.open(url);
-			e.preventDefault();
+			ev.preventDefault();
 			return false;
 		});	
 	};
