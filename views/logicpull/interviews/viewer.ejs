@@ -10,17 +10,10 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/javascripts/plugins/metis-menu.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-	<script>
-		$(window).bind('beforeunload', function(){
-			return 'If you leave this page any unsaved information will be lost.';
-		});
-	</script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	<% if (env === 'development') { %>
 		<script type="text/javascript" src="/javascripts/viewer.js?v=<%= settings.version %>"></script>
@@ -28,378 +21,193 @@
 	<% } else { %>
 		<script type="text/javascript" src="/javascripts/viewer.min.js?v=<%= settings.version %>"></script>
 		<link rel="stylesheet" type="text/css" href="/stylesheets/viewer.min.css?v=<%= settings.version %>" />
+        <script>
+            $(window).bind('beforeunload', function(){
+                return 'If you leave this page any unsaved information will be lost.';
+            });
+        </script>
 	<% } %>
 
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
-<div id="wrapper">
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-<!--                 <a class="navbar-brand" href="index.html">LogicPull</a> -->
-            </div>
-            <!-- /.navbar-header -->
+    <div id="wrapper">
 
-            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-tasks -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"></li>
+
+                <li class="notranslate">&copy; 2012-2014 LogicPull. All Rights Reserved.</li>
+
+<!--                 <li>
+                    <a href="/manager/settings"><i class="fa fa-gear"></i> &nbsp;Settings</a>
+                </li> -->
             </ul>
-            <!-- /.navbar-top-links -->
+        </div>
+        <!-- /#sidebar-wrapper -->
 
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="#">
+                                    <span id="back" class="icon" title="Go back the previous question"><i class="fa fa-arrow-circle-o-left"></i> Back</span>
+                                </a>
+                            </li>
+                        </ul>
+                        
+                           
+                                
+                        <div class="col-md-5">
+                            <select class="form-control" id="progress"></select>
+                        </div>
 
-                        <li>
-                            <a class="active" href="index.html">DISCLAIMER</a>
-                        </li>
-                        <li>
-                            <a href="#">APPLICANT BASIC INFO<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="flot.html">Flot Charts</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">Morris.js Charts</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="tables.html">APPLICANT DETAIL INFO</a>
-                        </li>
-                        <li>
-                            <a href="forms.html">APPLICANT'S ARRIVAL DETAILS</a>
-                        </li>
-                        <li>
-                            <a href="#">SIMILARLY-SITUATED PERSONS<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#">BASIS OF FEAR<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#">FLIGHT ALTERNATIVES<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#">ADDITIONAL INFO<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
+                        <div id="fraction" class="fractional-d notranslate">...</div>
+                            
+                        
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a id="open" href="#">
+                                    <span class="icon" title="Open a previously saved interview"><i class="fa fa-folder-open-o"></i></span>
+                                </a>
 
-        <div id="page-wrapper">
+                                <div class="modal fade" id="open-saves" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h3 class="modal-title" id="myModalLabel">Saved Interviews</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="saves-data-payload"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </li>
+                            <li>
+                                <a id="save" href="#">
+                                    <span class="icon" title="Save your interview and complete it at a later time"><i class="fa fa-save"></i></span>
+                                </a>
+
+                                <div class="modal fade" id="save-interview" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h3 class="modal-title" id="myModalLabel">Save Interview</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label>Optional Note:</label>
+                                                    <textarea name="t-d-note" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" id="vfh-save" class="btn btn-primary">Save Interview</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User <span class="caret"></span></a>
+
+                                <div class="modal fade" id="login-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h3 class="modal-title" id="myModalLabel">Login or Register</h3>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <form id="ltf-login" class="well" method="post" action="/login" role="form">
+                                                            <input type="hidden" name="_csrf" value="<%= token %>"/>
+                                                            <div id="sf-g-error" class="none alert alert-danger"></div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Email</label>
+                                                                <input name="email" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="exampleInputPassword1">Password</label>
+                                                                <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                                            </div>
+                                                            <button id="ltf-login-btn" data-loading-text="Loading..." autocomplete="off" type="submit" class="btn btn-default btn-sm">Login</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <form id="ltf-register" class="well" method="post" action="/post/register" role="form">
+                                                            <input type="hidden" name="_csrf" value="<%= token %>"/>
+                                                            <div id="sf-h-error" class="none alert alert-danger"></div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Email</label>
+                                                                <input name="email" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="exampleInputPassword1">Password</label>
+                                                                <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="exampleInputPassword2">Verify Password</label>
+                                                                <input name="verify_password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Verify Password">
+                                                            </div>
+                                                            <button id="ltf-register-btn" data-loading-text="Loading..." autocomplete="off" type="submit" class="btn btn-primary btn-sm">Register</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/interviews/logout">Logout</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+
             <div class="row">
                 <div class="col-lg-6">
-
-					<div id="question" class="row"><div style="text-align:center;">Loading Interview ...</div></div>
-
+                    <div id="question" class="row"><div style="text-align:center;">Loading Interview ...</div></div>
                 </div>
                 <div class="col-lg-6">
                    <div class="learnmore"></div>
                 </div>
-	
+    
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /#page-wrapper -->
-        <div class="footer">
-        	<p class="disclaimer">LogicPull 2014. v0.9.746</p>
-        </div>
-</div>
-    <!-- /#wrapper -->
+
+    </div>
 
 	<div id="vars" class="none">
 		<div id="interview-id" class="notranslate"><%= id %></div>
@@ -408,26 +216,6 @@
 	<script>
 		window.onload = function() {
 			Viewer.interview.init();
-			$('#side-menu').metisMenu();
-
-
-		    // $(window).bind("load resize", function() {
-		    //     topOffset = 50;
-		    //     width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
-		    //     if (width < 768) {
-		    //         $('div.navbar-collapse').addClass('collapse')
-		    //         topOffset = 100; // 2-row-menu
-		    //     } else {
-		    //         $('div.navbar-collapse').removeClass('collapse')
-		    //     }
-
-		    //     height = (this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height;
-		    //     height = height - topOffset;
-		    //     if (height < 1) height = 1;
-		    //     if (height > topOffset) {
-		    //         $("#page-wrapper").css("min-height", (height) + "px");
-		    //     }
-		    // })
 		};
 	</script>
 </body>
@@ -435,93 +223,7 @@
 
 <!-- <body>
 	<div id="wrapper">
-		<div id="login-container">
-			<div class="cover"></div>
-			<div class="popup-container">
-				<div class="toolbar">
-					<span>You need to login or register first</span>
-					<div id="l-d-close" class="close">x</div>
-				</div>
-				<div class="popup">
-					<div class="section divide">
-						<h3>REGISTER</h3>
-						<p class="tagline">We will only use your email if you ever reset your password.</p>
-						<form id="ltf-register" method="post" action="/post/register">
-							<input type="hidden" name="_csrf" value="<%= token %>"/>
-							<ul>
-								<li><div id="sf-h-error" class="error"></div></li>
-								<li>
-									<label>Email:</label>
-									<input type="text" name="email" class="textfield">
-								</li>
-								<li>
-									<label>Password:</label>
-									<input type="password" name="password" class="textfield">
-								</li>
-								<li>
-									<label>Verify Password:</label>
-									<input type="password" name="verify_password" class="textfield">
-								</li>
-								<li>
-									<input type="submit" value="Create a new account" />
-									<span id="ltf-r-loader" class="login-loader"></span>
-								</li>
-							</ul>
-						</form>
-					</div>
-					<div class="section">
-						<h3>LOGIN</h3>
-						<p class="tagline">If you have lost or forgotton your password, it can be <a href="/interviews/reset" target="_blank" class="recover-password">reset here</a>.</p>
-						<form id="ltf-login" method="post" action="/login">
-							<input type="hidden" name="_csrf" value="<%= token %>" />
-							<ul>
-								<li><div id="sf-g-error" class="error"></div></li>
-								<li>
-									<label>Email:</label>
-									<input type="text" name="email" class="textfield" />
-								</li>
-								<li>
-									<label>Password:</label>
-									<input type="password" name="password" class="textfield" />
-								</li>
-								<li>
-									<input type="submit" value="Login" />
-									<span id="ltf-loader" class="login-loader"></span>
-								</li>
 
-							</ul>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="saves-container">
-			<div class="cover"></div>
-			<div class="popup-container">
-				<div class="toolbar">
-					<span>Your Saved Interviews</span>
-					<div id="s-d-close" class="close">x</div>
-				</div>
-				<div class="popup">
-					<p>If you choose to load an existing interview, your current interview will be lost, <strong>unless you save it first</strong>. </p><br>
-					<div id="data-payload"></div>
-				</div>
-			</div>
-		</div>
-		<div id="note-container">
-			<div class="cover"></div>
-			<div class="popup-container">
-				<div class="toolbar">
-					<span>Save your current interview</span>
-					<div id="t-d-close" class="close">x</div>
-				</div>
-				<div class="popup">
-					<p>You can add an <strong>optional</strong> note to your saved interview. If you save many interviews in a day, a note will help you distinguish between them.</p><br>
-					<textarea name="t-d-note" class="note"></textarea>
-					<div id="vfh-save" class="pr-btn">Save</div>
-				</div>
-			</div>
-		</div>
 		<div id="youtube-container">
 			<div class="cover"></div>
 			<div class="popup-container">
@@ -543,28 +245,12 @@
 				<div id="back" class="icon" title="Go back the previous question">Back</div>
 				<div class="history">
 					<select id="progress"></select>
-
 				</div>
 				<div id="fraction" class="fractional-d notranslate">...</div>
 				<div id="open" class="icon" title="Open a previously saved interview">Open</div>
 				<div id="save" class="icon" title="Save your interview and complete it at a later time">Save</div>
 			</div>
 		</div>
-		<div class="clear"></div>
-		<div class="container">
-			<div id="main">
-				<div class="question"><div style="text-align:center;">Loading Interview ...</div></div>
-			</div>
-		</div>
-		<div class="footer-container">
-			<div class="footer">
-				<ul class="legal">
-					<li class="notranslate">&copy; 2012-2014 LogicPull. All Rights Reserved.</li>
-					<li><a href="/">Help</a></li>
-					<li><a href="/interviews/logout">Logout</a></li>
-				</ul>
 
-				<div class="disclaimer"><strong>Disclaimer:</strong> The information contained in this website is for general information purposes only. Any reliance you place on such information is therefore strictly at your own risk. In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss.</div>
-			</div>
-		</div>
+
 	</div> <!-- wrapper -->
