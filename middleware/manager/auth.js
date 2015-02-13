@@ -95,6 +95,39 @@ exports.validateInterview = function (req, res, next) {
 };
 
 /**
+ * This gets called before showing a user.
+ *
+ */
+exports.validateUser = function (req, res, next) {
+	// this is the id of the interview the user is trying to view
+	var user = req.params.user;
+
+	// validate the id, if its not valid we don't even bother checking the privileges
+	if (!validator.check(sanitizor.clean(user), ['required','integer'])) {
+		res.status(404).render('manager/404', { name: '', title: '404' });
+		return;
+	}
+
+	// if the input is valid, get the data for the interview being requested
+	models.Users.findOne({ 'id': user }, function (err, doc) {
+		if (err) {
+			console.log(err);
+			throw err;
+		} 
+		// check to see if anything was returned
+		if (!doc) {
+			res.status(404).render('manager/404', { name: '', title: '404' });
+			return;
+		}
+
+		// attach the interview data to the locals object, so we don't have to query the database again
+		res.locals.user = doc;
+		next();
+	});
+
+};
+
+/**
  * This function checks to make sure that the interview a user is trying to view (in admin) is from the same group
  *
  */
@@ -172,6 +205,7 @@ exports.privledges = function (privledge) {
 			case 'edit_user':
 			case 'add_user':
 			case 'remove_user':
+			case 'reset_user_password':
 				back_link = '/manager/users';
 				break;
 		}
@@ -184,9 +218,13 @@ exports.privledges = function (privledge) {
 			if (id === res.locals.interview.creator) {
 				next();
 			} else {
-				res.redirect('/manager/error');                    
+				if (granted) {
+					next();
+				} else {
+					res.redirect('/manager/error');                    
+				}
 			}
-		}else {
+		} else {
 			if (granted) {
 				next();
 			} else {
