@@ -120,6 +120,7 @@ var user_schema = new Schema({
 	group : { type: Number, required: true },
 	privledges : { type: Schema.Types.Mixed, required: true },
 	created: { type: Date, default: Date.now },
+	last_login: { type: Date, default: Date.now },
 	reset_date: { type: Date, required: false },
 	reset_token :  { type: String, required: false }
 });
