@@ -57,6 +57,7 @@ db.users.insert({
         "download_answer_set": true,
         "view_report": true,
         "view_completed_interviews": true,
+        "view_saved_interviews": true,
         "edit_on_complete": true,
         "editor_save": true
     },
