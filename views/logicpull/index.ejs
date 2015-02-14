@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title><%= title %></title>
+	  	<meta charset="utf-8"/>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	 	<meta name="robots" content="noindex, nofollow" />
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	    <!-- Custom Fonts -->
+	    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<% if (settings.env === 'development') { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/interviews.css?v=<%= settings.version %>">
+		<% } else { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/interviews.min.css?v=<%= settings.version %>">
+		<% } %>	
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="header">
+				<nav>
+					<ul class="nav nav-pills pull-right">
+						<li role="presentation" class="active"><a href="/">Home</a></li>
+						<li role="presentation"><a href="/manager">Manager</a></li>
+						<li role="presentation"><a href="/admin">Admin</a></li>
+					</ul>
+				</nav>
+				<h3 class="text-muted"><img src="/images/viewer/logo.png" /></h3>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<% if (interviews.length != 0) { %>
+						<% for (var j = 0; j < interviews.length; j++) { %>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title"><a href="<%= interviews[j].live_url %>"><%= interviews[j].name %></a></h3>
+								</div>
+								<div class="panel-body">
+									<p><%= interviews[j].description %></p>
+								</div>
+							</div>
+						<% } %>
+					<% } else { %>
+						<div class="jumbotron" style="text-align: center;">
+							<h1>Welcome to LogicPull!</h1>
+							<p class="lead">There are no interviews yet. You can add them by logging into the manager.</p>
+							<p><a class="btn btn-lg btn-success" href="/manager" role="button">Go to the Manager</a></p>
+						</div>
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
