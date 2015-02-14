@@ -24,6 +24,22 @@ module.exports = function (app) {
 	"use strict";
 
 	app.get('/', function (req, res) {
-		res.redirect('/manager');
+		var interviews = models.Interviews.find({});
+
+		// make sure the group id of the logged in user matches that from the URL
+		interviews = interviews.where('disabled').equals(false).where('live').equals(true);
+		interviews.exec(function(err, interviews) {
+			if (err) {
+				console.log(err);
+				throw err;
+			}
+
+			// send the output to the view
+			res.render('index', { 
+				title: 'LogicPull',
+				layout: 'interviews',
+				interviews: interviews,
+			});
+		});
 	});
 };

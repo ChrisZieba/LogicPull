@@ -41,7 +41,7 @@ module.exports = function (app) {
 			var interview = res.locals.interview;
 
 			// validate the input that came from the form, and make sure a file was chosen for upload
-			if (validator.check(sanitizor.clean(req.body.description), ['required',{'maxlength': 100}]) && validator.check(sanitizor.clean(req.body.outname), ['required','variable',{'maxlength': 35}]) && req.files.file ) {
+			if (validator.check(sanitizor.clean(req.body.description), ['required',{'maxlength': 100}]) && validator.check(sanitizor.clean(req.body.outname), ['required','filename',{'maxlength': 35}]) && req.files.file ) {
 				// have to do another check here for the filename 
 				if (req.files.file.name !== '' && req.files.file.size !== 0) {
 					// this will move the uploaded file from the tmp folder to the uploads folder
@@ -130,7 +130,7 @@ module.exports = function (app) {
 
 			// update the database
 			models.Interviews.update({id: interview}, { deliverables: deliverables }, function (err) {
-				if(err){
+				if (err){
 					console.log(err);
 					throw err;
 				} 

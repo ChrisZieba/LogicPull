@@ -24,11 +24,8 @@ module.exports = function (app) {
 
 	// View the users page
 	app.get('/manager/users', [auth.validated, auth.privledges('view_users')], function (req, res) {
-		// we need the group so we an gather all the users from the same group
-		var group_id = req.session.user.group;
-
 		// get all the interviews from the database and feed the info to the layout
-		models.Users.find({}).where('group').equals(group_id).exec(function (err, users) {
+		models.Users.find({}).exec(function (err, users) {
 			if (err) {
 				console.log(err);
 				throw err;
@@ -88,7 +85,8 @@ module.exports = function (app) {
 								"download_stylesheet": (req.body.download_stylesheet === 'on') ? true : false,
 								"download_answer_set": (req.body.download_answer_set === 'on') ? true : false,
 								"view_report": (req.body.view_report === 'on') ? true : false,
-								"view_completed_interviews": (req.body.view_completed_interviews === 'on') ? true : false,	
+								"view_completed_interviews": (req.body.view_completed_interviews === 'on') ? true : false,
+								"view_saved_interviews": (req.body.view_saved_interviews === 'on') ? true : false,
 								"edit_on_complete": (req.body.edit_on_complete === 'on') ? true : false,
 								"editor_save": (req.body.editor_save === 'on') ? true : false				
 							};
@@ -349,15 +347,21 @@ module.exports = function (app) {
 						"download_stylesheet": (req.body.download_stylesheet === 'on') ? true : false,
 						"download_answer_set": (req.body.download_answer_set === 'on') ? true : false,
 						"view_report": (req.body.view_report === 'on') ? true : false,
-						"view_completed_interviews": (req.body.view_completed_interviews === 'on') ? true : false,	
+						"view_completed_interviews": (req.body.view_completed_interviews === 'on') ? true : false,
+						"view_saved_interviews": (req.body.view_saved_interviews === 'on') ? true : false,
 						"edit_on_complete": (req.body.edit_on_complete === 'on') ? true : false,
 						"editor_save": (req.body.editor_save === 'on') ? true : false				
 					};
+
+					// The edit page has an option to give non-manager users access to the manager. 
+					// Non-manager users are created when saving an interview.
+					var group = (req.body.manager_access === 'on') ? req.session.user.group : 0;
 
 					//update the counter in the database
 					models.Users.update({id: user.id}, {
 						name: clean_name,
 						email: clean_email,
+						group: group,
 						privledges: privledges
 					}, function (err) {
 						if (err) {

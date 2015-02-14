@@ -36,13 +36,13 @@ module.exports = function (app) {
 		outputs = outputs.limit(100).sort('-date');
 
 		interviews.exec(function(err, interviews) {
-			if(err) {
+			if (err) {
 				console.log(err);
 				throw err;
 			}
 
 			outputs.exec(function (err, outputs) {
-				if(err) {
+				if (err) {
 					console.log(err);
 					throw err;
 				} 
@@ -89,7 +89,10 @@ module.exports = function (app) {
 						var token = require('crypto').createHash('md5').update(user.email + new Date().getTime()).digest("hex");
 
 						// update the user reset info
-						models.Users.update({id:user.id}, {reset_date: new Date(), reset_token: token}, function (err) {
+						models.Users.update({id:user.id}, {
+							reset_date: new Date(), 
+							reset_token: token
+						}, function (err) {
 							if (err) {
 								console.log(err);
 								throw err;
@@ -168,7 +171,11 @@ module.exports = function (app) {
 							throw err;
 						} 
 						// update the password and remove the token from the table
-						models.Users.findOneAndUpdate({id:res.locals.user.id}, {password: hash, reset_token: null, reset_data: null}, function (err, user) {
+						models.Users.findOneAndUpdate({id:res.locals.user.id}, {
+							password: hash, 
+							reset_token: null, 
+							reset_data: null
+						}, function (err, user) {
 							if (err) {
 								console.log(err);
 								throw err;
