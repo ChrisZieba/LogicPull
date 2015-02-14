@@ -1,39 +1,31 @@
-<div id="admin">
-	<% include ../header %>
-	<div class="contents-container">
-	<div class="contents">
-		<div class="title"><h1>Remove an Interview</h1></div>
-		<div class="clear"></div>
-		<div class="span-17 left">
-			<p><strong><%= interview.name %> - </strong><%= interview.description %></p>
-			<br><br>
-			<div class="clear"></div>
-			<form method="post" action="">
-        		<input type="hidden" name="_csrf" value="<%= token %>"/>
-        		<input type="hidden" name="interview" value="<%= interview.id %>"/>
-				<table class="add-table table">
-					<tbody class="b">
-			            <tr>
-			            	<td>
-								<p><strong>This action will remove an entire interview from our system. This includes every output 
-									ever produced from the live interview, the editable graph, and any data that was 
-									attached to the interview. If you are unsure about this, just leave it. 
-									Once removed it is gone forever, and there is no way of getting the data back!</strong></p>
-								<br>
-			            	</td>
-			            </tr>
-					</tbody>
-				</table>
-				<div class="clear"></div>
-        		<input type="submit" name="confirm" value="Yes, I am sure I want to delete this user." class="action"/>
-        		<a class="confirm" href="/manager"><span>Cancel, and go Back</span></a>
-			   	<div class="clear"></div>
+<div class="row">
+	<div class="col-lg-12">
 
-			</form>
+		<h1>Remove a User</h1>
+
+		<div class="row">
+			<div class="col-lg-8">
+
+				<p><strong><%= user.name %></strong> - <%= user.email %></p>
+
+				<% if (msg) { %>
+					<div class="alert alert-danger" role="alert">
+						<%- msg %>
+					</div>
+				<% } %>
+				
+				<form role="form" method="post" action="" enctype="multipart/form-data">
+					<input type="hidden" name="_csrf" value="<%= token %>"/>
+					<input type="hidden" name="user" value="<%= user.id %>"/>
+
+					<div class="form-group">
+						<p class="help-block">This action will remove a user from the system. It is a irreversible action.</p>
+					</div>
+
+					<button type="submit" class="btn btn-danger">Delete User</button>
+					<a class="btn btn-default pull-right" href="/manager/users">Cancel</a>
+				</form>
+			</div>		
 		</div>
-
-		<div class="clear"></div>
 	</div>
-	</div>
-	<div class="clear"></div>
 </div>

@@ -15,6 +15,7 @@
 					<li><a href="/manager/interview/<%= interview.id %>/report" title="Interview report">View Report</a></li>
 					<li><a href="/manager/interview/<%= interview.id %>/live" title="Change Live Status">Change Live Status</a></li>
 					<li><a href="/manager/interview/<%= interview.id %>/on_complete" title="Edit On Complete options">View Settings</a></li>
+					<li><a href="/manager/interview/<%= interview.id %>/completed" title="Completed">View Completed</a></li>
 					<li><a href="/manager/interview/<%= interview.id %>/import_interview" title="Import Interview data">Import Interview Data</a></li>
 					<li><a href="/manager/interview/<%= interview.id %>/export_interview" title="Export Interview data">Export Interview Data</a></li>
 				</ul>
@@ -28,7 +29,7 @@
 					<!-- Default panel contents -->
 					<div class="panel-heading"><strong>Details</strong></div>
 					<div class="panel-body">
-						<p><strong>Description:</strong> <%= interview.description %></p>
+						<p><strong>Description:</strong> <%= interview.description %> <a href="/manager/interview/<%= interview.id %>/description" title="Edit Description"><i class="fa fa-pencil"></i></a></p>
 						<p><strong>Created:</strong> <%= interview.creation_date.toLocaleDateString() %> <em><%= interview.creation_date.toLocaleTimeString() %></em> (<i class="fa fa-user"></i> <%= user.name %> <em><i class="fa fa-email"></i> <%= user.email %></em>)</p>
 						
 					</div>
@@ -130,7 +131,98 @@
 				</tbody>
 			</table>
 		<% } else { %>
-			<p>This interview does not have any deliverables.</p>
+			<p class="alert alert-warning">This interview does not have any deliverables.</p>
+		<% } %>
+
+		<% if (user.privledges['view_completed_interviews']) { %>
+			<h2>Recently Completed</h2>
+
+			<% if (outputs.length !== 0) { %>
+				<div class="form-group">
+					<a href="/manager/interview/<%= interview.id %>/completed" class="btn btn-default">View More</a>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Client</th>
+								<th>Deliverables</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for (var k = 0; k < outputs.length; k++) { %>
+							<tr>
+								<td><%= outputs[k].client_fullname %></td>
+								<td>
+									<% for (var l = 0; l < outputs[k].deliverables.length; l++) {
+										deliverable_type = "fa-file-o";
+
+										if (outputs[k].deliverables[l].type.toUpperCase() === 'PDF' || outputs[k].deliverables[l].type.toUpperCase() === 'PDF_FORM') { 
+											deliverable_type = "fa-file-pdf-o"; 
+										} 
+
+										if (outputs[k].deliverables[l].type.toUpperCase() === 'XML' || outputs[k].deliverables[l].type.toUpperCase() === 'XML_MSACCESS') {
+											deliverable_type = "fa-file-code-o";
+										}
+
+										if (outputs[k].deliverables[l].type.toUpperCase() === 'RTF' || outputs[k].deliverables[l].type.toUpperCase() === 'ODT') {
+											deliverable_type = "fa-file-text-o";
+										}
+
+										if (outputs[k].deliverables[l].type.toUpperCase() === 'DOC' || outputs[k].deliverables[l].type.toUpperCase() === 'DOCX') {
+											deliverable_type = "fa-file-word-o";
+										}
+									%>
+										<div><i class="fa <%= deliverable_type %>"></i> <a href="/manager/download/deliverable/output/<%= outputs[k].id %>/<%= outputs[k].interview.id %>/<%= outputs[k].deliverables[l].id %>" target="_blank"><%= outputs[k].deliverables[l].name %></a></div>
+									<% } %>
+
+								</td>
+								<td>
+									<%= outputs[k].date.toLocaleDateString() %> <em><%= outputs[k].date.toLocaleTimeString() %></em>
+								</td>
+							</tr>
+							<% } %>
+						</tbody>
+					</table>
+				</div>
+			<% } else { %>
+				<p class="alert alert-warning">This interview has not been completed yet.</p>
+			<% } %>
+		<% } %>
+
+		<% if (user.privledges['view_saved_interviews']) { %>
+			<h2>Recently Saved</h2>
+
+			<% if (saved.length !== 0) { %>
+				<div class="form-group">
+					<a href="/manager/interview/<%= interview.id %>/saved" class="btn btn-default">View More</a>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Description</th>
+								<th>Progress</th>
+								<th>Date Last Saved</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for (var j = 0; j < saved.length; j++) { %>
+							<tr>
+								<td><%= saved[j].user_id %></td>
+								<td><%= saved[j].note %></td>
+								<td><%= saved[j].data.state.distance[saved[j].qid] %></td>
+								<td><%= saved[j].created %></td>
+							</tr>
+							<% } %>
+						</tbody>
+					</table>
+				</div>
+			<% } else { %>
+				<p class="alert alert-warning">This interview has no saves.</p>
+			<% } %>
 		<% } %>
 
 	</div>

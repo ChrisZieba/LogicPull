@@ -1,236 +1,249 @@
-<div id="admin">
+<div class="row">
+	<div class="col-lg-12">
 
-	<% include ../header %>
-	
-	<div class="contents-container">
-		<div class="contents">
-			<div class="title"><h1><%= interview.name %></h1></div>
-			<div class="clear"></div>
-			<% for (var i = 0; i < ordered.length; i++) { var question = interview.data[ordered[i]]; %>
-				<div id="<%= ordered[i] %>" class="qr-ctn">
-					<div class="qr-qid"><%= question.qid %></div>
-					<div class="qr-title"><strong><%= question.name %></strong></div>
-					<div class="qr-step"><%= question.step %></div>
-					<% if (question.question_text) { %>
-						<table class="reports-table table">
-							<thead class="b">
-								<tr><th>Question</th></tr>
-							</thead>
-							<tr>
-								<td><%- question.question_text %></td>
-							</tr>
-						</table>
-					<% } %>
-					<% if (question.learn_more) { %>
-						<% if (question.learn_more.title !== '') { %>
-							<table class="reports-table table">
-								<thead class="b">
-									<tr><th colspan="2">Learn More</th></tr>
-									<tr><th>Title</th><th>Body</th></tr>
-								</thead>
-								<tr>
-									<td><%- question.learn_more.title %></td>
-									<td><%- question.learn_more.body %></td>
-								</tr>
-							</table>
-						<% } %>
-					<% } %>
-					<% if (question.fields.length !== 0) { %>
-						<table class="reports-table table">
-							<thead class="b">
-								<tr><th colspan="9">Fields</th></tr>
-								<tr>
-									<th><strong>Type</strong></th>
-									<th><strong>Name</strong></th>
-									<th><strong>Label</strong></th>
-									<th><strong>Values</strong></th>
-									<th><strong>Default</strong></th>
-									<th><strong>Format</strong></th>
-									<th><strong>Start</strong></th>
-									<th><strong>End</strong></th>
-									<th><strong>Validation</strong></th>
-								</tr>
-							</thead>
-							<% for (var a = 0; a < question.fields.length; a++) {  %>
-								<tr>
-									<td><%= question.fields[a].type %></td>
-									<td><%= question.fields[a].name %></td>
-									<td><%= question.fields[a].label %></td>
-									<td>
-										<% if (question.fields[a].values) { %>
-											<table>
-												<thead class="b"><tr><th><strong>ID</strong></th><th><strong>Label</strong></th></tr></thead>
-												<% for (var b = 0; b < question.fields[a].values.length; b++) {  %>
-													<tr>
-														<td><%= question.fields[a].values[b].id %></td><td><%= question.fields[a].values[b].label %></td>
-													</tr>
-												<% } %>
-											</table>
-										<% } %>
+		<h1><%= interview.name %></h1>
 
-									</td>
-									<td>
-										<% if (question.fields[a].default !== null && typeof question.fields[a].default !== 'undefined') { %>
-											<%= question.fields[a].default %>
-										<% } %>
+		<div class="row">
+			<div class="col-lg-12">
 
-									</td>
-
-									<td>
-										<% if (question.fields[a].format) { %>
-											<%= question.fields[a].format %>
-										<% } %>
-
-									</td>
-
-									<td>
-										<% if (question.fields[a].start) { %>
-											<%= question.fields[a].start %>
-										<% } %>
-
-									</td>
-
-									<td>
-										<% if (question.fields[a].end) { %>
-											<%= question.fields[a].end %>
-										<% } %>
-									</td>
-									<td>
-										<% if (question.fields[a].validation) { %>
-											<table>
-												<% if (question.fields[a].validation.required) { %>
-													<tr>
-														<td class="qr-t-hd">Required</td>
-														<td><%= question.fields[a].validation.required %></td>
-													</tr>
-												<% } %>
-
-
-												<% if (question.fields[a].validation.nota) { %>
-													<tr>
-														<td class="qr-t-hd">NOTA</td>
-														<td><%= question.fields[a].validation.nota %></td>
-													</tr>
-												<% } %>
-
-												<% if (question.fields[a].validation.min_length) { %>
-													<tr>
-														<td class="qr-t-hd">Min Length</td>
-														<td><%= question.fields[a].validation.min_length %></td>
-													</tr>
-												<% } %>
-
-												<% if (question.fields[a].validation.max_length) { %>
-													<tr>
-														<td class="qr-t-hd">Max Length</td>
-														<td><%= question.fields[a].validation.max_length %></td>
-													</tr>
-												<% } %>
-
-												<% if (question.fields[a].validation.less_than) { %>
-													<tr>
-														<td class="qr-t-hd">Less Than</td>
-														<td><%= question.fields[a].validation.less_than %></td>
-													</tr>
-												<% } %>
-
-
-												<% if (question.fields[a].validation.greater_than) { %>
-													<tr>
-														<td class="qr-t-hd">Greater Than</td>
-														<td><%= question.fields[a].validation.greater_than %></td>
-													</tr>
-												<% } %>
-
-												<% if (question.fields[a].validation.min_date) { %>
-													<tr>
-														<td class="qr-t-hd">Min Date</td>
-														<td><%= question.fields[a].validation.min_date %></td>
-													</tr>
-												<% } %>
-
-
-												<% if (question.fields[a].validation.max_date) { %>
-													<tr>
-														<td class="qr-t-hd">Max Date</td>
-														<td><%= question.fields[a].validation.max_date %></td>
-													</tr>
-												<% } %>
-											</table>
-										<% } %>
-									</td>
-								</tr>
+				<% for (var i = 0; i < ordered.length; i++) { var question = interview.data[ordered[i]]; %>
+					<div id="<%= ordered[i] %>" class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><span class="badge"><%= question.qid %></span> <%= question.step %> - <strong><%= question.name %></strong> </h3>
+						</div>
+						<div class="panel-body">
+							<% if (question.question_text) { %>
+								<div class="table-responsive">
+									<table class="table table-bordered">
+										<thead>
+											<tr><th>Question</th></tr>
+										</thead>
+										<tr>
+											<td><%- question.question_text %></td>
+										</tr>
+									</table>
+								</div>
 							<% } %>
-						</table>
-					<% } %>
 
-					<% if (question.advanced.length !== 0) { %>
-						<table class="reports-table table">
-							<thead class="b">
-								<tr><th colspan="3">Advanced</th></tr>
-								<tr><th>Event</th><th>Conditions</th><th>Actions</th></tr>
-							</thead>
-							<% for (var d = 0; d < question.advanced.length; d++) {  %>
-								<tr>
-									<td><%= question.advanced[d].event.toUpperCase() %></td>
-									<td><%= question.advanced[d].condition %></td>
-									<td>
-										<% if (question.advanced[d].actions.length !== 0) { %>	
-											<table>
-												<thead class="b">
-													<tr><th>IF</th><th>Action</th><th>Value</th></tr>
-												</thead>	
-												<% for (var e = 0; e < question.advanced[d].actions.length; e++) {  %>
-													<tr>
-														<td><%= question.advanced[d].actions[e].if.toString().toUpperCase() %></td>
-														<td><%= question.advanced[d].actions[e].action.toUpperCase() %></td>
+							<% if (question.learn_more) { %>
+								<% if (question.learn_more.title !== '') { %>
+									<div class="table-responsive">
+										<table class="table table-bordered">
+											<thead>
+												<tr><th colspan="2">Learn More</th></tr>
+												<tr><th>Title</th><th>Body</th></tr>
+											</thead>
+											<tr>
+												<td><%- question.learn_more.title %></td>
+												<td><%- question.learn_more.body %></td>
+											</tr>
+										</table>
+									</div>
+								<% } %>
+							<% } %>
 
-														<% if (question.advanced[d].actions[e].action === 'set') {%>
-															<td><%= question.advanced[d].actions[e].name %> = <%= question.advanced[d].actions[e].value %></td>
-														<% } else { %>
-															<td>
-																<% if (interview.data[question.advanced[d].actions[e].value]) {%>
-																	<a class="bold" href="#<%= question.advanced[d].actions[e].value %>">
-																		<%= interview.data[question.advanced[d].actions[e].value].name %>
-																	</a>
-																<% } else { %>
-																	none
-																<% } %>
+							<% if (question.fields.length !== 0) { %>
+								<div class="table-responsive">
+									<table class="table table-bordered">
+										<thead>
+											<tr><th colspan="9">Fields</th></tr>
+											<tr>
+												<th><strong>Type</strong></th>
+												<th><strong>Name</strong></th>
+												<th><strong>Label</strong></th>
+												<th><strong>Values</strong></th>
+												<th><strong>Default</strong></th>
+												<th><strong>Format</strong></th>
+												<th><strong>Start</strong></th>
+												<th><strong>End</strong></th>
+												<th><strong>Validation</strong></th>
+											</tr>
+										</thead>
+										<% for (var a = 0; a < question.fields.length; a++) {  %>
+											<tr>
+												<td><%= question.fields[a].type %></td>
+												<td><%= question.fields[a].name %></td>
+												<td><%= question.fields[a].label %></td>
+												<td>
+													<% if (question.fields[a].values) { %>
+														<table class="table">
+															<thead><tr><th><strong>ID</strong></th><th><strong>Label</strong></th></tr></thead>
+															<% for (var b = 0; b < question.fields[a].values.length; b++) {  %>
+																<tr>
+																	<td><%= question.fields[a].values[b].id %></td><td><%= question.fields[a].values[b].label %></td>
+																</tr>
+															<% } %>
+														</table>
+													<% } %>
 
-															</td>
-														<% } %>
-													</tr>
-												<% } %>
-											</table>
+												</td>
+												<td>
+													<% if (question.fields[a].default !== null && typeof question.fields[a].default !== 'undefined') { %>
+														<%= question.fields[a].default %>
+													<% } %>
+
+												</td>
+
+												<td>
+													<% if (question.fields[a].format) { %>
+														<%= question.fields[a].format %>
+													<% } %>
+
+												</td>
+
+												<td>
+													<% if (question.fields[a].start) { %>
+														<%= question.fields[a].start %>
+													<% } %>
+
+												</td>
+
+												<td>
+													<% if (question.fields[a].end) { %>
+														<%= question.fields[a].end %>
+													<% } %>
+												</td>
+												<td>
+													<% if (question.fields[a].validation) { %>
+														<table>
+															<% if (question.fields[a].validation.required) { %>
+																<tr>
+																	<td>Required</td>
+																	<td><%= question.fields[a].validation.required %></td>
+																</tr>
+															<% } %>
+
+
+															<% if (question.fields[a].validation.nota) { %>
+																<tr>
+																	<td>NOTA</td>
+																	<td><%= question.fields[a].validation.nota %></td>
+																</tr>
+															<% } %>
+
+															<% if (question.fields[a].validation.min_length) { %>
+																<tr>
+																	<td>Min Length</td>
+																	<td><%= question.fields[a].validation.min_length %></td>
+																</tr>
+															<% } %>
+
+															<% if (question.fields[a].validation.max_length) { %>
+																<tr>
+																	<td>Max Length</td>
+																	<td><%= question.fields[a].validation.max_length %></td>
+																</tr>
+															<% } %>
+
+															<% if (question.fields[a].validation.less_than) { %>
+																<tr>
+																	<td>Less Than</td>
+																	<td><%= question.fields[a].validation.less_than %></td>
+																</tr>
+															<% } %>
+
+
+															<% if (question.fields[a].validation.greater_than) { %>
+																<tr>
+																	<td>Greater Than</td>
+																	<td><%= question.fields[a].validation.greater_than %></td>
+																</tr>
+															<% } %>
+
+															<% if (question.fields[a].validation.min_date) { %>
+																<tr>
+																	<td>Min Date</td>
+																	<td><%= question.fields[a].validation.min_date %></td>
+																</tr>
+															<% } %>
+
+
+															<% if (question.fields[a].validation.max_date) { %>
+																<tr>
+																	<td>Max Date</td>
+																	<td><%= question.fields[a].validation.max_date %></td>
+																</tr>
+															<% } %>
+														</table>
+													<% } %>
+												</td>
+											</tr>
 										<% } %>
-									</td>
-								</tr>
+									</table>
+								</div>
 							<% } %>
-						</table>
-					<% } %>
 
-					<% if (question.buttons) { %>
-						<table class="reports-table table">
-							<thead class="b">
-								<tr><th colspan="2">Buttons</th></tr>
-								<tr><th>Type</th><th>Destination</th></tr>
-							</thead>
-							<% for (var j = 0; j < question.buttons.length; j++) {  %>
-								<tr>
-									<td>Continue</td>
-									<% if (interview.data[question.buttons[j].destination]) { %>
-										<td><a class="bold" href="#<%= question.buttons[j].destination %>"><%= interview.data[question.buttons[j].destination].name %></a></td>
-									<% } else { %>
-										<td>none</td>
-									<% } %>
-								</tr>
+							<% if (question.advanced.length !== 0) { %>
+								<div class="table-responsive">
+									<table class="table table-bordered">
+										<thead>
+											<tr><th colspan="3">Advanced</th></tr>
+											<tr><th>Event</th><th>Conditions</th><th>Actions</th></tr>
+										</thead>
+										<% for (var d = 0; d < question.advanced.length; d++) {  %>
+											<tr>
+												<td><%= question.advanced[d].event.toUpperCase() %></td>
+												<td><%= question.advanced[d].condition %></td>
+												<td>
+													<% if (question.advanced[d].actions.length !== 0) { %>	
+														<table>
+															<thead>
+																<tr><th>IF</th><th>Action</th><th>Value</th></tr>
+															</thead>	
+															<% for (var e = 0; e < question.advanced[d].actions.length; e++) {  %>
+																<tr>
+																	<td><%= question.advanced[d].actions[e].if.toString().toUpperCase() %></td>
+																	<td><%= question.advanced[d].actions[e].action.toUpperCase() %></td>
+
+																	<% if (question.advanced[d].actions[e].action === 'set') {%>
+																		<td><%= question.advanced[d].actions[e].name %> = <%= question.advanced[d].actions[e].value %></td>
+																	<% } else { %>
+																		<td>
+																			<% if (interview.data[question.advanced[d].actions[e].value]) {%>
+																				<a class="bold" href="#<%= question.advanced[d].actions[e].value %>">
+																					<%= interview.data[question.advanced[d].actions[e].value].name %>
+																				</a>
+																			<% } else { %>
+																				none
+																			<% } %>
+
+																		</td>
+																	<% } %>
+																</tr>
+															<% } %>
+														</table>
+													<% } %>
+												</td>
+											</tr>
+										<% } %>
+									</table>
+								</div>
 							<% } %>
-						</table>
-					<% } %>
-				</div>
-			<% } %>
-			<div class="clear"></div>
+
+							<% if (question.buttons) { %>
+								<div class="table-responsive">
+									<table class="table table-bordered">
+										<thead>
+											<tr><th colspan="2">Buttons</th></tr>
+											<tr><th>Type</th><th>Destination</th></tr>
+										</thead>
+										<% for (var j = 0; j < question.buttons.length; j++) {  %>
+											<tr>
+												<td>Continue</td>
+												<% if (interview.data[question.buttons[j].destination]) { %>
+													<td><a class="bold" href="#<%= question.buttons[j].destination %>"><%= interview.data[question.buttons[j].destination].name %></a></td>
+												<% } else { %>
+													<td>none</td>
+												<% } %>
+											</tr>
+										<% } %>
+									</table>
+								</div>
+							<% } %>
+						</div>
+					</div>
+				<% } %>
+			</div>		
 		</div>
 	</div>
-	<div class="clear"></div>
 </div>

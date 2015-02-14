@@ -24,16 +24,19 @@
 
 	<body>
 
-	<div id="wrapper">
-<!-- 		<div id="topbar-wrapper">
-			<button id="label1" type="button" class="btn btn-default dropdown-toggle pull-right" data-toggle="dropdown" aria-expanded="false">
-				<span><i class="fa fa-user"></i> <%= name %></span>
+	<div id="topnav">
+		<div class="btn-group">
+			<a href="/manager/account" class="btn btn-default"><i class="fa fa-user"></i> <%= name %></a>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 				<span class="caret"></span>
 			</button>
-			<ul class="pull-right dropdown-menu" aria-labelledby="label1">
+			<ul class="dropdown-menu pull-right" role="menu">
 				<li><a href="/manager/logout">Logout</a></li>
 			</ul>
-		</div> -->
+		</div>
+	</div>
+
+	<div id="wrapper">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -81,6 +84,10 @@
 					<% include interviews/interview %>
 				<% } %>
 
+				<% if (layout === 'interview-description') { %>
+					<% include interviews/description %>
+				<% } %>
+
 				<% if (layout === 'remove-deliverable') { %>
 					<% include interviews/deliverables/remove %>
 				<% } %>
@@ -91,6 +98,10 @@
 
 				<% if (layout === 'import-interview') { %>
 					<% include interviews/import %>
+				<% } %>
+
+				<% if (layout === 'saved-interviews') { %>
+					<% include interviews/saved %>
 				<% } %>
 
 				<% if (layout === 'export-interview') { %>
@@ -137,12 +148,16 @@
 					<% include users/add %>
 				<% } %>
 
-				<% if (layout === 'remove-users') { %>
+				<% if (layout === 'edit-user') { %>
+					<% include users/edit %>
+				<% } %>
+
+				<% if (layout === 'remove-user') { %>
 					<% include users/remove %>
 				<% } %>
 
-				<% if (layout === 'user') { %>
-					<% include users/user %>
+				<% if (layout === 'reset-user-password') { %>
+					<% include users/reset_password %>
 				<% } %>
 
 				<% if (layout === 'account') { %>

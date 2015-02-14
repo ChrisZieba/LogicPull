@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-lg-12">
+
+		<h1>Saved Interviews</h1>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<% if (saved.length !== 0) { %>
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>User</th>
+									<th>Description</th>
+									<th>Progress</th>
+									<th>Date Last Saved</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for (var j = 0; j < saved.length; j++) { %>
+								<tr>
+									<td><%= saved[j].user_id %></td>
+									<td><%= saved[j].note %></td>
+									<td><%= saved[j].data.state.distance[saved[j].qid] %></td>
+									<td><%= saved[j].created %></td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
+					</div>
+				<% } else { %>
+					<p class="alert alert-warning">This interview has no saves.</p>
+				<% } %>
+			</div>			
+		</div>
+	</div>
+</div>
