@@ -92,9 +92,7 @@ Viewer.socket = (function() {
 					// if the questions is being loaded from a partial hide the saves container
 					if (packet.partial) {
 						// hide the login incase it was shown
-						if ($("#saves-container").is(":visible")) {
-							$("#saves-container").hide();
-						}
+						$("#open-saves").modal('hide');
 					}
 
 					// this loads in the new question
@@ -202,63 +200,6 @@ Viewer.interview = (function() {
 		// this is used to pass the the value of the drop down when it changes
 		var previous, login_path;
 
-		// the help tooltip
-		$('document').on('click', ".help-tooltip, .field-tooltip", function () {
-			// we need to figure out the best position to show the learn more so its not off the screen
-			var pointer = $(this).children(".pointer");
-			var tooltip = $(this).children(".body");
-			var container = $(".contents .prompt");
-			var container_pos = container.offset();
-			var tooltip_pos = Math.round($(this).offset().left + $(this).width()/2 - tooltip.width()/2);
-
-			// subtract 10 for the width of the pointer div
-			pointer.css('left', Math.round($(this).width()/2) - 14).toggle();
-
-			// check to see if the left edge of the tooltip is outside the container and adjust accrodingly
-			if (tooltip_pos < container_pos.left) {
-				tooltip.css('left', '0px');
-			// check the right edge
-			} else if (parseInt(tooltip_pos + tooltip.width(),10) > parseInt(container_pos.left + container.width(),10)) {
-				tooltip.css('left', '-' + Math.round(tooltip.width() - 65) + 'px');
-			} else {
-				tooltip.css('left', Math.round($(this).width()/2 - tooltip.width()/2));
-			}
-
-			if(tooltip.css("visibility") === "visible") { 
-				tooltip.css({ 'visibility': 'hidden'}); 
-			} else { 
-				tooltip.css({ 'visibility': 'visible'}); 
-			}
-		});
-
-		$("body").on('click', ".lm-display, .lm-data", function () {
-			var target = $('.lm-data');
-
-			if (target.is(':hidden')) {
-				target.show();
-			} else {
-				target.hide();
-			}
-		});
-
-		// when youtube video links are clicked
-		$("body").on('click', ".youtube-popout", function () {
-			var popup = $("#youtube-container .popup");
-			var link = $(this).find('.video-link a:first').attr('href');
-			var width = popup.width();
-			var height = popup.height();
-
-			if (width === '440') {
-				height = '248';
-			} else if (width === '280') {
-				height = '158';
-			}
-
-			// create the embedded video
-			popup.html('<iframe width="' + width + '" height="' + height + '" src="' + link + '" frameborder="0" allowfullscreen></iframe>');
-			$("#youtube-container").show();
-		});
-
 		// this is when the save icon is clicked
 		$('#save').click(function () {
 			var socket = Viewer.socket.getSocket();
@@ -276,7 +217,7 @@ Viewer.interview = (function() {
 				// check if the user is logged in
 				$.ajax({
 					type: 'GET',
-					url: BASE_URL + '/interviews/post/status?d=' + new Date().getTime(),
+					url: BASE_URL + '/admin/post/status?d=' + new Date().getTime(),
 					dataType: 'json',
 					cache: false,
 					success: function (res) {
@@ -306,7 +247,7 @@ Viewer.interview = (function() {
 				// check if the user is logged in
 				$.ajax({
 					type: 'GET',
-					url: BASE_URL + '/interviews/post/status?d=' + new Date().getTime(),
+					url: BASE_URL + '/admin/post/status?d=' + new Date().getTime(),
 					dataType: 'json',
 					cache: false,
 					success: function (res) {
@@ -371,35 +312,6 @@ Viewer.interview = (function() {
 			}
 		});
 
-		// when the close button on a popup modal is clicked
-		$("body").on('click', "#l-d-close", function () {
-			// hide the login incase it was shown
-			$("#login-register").modal('hide');
-		});
-
-		// when the close button on a popup modal is clicked
-		$("body").on('click', "#s-d-close", function () {
-			// hide the login incase it was shown
-			$('#open-saves').modal('hide');
-		});
-
-		// when the close button on a popup modal is clicked
-		$("body").on('click', "#t-d-close", function () {
-			// hide the login incase it was shown
-			$('#save-interview').modal('hide');
-		});
-
-		// when the close button on a popup modal is clicked
-		$("body").on('click', "#y-d-close", function () {
-			// hide the login incase it was shown
-			if ($("#youtube-container").is(":visible")) {
-				// clear out the contents so the video stops playing..ie8 has a black screen so clear the iframe to fix it
-				$("#youtube-container .popup iframe").hide();
-				$("#youtube-container .popup").empty().html('<span></span>');
-				$("#youtube-container").hide();
-			}
-		});
-
 		// when the user clicks an options icon to load a previous 
 		$("body").on('click', ".partial-sav-int", function () {
 			// get the id of the record that corresponds to the saved data in the databases
@@ -417,16 +329,21 @@ Viewer.interview = (function() {
 
 				socket.emit('load_saved', data);
 
-				$('#partial-loading-msg').show();
 				// this makes sure we don't try to load the interview multiple times
 				click_partial_allowed = false;
 			}
 		});
 
+		// when youtube video links are clicked
+		$("body").on('click', ".youtube-modal", function () {
+			var target = $(this).data('target');
+			var content = $(target).find('embed-responsive').first();
+			var link = $(this).attr('href');
+			content.load(link);
+		});
 
 		// listen for when the button to continue is clicked
 		$("body").on('click', ".button", function () {
-
 			if (click_continue_allowed) {
 				var text_selector = $('.text');
 				var interview = $('#interview-id').html();
@@ -462,7 +379,7 @@ Viewer.interview = (function() {
 			// this logs the user in 
 			$.ajax({
 				type: 'POST',
-				url: BASE_URL + '/interviews/ltf_login?d=' + new Date().getTime(),
+				url: BASE_URL + '/admin/ltf_login?d=' + new Date().getTime(),
 				data: data,
 				dataType: 'json',
 				cache: false,
@@ -519,7 +436,7 @@ Viewer.interview = (function() {
 			// this logs the user in 
 			$.ajax({
 				type: 'POST',
-				url: BASE_URL + '/interviews/ltf_register?d=' + new Date().getTime(),
+				url: BASE_URL + '/admin/ltf_register?d=' + new Date().getTime(),
 				data: data,
 				dataType: 'json',
 				cache: false,
@@ -679,7 +596,7 @@ Viewer.interview = (function() {
 
 			// when a checkbox is clicked, check to see if the nota is clicked, and if it is remove the check
 			if ($("#" + name + "-nota").is(":checked")) {
-				$("#" + name + "-nota").attr('checked', false);
+				$("#" + name + "-nota").prop('checked', false);
 			}
 		});
 
@@ -690,35 +607,16 @@ Viewer.interview = (function() {
 			// when we click on the nota, we need to remove the check from every other box
 			$(".id-cb[name='" + name + "']").each(function(index) {
 				if ($(this).is(":checked")) {
-					$(this).attr('checked', false);
+					$(this).prop('checked', false);
 				}
 			});
-			$(this).attr('checked', true);
+
+			$(this).prop('checked', true);
 		});
 
-		$("body").on('click', "#header .scale ul li", function () {
-			var size = $(this).attr("class");
-
-			if (size === "small") {
-				$("#main").css("font-size", "1.0em");
-			} else if (size === "medium") {
-				$("#main").css("font-size", "1.5em");
-			} else if (size === "large") {
-				$("#main").css("font-size", "2.0em");
-			}
-		});	
-
-		// $("body").on('click', ".learnmore-button", function () {
-		// 	if ($("#lmt").is(":visible")) {
-		// 		$(this).css('background-position','-700px -7px');
-		// 	} else {
-		// 		$(this).css('background-position','-700px -56px');
-		// 	}
-		// 	$("#lmt").slideToggle("fast");
-		// });	
-
+		// Make sure links are opened in a new window
 		$("body").on('click', ".prompt a, .helpbox a", function (ev) {
-			var url = $(this).attr("href");
+			var url = $(this).prop("href");
 			window.open(url);
 			ev.preventDefault();
 			return false;
@@ -795,18 +693,11 @@ Viewer.interview = (function() {
 		},
 
 		question: function (question) {
-			// ie8 hack
-			$(".help-tooltip, .youtube-popout").each(function() {
-				$(this).css('position','static');
-			});
+
 
 			$("#question").fadeOut("fast", function () {
 				$(this).empty().html(question.content);
 				$(this).fadeIn("fast",function () {
-					// ie8 hack
-					$(".help-tooltip, .youtube-popout").each(function() {
-						$(this).css('position','relative');
-					});
 				});
 
 				// if the question has a date, we need to add it to the DOM

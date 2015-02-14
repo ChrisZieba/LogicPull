@@ -3,6 +3,13 @@ h1 {
 	margin-bottom: 20px;
 }
 
+#topnav {
+    position: absolute;
+    top:25px;
+    right:35px;
+    z-index: 1210;
+}
+
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -30,7 +37,7 @@ h1 {
     height: 100%;
     margin-left: -225px;
     overflow-y: auto;
-    background: #6C7A89;
+    background: #272525;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -71,7 +78,7 @@ h1 {
     display: block;
     text-decoration: none;
     color: #FFF;
-    font-size:1.3em;
+    font-size:1.2em;
 
     letter-spacing: 1px;
 }
