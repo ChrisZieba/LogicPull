@@ -23,10 +23,10 @@ exports.validated = function (req, res, next) {
 		if (req.session.user.authenticated) {
 			next();
 		} else {
-			res.redirect('/manager');
+			res.redirect('/admin/login');
 		}
 	} else {
-		res.redirect('/manager/login');
+		res.redirect('/admin/login');
 	}
 };
 
@@ -38,7 +38,7 @@ exports.validated = function (req, res, next) {
 exports.login = function (req, res, next) {
 	if (req.session.user) {
 		if (req.session.user.authenticated) {
-			res.redirect('/interviews');	
+			res.redirect('/admin');	
 		} else {
 			next();
 		}
@@ -58,7 +58,7 @@ exports.validateInterview = function (req, res, next) {
 
 	// validate the id, if its not valid we don't even bother checking the privileges
 	if (!validator.check(sanitizor.clean(interview), ['required','integer'])) {
-		res.status(404).render('404', {name: ''});	
+		res.status(404).render('admin/404', {name: ''});	
 		return;
 	}
 
@@ -75,7 +75,7 @@ exports.validateInterview = function (req, res, next) {
 			res.locals.interview = doc;
 			next();
 		} else {
-			res.redirect('/interviews');	
+			res.redirect('/admin');	
 		}
 	});
 
@@ -90,7 +90,7 @@ exports.validateUserGroup = function (req, res, next) {
 	// check to see if the user is trying to view an interview that is outside their group
 	// allow userID 1 (admin) to see all interviews
 	if ((req.session.user.group !== res.locals.interview.group) && req.session.user.id !== 1) {
-		res.status(404).render('404', {name: req.session.user.name});	
+		res.status(404).render('interviews/404', {name: req.session.user.name});	
 	} else {
 		// if we get here the interview is in the database and everything is OK (valid)
 		next();
@@ -109,7 +109,7 @@ exports.validateResetToken = function (req, res, next) {
 
 	// if the token is not in any users 
 	if (!validator.check(clean_token, ['required'])) {
-		res.status(404).render('404', {name: ''});	
+		res.status(404).render('interviews/404', {name: ''});	
 		return;
 	}
 
@@ -121,14 +121,14 @@ exports.validateResetToken = function (req, res, next) {
 		}
 		// check to see if anything was returned
 		if (!user) {
-			res.status(404).render('404', {name: ''});
+			res.status(404).render('interviews/404', {name: ''});
 			return;
 		}
 
 		// now check to see the current date is not ahead of the token date by more than 2 hours
 		// 2 hours = 7200000 ms
 		if (user.reset_date.getTime() + 7200000 <= new Date().getTime()) {
-			res.status(404).render('404', {name: ''});
+			res.status(404).render('interviews/404', {name: ''});
 			return;
 		}
 
