@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title><%= title %></title>
+	  	<meta charset="utf-8"/>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	 	<meta name="robots" content="noindex, nofollow" />
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	    <!-- Custom Fonts -->
+	    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<% if (settings.env === 'development') { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/interviews.css?v=<%= settings.version %>">
+		<% } else { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/interviews.min.css?v=<%= settings.version %>">
+		<% } %>	
+	</head>
+
+	<body>
+
+	<div id="topnav">
+		<div class="btn-group">
+			<a href="/admin/account" class="btn btn-default"><i class="fa fa-user"></i> <%= name %></a>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu pull-right" role="menu">
+				<li><a href="/admin/logout">Logout</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/admin">
+                       <img src="/images/logo.png" />
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a>
+                </li>
+                <li>
+                    <a href="/admin/interviews"><i class="fa fa-list"></i> &nbsp;Interviews</a>
+                </li>
+                <li>
+                    <a href="/admin/account"><i class="fa fa-user"></i> &nbsp;Account</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+				<% if (layout === 'dashboard') { %>
+					<% include dashboard %>
+				<% } %>
+
+				<% if (layout === 'interviews') { %>
+					<% include interviews %>
+				<% } %>
+
+				<% if (layout === 'account') { %>
+					<% include account/account %>
+				<% } %>
+
+				<% if (layout === 'error') { %>
+					<% include error %>
+				<% } %>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+	</body>
+</html>
