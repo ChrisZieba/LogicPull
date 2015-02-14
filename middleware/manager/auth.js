@@ -26,7 +26,7 @@ exports.validated = function (req, res, next) {
 				next();
 			} else {
 				// the user is logged in but NOT an admin user
-				res.redirect('/interviews');
+				res.redirect('/admin');
 			}
 		} else {
 			res.redirect('/manager/login');
@@ -48,7 +48,7 @@ exports.login = function (req, res, next) {
 				res.redirect('/manager');
 			} else {
 				// the user is logged in but NOT an admin user
-				res.redirect('/interviews');
+				res.redirect('/admin');
 			}
 		} else {
 			// show the login form
@@ -191,6 +191,7 @@ exports.privledges = function (privledge) {
 			case 'view_users':
 			case 'download_deliverable':
 			case 'view_completed_interviews':
+			case 'view_saved_interviews':
 				back_link = '/manager';
 				break;
 			case 'change_interview_status':
