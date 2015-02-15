@@ -180,16 +180,16 @@ module.exports = function (app) {
 						});
 					} else {
 						// the hash is not in the array
-						res.status(404).render('404', {name: req.session.user.name});							
+						res.status(404).render('manager/404', {name: req.session.user.name});							
 					}
 				} else {
 					// if the database does not return a document for the output
-					res.status(404).render('404', {name: req.session.user.name});	
+					res.status(404).render('manager/404', {name: req.session.user.name});	
 				}
 			});
 		} else {
 			// if the inputs are not valid
-			res.status(404).render('404', {name: req.session.user.name});	
+			res.status(404).render('manager/404', {name: req.session.user.name});	
 		}
 		return null;
 	});
@@ -209,7 +209,7 @@ module.exports = function (app) {
 			// the deliverables will already be attached to the locals variable once getting here
 			// just check to make sure the hash given to us in the parameter matches that from the database
 			if (interview.deliverables[index].id === hash) {
-				res.download(app.get('base_location') + interview.deliverables[index].input.path, interview.deliverables[index].input.name, function(err){
+				res.download(app.get('base_location') + interview.deliverables[index].input.path, interview.deliverables[index].input.name, function(err) {
 					if (err) {
 						console.log(err);
 						throw err;
@@ -218,11 +218,49 @@ module.exports = function (app) {
 				});
 			} else {
 				// the hash is not in the database
-				res.status(404).render('404', {name: req.session.user.name});	
+				res.status(404).render('manager/404', {name: req.session.user.name});	
 			}
 		} else {
 			// if the inputs are not valid
-			res.status(404).render('404', {name: req.session.user.name});	
+			res.status(404).render('manager/404', {name: req.session.user.name});	
+		}
+
+		return null;
+	});
+
+	// Download a form from a deliverable (if it has one)
+	app.get('/manager/download/deliverable/form/:index/:interview/:hash', auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('download_stylesheet'), function (req, res) {
+		// this is the array index of the deliverable
+		var index = req.params.index;
+			// the hash that identifies which deliverable...check if it matches the one in the database before a user can download the file
+		var hash = req.params.hash;
+			// the interview attached in the middleware check
+		var interview = res.locals.interview;
+
+		// the interview id gets cleaned and checked in the middleware
+		if (validator.check(sanitizor.clean(index), ['required','integer']) && validator.check(sanitizor.clean(hash), ['required','alphanum'])) {
+			// the deliverables will already be attached to the locals variable once getting here
+			// just check to make sure the hash given to us in the parameter matches that from the database
+			if (interview.deliverables[index].id === hash) {
+				// form is null if not a PDF_FORM
+				if (interview.deliverables[index].input.form) {
+					res.download(app.get('base_location') + interview.deliverables[index].input.form.path, interview.deliverables[index].input.form.name, function(err) {
+						if (err) {
+							console.log(err);
+							throw err;
+						} 
+						res.end('success', 'UTF-8');
+					});
+				} else {
+					res.status(404).render('manager/404', {name: req.session.user.name});
+				}
+			} else {
+				// the hash is not in the database
+				res.status(404).render('manager/404', {name: req.session.user.name});	
+			}
+		} else {
+			// if the inputs are not valid
+			res.status(404).render('manager/404', {name: req.session.user.name});	
 		}
 
 		return null;

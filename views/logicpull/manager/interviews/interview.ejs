@@ -122,7 +122,13 @@
 											<a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="Last Modified: <%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> (<%= interview.deliverables[i].input.creator.name %>)" target="_blank"><i class="fa <%= deliverable_type %>"></i> <%= interview.deliverables[i].input.name %></a>
 										</td>
 										<td><%= interview.deliverables[i].description %></td>
-										<td><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong></td>
+										<td>
+											<div><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong>
+							        		 	<% if (interview.deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { %>
+							        		 		<a href="/manager/download/deliverable/form/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="Download the PDF Form"><i class="fa fa-download"></i>
+							        		 	<% } %>
+							        		</div>
+										</td>
 										<td>
 											<div class="btn-group pull-right">
 												<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
