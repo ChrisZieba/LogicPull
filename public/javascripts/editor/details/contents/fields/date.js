@@ -116,6 +116,8 @@ Editor.details.contents.fields.date = (function () {
 			output.push(common.fieldType(type));
 			output.push(common.fieldName(field.name, index));
 			output.push(common.fieldLabel(field.label, index));
+			output.push(common.fieldSize(field.size, index));
+			output.push(common.fieldLine(field.line, index));
 			output.push(fieldDefault(field.def, index));
 			output.push(fieldFormat(field.format, index));
 			output.push(common.fieldValidation(field.validation, type, index));

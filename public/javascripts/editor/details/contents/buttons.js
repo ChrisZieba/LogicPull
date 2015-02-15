@@ -159,11 +159,39 @@ Editor.details.contents.buttons = (function () {
 				questions[qid].buttons[active_button].pid = null;
 			}
 		});
+
+		$(".button-textbox").live("change", function (e) {
+			var input = $(this).val().trim();
+			var qid = Editor.main.getCurrentQuestion();
+			var button_id_type = $(this).data('button-textbox-id');	
+
+			// run the validation when a textbox changes, and save it if it passes
+			switch (button_id_type) {
+				// A label is not required, but it must only be alphadash
+				case 'label':
+					if (Editor.validation.check(input, ['label'])) {
+						questions[qid].buttons[active_button].text = input;
+						$(this).val(input);
+					} else {
+						// put the old value back in
+						$(this).val(questions[qid].buttons[active_button].text);
+						alert("Only letters and numbers are allowed.");
+						e.preventDefault();
+					}
+					break;
+			}
+
+			Editor.thumbnail.buildThumbnail(qid);
+		});
 	};
 
 	var buildButton = function (qid, button, index) {
 		var output = [];
 		var types = ['continue','exit', 'finish'];
+
+		if (!button.text) {
+			button.text = "";
+		}
 
 		output.push('<div class="button-property">');
 		output.push('<div class="b-label">Type: </div>');
@@ -200,6 +228,11 @@ Editor.details.contents.buttons = (function () {
 		output.push('</select>');	
 		output.push('</div>');	
 		output.push('<div class="clear"></div>');
+
+		output.push('<div class="field-property">');
+		output.push('<div class="b-label">Text: </div>');
+		output.push('<input type="text" value="' + button.text + '" class="button-textbox ac" data-button-textbox-id="label">');
+		output.push('</div>');
 
 		return output.join('');	
 	};	

@@ -80,14 +80,9 @@ Viewer.socket = (function() {
 				Viewer.interview.setInterviewID(packet.id);
 
 				// get rid of the loader
-				$('.continue-button').button('reset')
-				//$('.finish-button').css('background-position','-432px -8px');
+				$('.btn').button('reset')
 
-				$('.loading').remove();
-				//$('.loading-button').addClass('continue-button button');
-				//$('button').removeClass('loading-button');
 				// if the validation cleared for all the fields
-
 				if (packet.valid) {
 					// if the questions is being loaded from a partial hide the saves container
 					if (packet.partial) {
@@ -502,7 +497,7 @@ Viewer.interview = (function() {
 		$("body").on('click', "#finish-interview", function () {
 			if (finish_interview_allowed) {
 				var interview = $('#interview-id').html();
-				var qid = $(this).html();
+				var qid = $(this).data('qid');
 				var socket = Viewer.socket.getSocket();
 				var data = {
 					id: id,
@@ -511,8 +506,7 @@ Viewer.interview = (function() {
 					fields: Viewer.interview.collectFieldData(qid)
 				};
 
-				$('.finish-button').css('background-position','-432px -47px');
-				$(this).prepend('<span class="loading"></span>');
+				$(this).button('loading');
 
 				// make sure the user cant click the button more than once..when the server returns with a response this is set to true
 				finish_interview_allowed = false;
@@ -537,8 +531,7 @@ Viewer.interview = (function() {
 					email: $.trim($("input[name=q-final]").val())
 				};
 
-				$('.send-button').css('background-position','-566px -47px');
-				$(this).prepend('<span class="loading"></span>');
+				$(this).button('loading');
 				complete_interview_allowed = false;
 				socket.emit('send', data);
 			}
