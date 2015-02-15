@@ -22,13 +22,6 @@ h1 {
     padding-left: 225px;
 }
 
-.navbar .container-fluid, .navbar-collapse {
-    padding-left:0;
-}
-.navbar-collapse.in {
-    padding-left:30px;
-}
-
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
@@ -93,12 +86,20 @@ h1 {
     text-decoration: none;
 }
 
+.navbar-default {
+    border-color: #ddd;
+}
+
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
+    height: 82px;
     font-size: 18px;
     line-height: 60px;
     background:#333;
     margin-bottom: 20px;
+}
+
+.sidebar-nav > .sidebar-brand img.logo {
+    margin-top: 22px;
 }
 
 .sidebar-nav > .sidebar-brand a {

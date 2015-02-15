@@ -22,12 +22,20 @@ h1 {
     padding-left: 225px;
 }
 
-.navbar .container-fluid, .navbar-collapse {
+.sidebar-nav > .sidebar-brand img.logo {
+    margin-top: 22px;
+}
+
+.navbar-default {
+    border-color: #ddd;
+}
+
+/*.navbar .container-fluid, .navbar-collapse {
     padding-left:0;
 }
 .navbar-collapse.in {
     padding-left:30px;
-}
+}*/
 
 #sidebar-wrapper {
     z-index: 1000;
@@ -94,7 +102,7 @@ h1 {
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
+    height: 83px;
     font-size: 18px;
     line-height: 60px;
     background:#333;
@@ -122,6 +130,39 @@ h1 {
 	color: #999;
 }
 
+.panel-green {
+    border-color: #5CB85C;
+}
+
+.panel-green .panel-heading {
+    border-color: #5CB85C;
+    color: #FFF;
+    background-color: #5CB85C;
+    }
+
+.panel-yellow {
+    border-color: #F0AD4E;
+}
+
+.panel-yellow .panel-heading {
+    border-color: #F0AD4E;
+    color: #FFF;
+    background-color: #F0AD4E;
+}
+
+.panel-red {
+    border-color: #D9534F;
+}
+
+.panel-red .panel-heading {
+    border-color: #D9534F;
+    color: #FFF;
+    background-color: #D9534F;
+}
+
+.huge {
+    font-size: 40px;
+}
 
 .panel-title {
 	font-size: 20px;

@@ -3,31 +3,36 @@
 
 		<h1>Dashboard</h1>
 
-		<h2>Saved Interviews</h2>
-
-		<% if (saved.length !== 0) { %>
-			<div class="table-responsive">
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>Description</th>
-							<th>Progress</th>
-							<th>Date Last Saved</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% for (var j = 0; j < saved.length; j++) { %>
-						<tr>
-							<td><%= saved[j].note %></td>
-							<td><%= saved[j].data.state.distance[saved[j].qid] %></td>
-							<td><%= saved[j].created %></td>
-						</tr>
-						<% } %>
-					</tbody>
-				</table>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Saved Interviews</h3>
 			</div>
-		<% } else { %>
-			<p class="alert alert-warning">This interview has no saves.</p>
-		<% } %>
+			<div class="panel-body">
+				<% if (saved.length !== 0) { %>
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Description</th>
+									<th>Progress</th>
+									<th>Date Last Saved</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for (var j = 0; j < saved.length; j++) { %>
+								<tr>
+									<td><%= saved[j].note %></td>
+									<td><%= saved[j].data.state.distance[saved[j].qid] %></td>
+									<td><%= saved[j].created %></td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
+					</div>
+				<% } else { %>
+					<p class="alert alert-warning">No saved interviews.</p>
+				<% } %>
+			</div>
+		</div>
 	</div>
 </div>
