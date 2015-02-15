@@ -436,6 +436,11 @@ h5 {font-size: 1em;color: #333;}
 	margin-top:20px;
 }
 
+
+.question-footer .btn {
+	margin-left:15px;
+}
+
 #question .form-group {
 	margin-bottom: 0;
 }
