@@ -102,6 +102,8 @@ var interview_schema = new Schema({
 // The output model
 var output_schema = new Schema({
 	id : { type: Number, required: true },
+	// Not required since unregistered users can also create documents.
+	user_id : { type: Number, required: false },
 	client_lastname : { type: String, required: true },
 	client_firstname : { type: String, required: true },
 	client_fullname : { type: String, required: true },
