@@ -44,11 +44,12 @@ module.exports = function (app) {
 	});
 
 	app.get('/admin/interviews', function (req, res) {
-		var interviews = models.Interviews.find({});
+		var user_id = req.session.user.id;
+		var outputs = models.Outputs.find({});
 
 		// make sure the group id of the logged in user matches that from the URL
-		interviews = interviews.where('disabled').equals(false).where('live').equals(true);
-		interviews.exec(function(err, interviews) {
+		outputs = outputs.where('user_id').equals(user_id);
+		outputs.exec(function(err, outputs) {
 			if (err) {
 				console.log(err);
 				throw err;
@@ -59,7 +60,7 @@ module.exports = function (app) {
 				title: 'LogicPull',
 				name: req.session.user.name,
 				layout: 'interviews',
-				interviews: interviews,
+				outputs: outputs,
 				user: req.session.user
 			});
 		});
