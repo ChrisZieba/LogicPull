@@ -199,7 +199,7 @@ Viewer.interview = (function() {
 		$('#save').click(function () {
 			var socket = Viewer.socket.getSocket();
 
-			if (save) {
+			if (save && id) {
 				// set this so we know what pop up to show after the login happens
 				login_path = 'save';
 
@@ -236,7 +236,7 @@ Viewer.interview = (function() {
 			// if the user is logged in fetch their id and then send it via socket to the server to retrieve the
 			var socket = Viewer.socket.getSocket();
 
-			if (save) {
+			if (save && id) {
 				// set this so we know what pop up to show after the login happens
 				login_path = 'open';
 				// check if the user is logged in
@@ -281,7 +281,7 @@ Viewer.interview = (function() {
 			var data;
 
 			// this checks to see if the block is enabled..i.e..we haven't just click the back button with the info not arriving first
-			if (back) {
+			if (back && id) {
 				// if there are no options in the progress the ID will be undefined
 				if (progress.options) {
 					if (progress.options[progress.selectedIndex]) {
@@ -310,7 +310,7 @@ Viewer.interview = (function() {
 		// when the user clicks an options icon to load a previous 
 		$("body").on('click', ".partial-sav-int", function () {
 			// get the id of the record that corresponds to the saved data in the databases
-			if (click_partial_allowed) {
+			if (click_partial_allowed && id) {
 				var interview = $('#interview-id').html();
 				var partial_id = this.id;
 				var qid = $(this).html();
@@ -339,7 +339,7 @@ Viewer.interview = (function() {
 
 		// listen for when the button to continue is clicked
 		$("body").on('click', ".button", function () {
-			if (click_continue_allowed) {
+			if (click_continue_allowed && id) {
 				var text_selector = $('.text');
 				var interview = $('#interview-id').html();
 				var qid = $(this).data('qid');
@@ -495,7 +495,7 @@ Viewer.interview = (function() {
 
 		// listen for when the finish button is clicked
 		$("body").on('click', "#finish-interview", function () {
-			if (finish_interview_allowed) {
+			if (finish_interview_allowed && id) {
 				var interview = $('#interview-id').html();
 				var qid = $(this).data('qid');
 				var socket = Viewer.socket.getSocket();
@@ -552,7 +552,7 @@ Viewer.interview = (function() {
 			var progress = document.getElementById('progress'); 
 
 			// if there are no options in the progress the ID will be undefined
-			if (progress.options) {
+			if (progress.options && id) {
 				if (progress.options[progress.selectedIndex]) {
 					var backid = progress.options[progress.selectedIndex].value;
 					var socket = Viewer.socket.getSocket();
@@ -686,8 +686,6 @@ Viewer.interview = (function() {
 		},
 
 		question: function (question) {
-
-
 			$("#question").fadeOut("fast", function () {
 				$(this).empty().html(question.content);
 				$(this).fadeIn("fast",function () {
@@ -698,7 +696,7 @@ Viewer.interview = (function() {
 					Viewer.interview.datePicker(question.date_pickers);
 				}
 
-				// only when the question is displayed can we issue the back button
+				// only when the question is displayed can we use the back button again
 				back = true; 
 			});
 
