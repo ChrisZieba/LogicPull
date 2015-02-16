@@ -178,6 +178,10 @@ h1 {
 	text-decoration: none;
 }
 
+.panel-body p:last-child {
+    margin-bottom: 0;
+}
+
 .well h3 {
 	font-size:20px;
 	font-weight: 700;

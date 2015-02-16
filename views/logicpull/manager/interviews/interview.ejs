@@ -45,23 +45,33 @@
 					<!-- Default panel contents -->
 					<div class="panel-heading"><strong>Settings</strong></div>
 					<div class="panel-body">
-					  	<p>On Complete <a href="/manager/interview/<%= interview.id %>/on_complete" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a></p>
-
-					  	<p>Email deliverables to client: <%= interview.on_complete.email_deliverables_to_client.toString().toUpperCase() %></p>
-
-		        		 <%  if (interview.on_complete.email_notification) { %>
-		        		 	<div><strong>Email Notification to:</strong> <%= interview.on_complete.email_notification %></div>
-		        		 <% } else { %>
-		        		 	<div><strong>Email Notifications to:</strong> &lt;None&gt;</div>
-		        		 <% } %>
-
-		        		 <% if (email_deliverables) { %>
-		        		 	<div><strong>Email Deliverables to:</strong> <%= interview.on_complete.email_deliverables %></div>
-		        		 <% } else { %>
-		        		 	<div><strong>Email Deliverables to:</strong> &lt;None&gt;</div>
-		        		 <% } %>
-
+					  	<p><strong>Email Deliverables to Client:</strong> <%= interview.on_complete.email_deliverables_to_client.toString().toUpperCase() %> <a href="/manager/interview/<%= interview.id %>/on_complete" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a>
+					  	</p>
 					</div>
+					<ul class="list-group">
+						<li class="list-group-item">
+
+							<p>
+								<strong>Email Notification to:</strong>
+								<% if (interview.on_complete.email_notification) { %>
+									<%= interview.on_complete.email_notification %>
+								<% } else { %>
+									&lt;None&gt;
+								<% } %>
+								<a href="/manager/interview/<%= interview.id %>/on_complete" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a>
+							</p>
+
+							<p>
+								<strong>Email Deliverables to:</strong>
+								<% if (interview.on_complete.email_deliverables) { %>
+									<%= interview.on_complete.email_deliverables %>
+								<% } else { %>
+									&lt;None&gt;
+								<% } %>
+								<a href="/manager/interview/<%= interview.id %>/on_complete" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a>
+							</p>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -160,9 +170,6 @@
 				</div>
 				<div class="panel-body">
 					<% if (outputs.length !== 0) { %>
-						<div class="form-group">
-							<a href="/manager/interview/<%= interview.id %>/completed" class="btn btn-default">View More</a>
-						</div>
 						<div class="table-responsive">
 							<table class="table table-bordered">
 								<thead>
