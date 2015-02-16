@@ -243,7 +243,7 @@ module.exports = function (app) {
 			// just check to make sure the hash given to us in the parameter matches that from the database
 			if (interview.deliverables[index].id === hash) {
 				// form is null if not a PDF_FORM
-				if (interview.deliverables[index].input.form) {
+			if (interview.deliverables[index].input.form) {
 					res.download(app.get('base_location') + interview.deliverables[index].input.form.path, interview.deliverables[index].input.form.name, function(err) {
 						if (err) {
 							console.log(err);
