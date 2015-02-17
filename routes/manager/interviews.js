@@ -106,7 +106,7 @@ module.exports = function (app) {
 
 			var saved = models.Saves.find({});
 			saved = saved.where('interview_id').equals(interview);
-			saved = saved.limit(100).sort('-date');
+			saved = saved.limit(100).sort('-created');
 			saved.exec(function (err, saved) {
 				if (err) {
 					console.log(err);
@@ -213,7 +213,7 @@ module.exports = function (app) {
 		var saved = models.Saves.find({});
 
 		saved = saved.where('interview_id').equals(interview);
-		saved = saved.limit(500).sort('-date');
+		saved = saved.limit(500).sort('-created');
 
 		saved.exec(function (err, saved) {
 			if (err) {
