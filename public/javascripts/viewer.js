@@ -608,7 +608,7 @@ Viewer.interview = (function() {
 		});
 
 		// Make sure links are opened in a new window
-		$("body").on('click', ".prompt a, .helpbox a", function (ev) {
+		$("body").on('click', ".learnmore a, .help-modal a", function (ev) {
 			var url = $(this).prop("href");
 			window.open(url);
 			ev.preventDefault();

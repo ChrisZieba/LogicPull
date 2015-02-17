@@ -994,3 +994,7 @@ ul.checkbox-list li label {
     width: 200px; /*must have*/
     height: 200px; /*must have*/
 }
+
+.hasDatepicker:hover {
+	cursor: pointer !important;
+}
