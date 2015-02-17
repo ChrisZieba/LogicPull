@@ -8,12 +8,12 @@
 	<meta name="description" content="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud."/>
 	<script>var BASE_URL = '<%= settings.base_url %>';</script>
 	<script src="/socket.io/socket.io.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+	<script src="/javascripts/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="/javascripts/lib/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	<% if (env === 'development') { %>
 		<script type="text/javascript" src="/javascripts/viewer.js?v=<%= settings.version %>"></script>

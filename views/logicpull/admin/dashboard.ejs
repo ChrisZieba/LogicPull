@@ -13,6 +13,7 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
+									<th>Interview</th>
 									<th>Description</th>
 									<th>Progress</th>
 									<th>Date Last Saved</th>
@@ -21,6 +22,7 @@
 							<tbody>
 								<% for (var j = 0; j < saved.length; j++) { %>
 								<tr>
+									<td><%= saved[j].interview.name %></td>
 									<td><%= saved[j].note %></td>
 									<td><%= saved[j].data.state.distance[saved[j].qid] %></td>
 									<td><%= saved[j].created %></td>

@@ -7,12 +7,12 @@
 	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	 	<meta name="robots" content="noindex, nofollow" />
 
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="/javascripts/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<script src="/javascripts/lib/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
 	    <!-- Custom Fonts -->
-	    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<% if (settings.env === 'development') { %>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
 			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
@@ -43,9 +43,6 @@
                 <li>
                     <a href="/manager/users"><i class="fa fa-users"></i> &nbsp;Users</a>
                 </li>
-<!--                 <li>
-                    <a href="/manager/settings"><i class="fa fa-gear"></i> &nbsp;Settings</a>
-                </li> -->
                 <li>
                     <a href="/manager/account"><i class="fa fa-user"></i> &nbsp;Account</a>
                 </li>
