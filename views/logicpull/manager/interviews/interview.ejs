@@ -96,67 +96,65 @@
 			</div>
 			<div class="panel-body">
 				<% if (interview.deliverables.length !== 0) { %>
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<thead>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Filename</th>
+								<th>Description</th>
+								<th>Output (Type)</th>
+								<th>Options</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<% for (var i=0; i < interview.deliverables.length; i++) { 
+								deliverable_type = "fa-file-o";
+
+								if (interview.deliverables[i].output.type.toUpperCase() === 'PDF' || interview.deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { 
+									deliverable_type = "fa-file-pdf-o"; 
+								} 
+
+								if (interview.deliverables[i].output.type.toUpperCase() === 'XML' || interview.deliverables[i].output.type.toUpperCase() === 'XML_MSACCESS') {
+									deliverable_type = "fa-file-code-o";
+								}
+
+								if (interview.deliverables[i].output.type.toUpperCase() === 'RTF' || interview.deliverables[i].output.type.toUpperCase() === 'ODT') {
+									deliverable_type = "fa-file-text-o";
+								}
+
+								if (interview.deliverables[i].output.type.toUpperCase() === 'DOC' || interview.deliverables[i].output.type.toUpperCase() === 'DOCX') {
+									deliverable_type = "fa-file-word-o";
+								}
+							%>
 								<tr>
-									<th>Filename</th>
-									<th>Description</th>
-									<th>Output (Type)</th>
-									<th>Options</th>
+									<td>
+										<a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="Last Modified: <%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> (<%= interview.deliverables[i].input.creator.name %>)" target="_blank"><i class="fa <%= deliverable_type %>"></i> <%= interview.deliverables[i].input.name %></a>
+									</td>
+									<td><%= interview.deliverables[i].description %></td>
+									<td>
+										<div><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong>
+						        		 	<% if (interview.deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { %>
+						        		 		<a href="/manager/download/deliverable/form/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="Download the PDF Form"><i class="fa fa-download"></i>
+						        		 	<% } %>
+						        		</div>
+									</td>
+									<td>
+										<div class="btn-group pull-right">
+											<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+												<i class="fa fa-gear"></i>
+												<span class="caret"></span>
+												<span class="sr-only">Toggle Dropdown</span>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interview.id %>/deliverables/update/<%= i %>">Update</a></li>
+												<li title="Remove this stylesheet" class="remove"><a href="/manager/interview/<%= interview.id %>/deliverables/remove/<%= i %>">Remove</a></li>
+											</ul>
+										</div>
+									</td>
 								</tr>
-							</thead>
-							<tbody>
-
-								<% for (var i=0; i < interview.deliverables.length; i++) { 
-									deliverable_type = "fa-file-o";
-
-									if (interview.deliverables[i].output.type.toUpperCase() === 'PDF' || interview.deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { 
-										deliverable_type = "fa-file-pdf-o"; 
-									} 
-
-									if (interview.deliverables[i].output.type.toUpperCase() === 'XML' || interview.deliverables[i].output.type.toUpperCase() === 'XML_MSACCESS') {
-										deliverable_type = "fa-file-code-o";
-									}
-
-									if (interview.deliverables[i].output.type.toUpperCase() === 'RTF' || interview.deliverables[i].output.type.toUpperCase() === 'ODT') {
-										deliverable_type = "fa-file-text-o";
-									}
-
-									if (interview.deliverables[i].output.type.toUpperCase() === 'DOC' || interview.deliverables[i].output.type.toUpperCase() === 'DOCX') {
-										deliverable_type = "fa-file-word-o";
-									}
-								%>
-									<tr>
-										<td>
-											<a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="Last Modified: <%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> (<%= interview.deliverables[i].input.creator.name %>)" target="_blank"><i class="fa <%= deliverable_type %>"></i> <%= interview.deliverables[i].input.name %></a>
-										</td>
-										<td><%= interview.deliverables[i].description %></td>
-										<td>
-											<div><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong>
-							        		 	<% if (interview.deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { %>
-							        		 		<a href="/manager/download/deliverable/form/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="Download the PDF Form"><i class="fa fa-download"></i>
-							        		 	<% } %>
-							        		</div>
-										</td>
-										<td>
-											<div class="btn-group pull-right">
-												<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-													<i class="fa fa-gear"></i>
-													<span class="caret"></span>
-													<span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<ul class="dropdown-menu" role="menu">
-													<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interview.id %>/deliverables/update/<%= i %>">Update</a></li>
-													<li title="Remove this stylesheet" class="remove"><a href="/manager/interview/<%= interview.id %>/deliverables/remove/<%= i %>">Remove</a></li>
-												</ul>
-											</div>
-										</td>
-									</tr>
-								<% } %>
-							</tbody>
-						</table>
-					</div>
+							<% } %>
+						</tbody>
+					</table>
 				<% } else { %>
 					<p class="alert alert-warning">This interview does not have any deliverables.</p>
 				<% } %>
