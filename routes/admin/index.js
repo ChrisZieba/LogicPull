@@ -137,7 +137,7 @@ module.exports = function (app) {
 						// the password is not in the database or is wrong
 						res.json({
 							error: true,
-							msg: "The password you entered is incorrect."
+							msg: "The user could not be found."
 						});
 					}
 				});
