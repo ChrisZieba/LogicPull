@@ -18,6 +18,9 @@
 					<li><a href="/manager/interview/<%= interview.id %>/completed" title="Completed">View Completed</a></li>
 					<li><a href="/manager/interview/<%= interview.id %>/import_interview" title="Import Interview data">Import Interview Data</a></li>
 					<li><a href="/manager/interview/<%= interview.id %>/export_interview" title="Export Interview data">Export Interview Data</a></li>
+					<li class="divider"></li>
+					<li title="Clone this interview"><a href="/manager/interviews/clone/<%= interview.id %>">Clone</a></li>
+					<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interview.id %>">Remove</a></li>
 				</ul>
 			</div>
 		</div>
