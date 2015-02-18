@@ -32,7 +32,7 @@ db.users.insert({
     "id" : 1,
     "name": "Admin",
     // the username is admin
-    "email": "admin",
+    "email": "admin@fake.com",
     // the password is admin
     "password": "$2a$10$3kMpzJvLoXuhfH.e5ovJCuULLpawqUXkZYTYi/AYO2TLDSDWPW3ra",
     "group": 1,
@@ -45,6 +45,7 @@ db.users.insert({
         "view_users": true,
         "edit_user": true,
         "add_user": true,
+        "reset_user_password": true,
         "remove_user": true,
         "add_deliverable": true,
         "remove_deliverable": true,
@@ -56,6 +57,7 @@ db.users.insert({
         "download_answer_set": true,
         "view_report": true,
         "view_completed_interviews": true,
+        "view_saved_interviews": true,
         "edit_on_complete": true,
         "editor_save": true
     },

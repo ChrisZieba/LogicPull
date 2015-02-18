@@ -29,6 +29,7 @@ Editor.details.contents.fields.textarea = (function () {
 			output.push(common.fieldType(type));
 			output.push(common.fieldName(field.name, index));
 			output.push(common.fieldLabel(field.label, index));
+			output.push(common.fieldSize(field.size, index));
 			output.push(common.fieldDefault(field.def, index));
 			output.push(common.fieldValidation(field.validation, type, index));
 

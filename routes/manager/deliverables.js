@@ -41,7 +41,7 @@ module.exports = function (app) {
 			var interview = res.locals.interview;
 
 			// validate the input that came from the form, and make sure a file was chosen for upload
-			if (validator.check(sanitizor.clean(req.body.description), ['required',{'maxlength': 100}]) && validator.check(sanitizor.clean(req.body.outname), ['required','variable',{'maxlength': 35}]) && req.files.file ) {
+			if (validator.check(sanitizor.clean(req.body.description), ['required',{'maxlength': 100}]) && validator.check(sanitizor.clean(req.body.outname), ['required','filename',{'maxlength': 35}]) && req.files.file ) {
 				// have to do another check here for the filename 
 				if (req.files.file.name !== '' && req.files.file.size !== 0) {
 					// this will move the uploaded file from the tmp folder to the uploads folder
@@ -108,7 +108,7 @@ module.exports = function (app) {
 					view('manager/layout', '<ul><li>The input file must be a valid template file.</li><li>The Name of the output must be letters, numbers and/or underscores.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
 				}
 			} else {
-				view('manager/layout', '<ul><li>The input file must be a valid template file.</li><li>PLease make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
+				view('manager/layout', '<ul><li>The input file must be a valid template file.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
 			}
 		} else {
 			// this is a get request...just show the form
@@ -130,7 +130,7 @@ module.exports = function (app) {
 
 			// update the database
 			models.Interviews.update({id: interview}, { deliverables: deliverables }, function (err) {
-				if(err){
+				if (err){
 					console.log(err);
 					throw err;
 				} 
@@ -180,16 +180,16 @@ module.exports = function (app) {
 						});
 					} else {
 						// the hash is not in the array
-						res.status(404).render('404', {name: req.session.user.name});							
+						res.status(404).render('manager/404', {name: req.session.user.name});							
 					}
 				} else {
 					// if the database does not return a document for the output
-					res.status(404).render('404', {name: req.session.user.name});	
+					res.status(404).render('manager/404', {name: req.session.user.name});	
 				}
 			});
 		} else {
 			// if the inputs are not valid
-			res.status(404).render('404', {name: req.session.user.name});	
+			res.status(404).render('manager/404', {name: req.session.user.name});	
 		}
 		return null;
 	});
@@ -209,7 +209,7 @@ module.exports = function (app) {
 			// the deliverables will already be attached to the locals variable once getting here
 			// just check to make sure the hash given to us in the parameter matches that from the database
 			if (interview.deliverables[index].id === hash) {
-				res.download(app.get('base_location') + interview.deliverables[index].input.path, interview.deliverables[index].input.name, function(err){
+				res.download(app.get('base_location') + interview.deliverables[index].input.path, interview.deliverables[index].input.name, function(err) {
 					if (err) {
 						console.log(err);
 						throw err;
@@ -218,11 +218,49 @@ module.exports = function (app) {
 				});
 			} else {
 				// the hash is not in the database
-				res.status(404).render('404', {name: req.session.user.name});	
+				res.status(404).render('manager/404', {name: req.session.user.name});	
 			}
 		} else {
 			// if the inputs are not valid
-			res.status(404).render('404', {name: req.session.user.name});	
+			res.status(404).render('manager/404', {name: req.session.user.name});	
+		}
+
+		return null;
+	});
+
+	// Download a form from a deliverable (if it has one)
+	app.get('/manager/download/deliverable/form/:index/:interview/:hash', auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('download_stylesheet'), function (req, res) {
+		// this is the array index of the deliverable
+		var index = req.params.index;
+			// the hash that identifies which deliverable...check if it matches the one in the database before a user can download the file
+		var hash = req.params.hash;
+			// the interview attached in the middleware check
+		var interview = res.locals.interview;
+
+		// the interview id gets cleaned and checked in the middleware
+		if (validator.check(sanitizor.clean(index), ['required','integer']) && validator.check(sanitizor.clean(hash), ['required','alphanum'])) {
+			// the deliverables will already be attached to the locals variable once getting here
+			// just check to make sure the hash given to us in the parameter matches that from the database
+			if (interview.deliverables[index].id === hash) {
+				// form is null if not a PDF_FORM
+			if (interview.deliverables[index].input.form) {
+					res.download(app.get('base_location') + interview.deliverables[index].input.form.path, interview.deliverables[index].input.form.name, function(err) {
+						if (err) {
+							console.log(err);
+							throw err;
+						} 
+						res.end('success', 'UTF-8');
+					});
+				} else {
+					res.status(404).render('manager/404', {name: req.session.user.name});
+				}
+			} else {
+				// the hash is not in the database
+				res.status(404).render('manager/404', {name: req.session.user.name});	
+			}
+		} else {
+			// if the inputs are not valid
+			res.status(404).render('manager/404', {name: req.session.user.name});	
 		}
 
 		return null;
@@ -300,10 +338,10 @@ module.exports = function (app) {
 						});	
 					});
 				} else {
-					view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>PLease make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
+					view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
 				}
 			} else {
-				view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>PLease make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
+				view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
 			}
 		} else {
 			// this is a get request...just show the form

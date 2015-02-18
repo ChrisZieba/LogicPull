@@ -5,36 +5,31 @@
 	  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	  	<title>404</title>
 	 	<meta name="robots" content="noindex, nofollow" />
+		<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+	    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<% if (settings.env === 'development') { %>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
+			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
 		<% } else { %>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
-		<% } %>
+			<script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
+		<% } %>	
 	</head>
 
 	<body>
-		<div id="admin">
-			<div class="header-container">
-				<div class="header">
-					<h1><a href="/manager"><img src="/images/logo.png"></a></h1>
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="nav-container">
-				<div class="nav"></div>	
-			</div>
-			<div class="clear"></div>
-			<div class="contents-container-404">
-				<div class="contents">
-				<div class="e-404">Page not Found!</div>
-				<p class="p-404">Sorry but the page you are looking for cannot be found. Some of the possible reasons this may have happened are:</p>
-				<ul class="l-404">
-					<li>A broken link on our site</li>
-					<li>A mistyped URL</li>
-					<li>You do not have sufficient privledges.</li>
-				</ul>
+		<div class="container">
+			<div class="jumbotron error-template">
+			    <div class="row">
+			        <div class="col-md-12">
+			            <div>
+			                <h1>Oops!</h1>
+			                <h2>404 Not Found</h2>
+			                <p>Sorry, an error has occured, Requested page not found!</p>
+			                <p><a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Take Me Home</a></p>
+			            </div>
+			        </div>
+			    </div>
 			</div>
 		</div>
 	</body>
-
 </html>

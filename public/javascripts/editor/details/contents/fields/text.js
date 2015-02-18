@@ -30,6 +30,8 @@ Editor.details.contents.fields.text = (function () {
 			output.push(common.fieldType(type));
 			output.push(common.fieldName(field.name, index));
 			output.push(common.fieldLabel(field.label, index));
+			output.push(common.fieldSize(field.size, index));
+			output.push(common.fieldLine(field.line, index));
 			output.push(common.fieldDefault(field.def, index));
 			output.push(common.fieldValidation(field.validation, type, index));
 
@@ -42,6 +44,7 @@ Editor.details.contents.fields.text = (function () {
 				"label": '',
 				"type": 'text',
 				"def": null,
+				"size": 3,
 				"validation": {
 					"required": 'no',
 					"min_length" : null,

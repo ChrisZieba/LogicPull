@@ -1,0 +1,67 @@
+<div class="row">
+	<div class="col-lg-12">
+
+		<h1>Interviews</h1>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Recently Completed</h3>
+			</div>
+			<div class="panel-body">
+				<% if (outputs.length !== 0) { %>
+
+
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Client</th>
+									<th>Interview</th>
+									<th>Deliverables</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for (var k = 0; k < outputs.length; k++) { %>
+								<tr>
+									<td><%= outputs[k].client_fullname %></td>
+									<td><a href="/interviews/active/<%= outputs[k].interview.id %>"><%=  outputs[k].interview.name %></a></td>
+									<td>
+										<% for (var l = 0; l < outputs[k].deliverables.length; l++) {
+											deliverable_type = "fa-file-o";
+
+											if (outputs[k].deliverables[l].type.toUpperCase() === 'PDF' || outputs[k].deliverables[l].type.toUpperCase() === 'PDF_FORM') { 
+												deliverable_type = "fa-file-pdf-o"; 
+											} 
+
+											if (outputs[k].deliverables[l].type.toUpperCase() === 'XML' || outputs[k].deliverables[l].type.toUpperCase() === 'XML_MSACCESS') {
+												deliverable_type = "fa-file-code-o";
+											}
+
+											if (outputs[k].deliverables[l].type.toUpperCase() === 'RTF' || outputs[k].deliverables[l].type.toUpperCase() === 'ODT') {
+												deliverable_type = "fa-file-text-o";
+											}
+
+											if (outputs[k].deliverables[l].type.toUpperCase() === 'DOC' || outputs[k].deliverables[l].type.toUpperCase() === 'DOCX') {
+												deliverable_type = "fa-file-word-o";
+											}
+										%>
+											<div><i class="fa <%= deliverable_type %>"></i> <a href="/manager/download/deliverable/output/<%= outputs[k].id %>/<%= outputs[k].interview.id %>/<%= outputs[k].deliverables[l].id %>" target="_blank"><%= outputs[k].deliverables[l].name %></a></div>
+										<% } %>
+
+									</td>
+									<td>
+										<%= outputs[k].date.toLocaleDateString() %> <em><%= outputs[k].date.toLocaleTimeString() %></em>
+									</td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
+					</div>
+				<% } else { %>
+					<p class="alert alert-warning">No interviews completed.</p>
+				<% } %>
+			</div>
+		</div>
+	</div>
+</div>

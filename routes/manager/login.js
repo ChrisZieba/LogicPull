@@ -58,7 +58,17 @@ module.exports = function (app) {
 										privledges: user.privledges,
 										authenticated: true
 									};
-									res.redirect('/manager');	
+
+									// update the user login date
+									user.last_login = new Date();
+									user.save(function(err) {
+										if (err) {
+											console.log(err);
+											throw err;
+										} 
+
+										res.redirect('/manager');
+									});
 								} else {
 									// the password is not in the database or is wrong
 									view("The password entered is incorrect.");

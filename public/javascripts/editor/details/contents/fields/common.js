@@ -327,10 +327,18 @@ Editor.details.contents.fields.common = (function () {
 			Editor.thumbnail.buildThumbnail(qid);
 		});
 
+		$("#field-size-dd").live("change", function () {
+			var qid = Editor.main.getCurrentQuestion();
+			var index = $(this).data('field-index');	
+			var size = $("#field-size-dd option:selected").val(); 
+
+			questions[qid].fields[index].size = size;
+		});
+
 		// when a checkbox changed its value, change it in the questions object
 		$(".field-validation-checkbox").live("change", function () {
 			var qid = Editor.main.getCurrentQuestion();
-			var index = $(this).data('field-index');	
+			var index = $(this).data('field-index');
 			var field_id_type = $(this).data('field-checkbox-id');	
 
 			//save the value to the questions object
@@ -342,6 +350,31 @@ Editor.details.contents.fields.common = (function () {
 			}
 			//reload the thumbnail
 			Editor.thumbnail.buildThumbnail(qid);
+		});
+
+		// when a checkbox changed its value, change it in the questions object
+		$(".field-checkbox").live("change", function () {
+			var qid = Editor.main.getCurrentQuestion();
+			var index = $(this).data('field-index');	
+			var field_id_type = $(this).data('field-checkbox-id');	
+
+			//save the value to the questions object
+			switch (field_id_type) {
+				case 'descending':
+					if ($(this).is(":checked")) {
+						questions[qid].fields[index][field_id_type] = 'yes';
+					} else {
+						questions[qid].fields[index][field_id_type] = 'no';
+					}
+					break;
+				case 'line':
+					if ($(this).is(":checked")) {
+						questions[qid].fields[index][field_id_type] = 'yes';
+					} else {
+						questions[qid].fields[index][field_id_type] = 'no';
+					}
+					break;
+			}
 		});
 	};
 
@@ -421,7 +454,7 @@ Editor.details.contents.fields.common = (function () {
 		fieldLabel: function (label, index) {
 			var output = [];
 
-			if ( !label) {
+			if (!label) {
 				label = '';
 			}
 
@@ -433,10 +466,63 @@ Editor.details.contents.fields.common = (function () {
 			return output.join('');		
 		},		
 
+		fieldSize: function (size, index) {
+			var output = [];
+
+			if (!size) {
+				size = 3;
+			}
+
+			var sizes = [
+				{"id":1, "name": "small"},
+				{"id":2, "name": "medium"},
+				{"id":3, "name": "large"},
+				{"id":4, "name": "x-large"}
+			];
+
+			output.push('<div class="field-property">');
+			output.push('<div class="b-label">Size: </div>');	
+			output.push('<select id="field-size-dd" class="large-dropdown"  data-field-index="' + index + '">');
+
+			for (var i = 0; i < sizes.length; i+=1) {
+				if (sizes[i].id == size) {
+					output.push('<option selected="selected" value="' + sizes[i].id + '">' + sizes[i].name + '</option>');
+				} else {
+					output.push('<option value="' + sizes[i].id + '">' + sizes[i].name + '</option>');
+				} 
+			}
+
+			output.push('</select>');	
+			output.push('</div>');	
+
+			return output.join('');		
+		},
+
+		// If checked a field will be on its own line
+		fieldLine: function (line, index) {
+			var output = [];
+
+			if (!line) {
+				line = 'yes';
+			}
+
+			output.push('<div class="field-property">');
+			output.push('<div class="b-label">Seperate Line: </div>');
+
+			if (line === 'yes') {
+				output.push('<input type="checkbox" checked="yes" class="field-checkbox" data-field-checkbox-id="line" data-field-index="' + index + '"/>');
+			} else {
+				output.push('<input type="checkbox" class="field-checkbox" data-field-checkbox-id="line" data-field-index="' + index + '" />');
+			}
+
+			output.push('</div>');
+			return output.join('');			
+		},
+
 		fieldDefault: function (default_value, index) {
 			var output = [];
 
-			if ( ! default_value) {
+			if (!default_value) {
 				default_value = '';
 			}
 

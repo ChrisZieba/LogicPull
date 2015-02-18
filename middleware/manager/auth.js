@@ -26,7 +26,7 @@ exports.validated = function (req, res, next) {
 				next();
 			} else {
 				// the user is logged in but NOT an admin user
-				res.redirect('/interviews');
+				res.redirect('/admin');
 			}
 		} else {
 			res.redirect('/manager/login');
@@ -48,7 +48,7 @@ exports.login = function (req, res, next) {
 				res.redirect('/manager');
 			} else {
 				// the user is logged in but NOT an admin user
-				res.redirect('/interviews');
+				res.redirect('/admin');
 			}
 		} else {
 			// show the login form
@@ -71,7 +71,7 @@ exports.validateInterview = function (req, res, next) {
 
 	// validate the id, if its not valid we don't even bother checking the privileges
 	if (!validator.check(sanitizor.clean(interview), ['required','integer'])) {
-		res.status(404).render('404', { name: '' });	
+		res.status(404).render('manager/404', { name: '', title: '404' });
 		return;
 	}
 
@@ -95,6 +95,39 @@ exports.validateInterview = function (req, res, next) {
 };
 
 /**
+ * This gets called before showing a user.
+ *
+ */
+exports.validateUser = function (req, res, next) {
+	// this is the id of the interview the user is trying to view
+	var user = req.params.user;
+
+	// validate the id, if its not valid we don't even bother checking the privileges
+	if (!validator.check(sanitizor.clean(user), ['required','integer'])) {
+		res.status(404).render('manager/404', { name: '', title: '404' });
+		return;
+	}
+
+	// if the input is valid, get the data for the interview being requested
+	models.Users.findOne({ 'id': user }, function (err, doc) {
+		if (err) {
+			console.log(err);
+			throw err;
+		} 
+		// check to see if anything was returned
+		if (!doc) {
+			res.status(404).render('manager/404', { name: '', title: '404' });
+			return;
+		}
+
+		// attach the interview data to the locals object, so we don't have to query the database again
+		res.locals.user = doc;
+		next();
+	});
+
+};
+
+/**
  * This function checks to make sure that the interview a user is trying to view (in admin) is from the same group
  *
  */
@@ -102,7 +135,7 @@ exports.validateUserGroup = function (req, res, next) {
 	// the res.locals var is populated in the validateInterview function and attaches there
 	// allow userID 1 (admin) to see all interviews
 	if ((req.session.user.group !== res.locals.interview.group) && req.session.user.id !== 1) {
-		res.status(404).render('404', { name: req.session.user.name });	
+		res.status(404).render('manager/404', { name: req.session.user.name, title: '404' });
 	} else {
 		// if we get here the interview is in the database and everything is OK (valid)
 		next();
@@ -158,6 +191,7 @@ exports.privledges = function (privledge) {
 			case 'view_users':
 			case 'download_deliverable':
 			case 'view_completed_interviews':
+			case 'view_saved_interviews':
 				back_link = '/manager';
 				break;
 			case 'change_interview_status':
@@ -172,6 +206,7 @@ exports.privledges = function (privledge) {
 			case 'edit_user':
 			case 'add_user':
 			case 'remove_user':
+			case 'reset_user_password':
 				back_link = '/manager/users';
 				break;
 		}
@@ -184,9 +219,13 @@ exports.privledges = function (privledge) {
 			if (id === res.locals.interview.creator) {
 				next();
 			} else {
-				res.redirect('/manager/error');                    
+				if (granted) {
+					next();
+				} else {
+					res.redirect('/manager/error');                    
+				}
 			}
-		}else {
+		} else {
 			if (granted) {
 				next();
 			} else {
@@ -207,7 +246,7 @@ exports.validateResetToken = function (req, res, next) {
 
 	// if the token is not in any users 
 	if (!validator.check(clean_token, ['required'])) {
-		res.status(404).render('404', { name: '' });
+		res.status(404).render('manager/404', { name: '', title: '404' });
 		return;
 	}
 
@@ -220,14 +259,14 @@ exports.validateResetToken = function (req, res, next) {
 
 		// check to see if anything was returned
 		if (!user) {
-			res.status(404).render('404', { name: '' });
+			res.status(404).render('manager/404', { name: '', title: '404' });
 			return;
 		}
 
 		// now check to see the current date is not ahead of the token date by more than 2 hours
 		// 2 hours = 7200000 ms
 		if (user.reset_date.getTime() + 7200000 <= new Date().getTime()) {
-			res.status(404).render('404', { name: '' });
+			res.status(404).render('manager/404', { name: '', title: '404' });
 			return;
 		}
 
@@ -249,7 +288,7 @@ exports.validateActivateToken = function (req, res, next) {
 
 	// if the token is not in any users 
 	if (!validator.check(clean_token, ['required'])) {
-		res.status(404).render('404', { name: '' });
+		res.status(404).render('manager/404', { name: '', title: '404' });
 		return;
 	}
 
@@ -262,14 +301,14 @@ exports.validateActivateToken = function (req, res, next) {
 
 		// check to see if anything was returned
 		if (!user) {
-			res.status(404).render('404', { name: '' });
+			res.status(404).render('manager/404', { name: '', title: '404' });
 			return;
 		}
 
 		// now check to see the current date is not ahead of the token date by more than 2 hours
 		// 2 hours = 7200000 ms
 		if (user.activate_date.getTime() + 7200000 <= new Date().getTime()) {
-			res.status(404).render('404', { name: '' });
+			res.status(404).render('manager/404', { name: '', title: '404' });
 			return;
 		}
 

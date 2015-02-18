@@ -161,7 +161,7 @@ svg text
 
 #menu {
 	position:absolute;
-	top:1px;
+	top:0px;
 	left:1px;
 	right:0;
 	height:49px;
@@ -760,16 +760,7 @@ input.ah {
 	height:24px;
 	border: solid #e5e5e5;
 	border-width: 0 0 1px 0;
-	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(213,213,213,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(213,213,213,1)), color-stop(100%,rgba(213,213,213,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(213,213,213,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(213,213,213,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(213,213,213,1) 100%); /* IE10+ */
-	background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(213,213,213,1) 100%); /* W3C */
-	/* Bring the nav above everything else--uncomment if needed.
-	
-	
-	*/
+	background-color:#ccc;
 }
 
 #main-menu-nav li

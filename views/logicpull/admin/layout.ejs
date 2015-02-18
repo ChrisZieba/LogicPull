@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title><%= title %></title>
+	  	<meta charset="utf-8"/>
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	 	<meta name="robots" content="noindex, nofollow" />
+
+		<script src="/javascripts/lib/jquery.min.js"></script>
+		<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+	    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<% if (settings.env === 'development') { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/interviews.css?v=<%= settings.version %>">
+		<% } else { %>
+			<link rel="stylesheet" type="text/css" href="/stylesheets/interviews.min.css?v=<%= settings.version %>">
+		<% } %>	
+	</head>
+
+	<body>
+
+	<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/admin">
+                       <img src="/images/logo.png" class="logo" />
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a>
+                </li>
+                <li>
+                    <a href="/admin/interviews"><i class="fa fa-list"></i> &nbsp;Interviews</a>
+                </li>
+                <li>
+                    <a href="/admin/account"><i class="fa fa-user"></i> &nbsp;Account</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="/admin"><i class="fa fa-home"></i></a>
+						</div>
+
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav navbar-right">
+								<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> <%= name %> <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+								<li><a href="/admin/logout">Logout</a></li>
+								</ul>
+								</li>
+							</ul>
+						</div><!-- /.navbar-collapse -->
+					</div><!-- /.container-fluid -->
+				</nav>
+
+				<% if (layout === 'dashboard') { %>
+					<% include dashboard %>
+				<% } %>
+
+				<% if (layout === 'interviews') { %>
+					<% include interviews/interviews %>
+				<% } %>
+
+				<% if (layout === 'account') { %>
+					<% include account/account %>
+				<% } %>
+
+				<% if (layout === 'error') { %>
+					<% include error %>
+				<% } %>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+	</body>
+</html>

@@ -1,49 +1,56 @@
-<div id="admin">
+<div class="row">
+	<div class="col-lg-12">
 
-	<% include ../header %>
-	
-	<div class="contents-container">
-		<div class="contents">
-			<div class="title"><h1>Users</h1></div>
-			<div class="clear"></div>
-			<div class="span-17 left">
-				<table class="interviews-table table">
-					<thead class="b">
-						<tr><th colspan="3">Users</th></tr>
-						<tr>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Created</th>
-						</tr>
-					</thead>
-					<tbody class="a">
-						<% for (var j = 0; j < users.length; j++) { %>
-						<tr>
-							<td><%= users[j].name %></td>
-							<td><%= users[j].email %></td>
-							<td><%= users[j].created.toLocaleDateString() %> <%= users[j].created.toLocaleTimeString() %></td>
-						</tr>
-						<% } %>
-					</tbody>
-				</table>
-			</div>
-			<div class="span-5 right">
-				<table class="side-table table">
-					<thead class="b">
-						<tr>
-							<th>Quick Links</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><div class="ql-con"><span class="ql-add">+</span><a href="/manager/users/add" title="Add Deliverable">Add User</a></div></td>
-						</tr>
-					</tbody>
-				</table>
+		<h1>Users</h1>
 
-			</div>
-			<div class="clear"></div>
+		<div class="btn-group margin-20-bottom" role="group">
+			<a class="btn btn-default" href="/manager/users/add" title="Add user"><i class="fa fa-plus-square"></i> Add User</a>
+		</div>
+
+		<div class="row">
+			<% for (var j = 0; j < users.length; j++) { 
+				panel = "panel-default";
+
+				if (users[j].group !== 0) {
+					panel = "panel-primary";
+				} 
+			%>
+				<div class="col-md-6">
+					<div class="panel <%= panel %>">
+						<div class="panel-heading">
+							<div class="btn-group pull-right">
+								<a href="/manager/users/edit/<%= users[j].id %>" class="btn btn-xs btn-default"><i class="fa fa-gear"></i></a>
+								<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+									<span class="caret"></span>
+									<span class="sr-only">Toggle Dropdown</span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li title="Remove this user"><a href="/manager/users/remove/<%= users[j].id %>">Remove</a></li>
+									<li title="Remove this user"><a href="/manager/users/reset_password/<%= users[j].id %>">Reset Password</a></li>
+								</ul>
+							</div>
+
+							<i class="fa fa-user"></i> <strong><%= users[j].name %></strong>
+							<% access = false; %>
+							<% if (users[j].group !== 0) { %>
+								<% access = true; %>
+								<span class="label label-info" data-toggle="tooltip" title="This user has access to login to the manager. Users who create accounts during the interview process do not have access to the manager unless given." data-original-title="This user has access to login to the manager. Users who create accounts during the interview process do not have access to the manager unless given."><i class="fa fa-key"></i></span>
+							<% } %>
+
+						</div>
+						<div class="panel-body">
+							<ul class="list-group">
+								<li class="list-group-item"><i class="fa fa-envelope"></i> <strong>Email:</strong> <%= users[j].email %><br/></li>
+								<li class="list-group-item"><i class="fa fa-clock-o"></i> <strong>Created:</strong> <em><%= users[j].created.toLocaleDateString() %> <%= users[j].created.toLocaleTimeString() %></em></li>
+								<li class="list-group-item"><i class="fa fa-key"></i> <strong>Manager Access:</strong> <%= access.toString().toUpperCase() %><br/></li>
+								<% if (users[j].last_login) { %>
+									<li class="list-group-item"><i class="fa fa-clock-o"></i> <strong>Last Login:</strong> <em><%= users[j].last_login.toLocaleDateString() %> <%= users[j].last_login.toLocaleTimeString() %></em></li>
+								<% } %>
+							</ul>
+						</div>
+					</div>
+				</div>
+			<% } %>
 		</div>
 	</div>
-	<div class="clear"></div>
 </div>

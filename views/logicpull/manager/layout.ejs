@@ -6,7 +6,13 @@
 	  	<meta charset="utf-8"/>
 	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	 	<meta name="robots" content="noindex, nofollow" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+		<script src="/javascripts/lib/jquery.min.js"></script>
+		<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+		<script src="/javascripts/lib/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+	    <!-- Custom Fonts -->
+	    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<% if (settings.env === 'development') { %>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
 			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
@@ -17,86 +23,194 @@
 	</head>
 
 	<body>
-		<% if (layout === 'dashboard') { %>
-			<% include dashboard %>
-		<% } %>
 
-		<% if (layout === 'add-interview') { %>
-			<% include interviews/add %>
-		<% } %>
+	<div id="wrapper">
 
-		<% if (layout === 'remove-interview') { %>
-			<% include interviews/remove %>
-		<% } %>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/manager">
+                       <img src="/images/logo.png" class="logo" />
+                    </a>
+                </li>
+                <li>
+                    <a href="/manager"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a>
+                </li>
+                <li>
+                    <a href="/manager/interviews"><i class="fa fa-list"></i> &nbsp;Interviews</a>
+                </li>
+                <li>
+                    <a href="/manager/users"><i class="fa fa-users"></i> &nbsp;Users</a>
+                </li>
+                <li>
+                    <a href="/manager/account"><i class="fa fa-user"></i> &nbsp;Account</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
 
-		<% if (layout === 'interview') { %>
-			<% include interviews/interview %>
-		<% } %>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
 
-		<% if (layout === 'remove-deliverable') { %>
-			<% include interviews/deliverables/remove %>
-		<% } %>
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
 
-		<% if (layout === 'add-deliverable') { %>
-			<% include interviews/deliverables/add %>
-		<% } %>
+						<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/manager"><i class="fa fa-home"></i></a>
+						</div>
 
-		<% if (layout === 'import-interview') { %>
-			<% include interviews/import %>
-		<% } %>
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Quick Links <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="/manager/interviews/add"><i class="fa fa-plus-square"></i> Add an Interview</a></li>
+									</ul>
+								</li>
+							</ul>
+							<form class="navbar-form navbar-left" role="search" method="get" action="/manager/search">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Search" name="q">
+								</div>
+								<button type="submit" class="btn btn-default">Submit</button>
+							</form>
 
-		<% if (layout === 'export-interview') { %>
-			<% include interviews/export %>
-		<% } %>
+							<ul class="nav navbar-nav navbar-right">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> <%= name %> <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="/manager/logout">Logout</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<% if (layout === 'dashboard') { %>
+					<% include dashboard %>
+				<% } %>
 
-		<% if (layout === 'update-deliverable') { %>
-			<% include interviews/deliverables/update %>
-		<% } %>
+				<% if (layout === 'add-interview') { %>
+					<% include interviews/add %>
+				<% } %>
 
-		<% if (layout === 'lock-interview') { %>
-			<% include interviews/lock %>
-		<% } %>
+				<% if (layout === 'remove-interview') { %>
+					<% include interviews/remove %>
+				<% } %>
 
-		<% if (layout === 'clone-interview') { %>
-			<% include interviews/clone %>
-		<% } %>
+				<% if (layout === 'interview') { %>
+					<% include interviews/interview %>
+				<% } %>
 
-		<% if (layout === 'live-interview') { %>
-			<% include interviews/live %>
-		<% } %>
+				<% if (layout === 'interview-description') { %>
+					<% include interviews/description %>
+				<% } %>
 
-		<% if (layout === 'on-complete-interview') { %>
-			<% include interviews/on_complete %>
-		<% } %>
+				<% if (layout === 'remove-deliverable') { %>
+					<% include interviews/deliverables/remove %>
+				<% } %>
 
-		<% if (layout === 'completed-interviews') { %>
-			<% include interviews/completed %>
-		<% } %>
+				<% if (layout === 'add-deliverable') { %>
+					<% include interviews/deliverables/add %>
+				<% } %>
 
-		<% if (layout === 'report-interview') { %>
-			<% include interviews/report %>
-		<% } %>
+				<% if (layout === 'import-interview') { %>
+					<% include interviews/import %>
+				<% } %>
 
-		<% if (layout === 'users') { %>
-			<% include users/users %>
-		<% } %>
+				<% if (layout === 'saved-interviews') { %>
+					<% include interviews/saved %>
+				<% } %>
 
-		<% if (layout === 'add-users') { %>
-			<% include users/add %>
-		<% } %>
+				<% if (layout === 'export-interview') { %>
+					<% include interviews/export %>
+				<% } %>
 
-		<% if (layout === 'remove-users') { %>
-			<% include users/remove %>
-		<% } %>
+				<% if (layout === 'update-deliverable') { %>
+					<% include interviews/deliverables/update %>
+				<% } %>
 
-		<% if (layout === 'user') { %>
-			<% include users/user %>
-		<% } %>
+				<% if (layout === 'lock-interview') { %>
+					<% include interviews/lock %>
+				<% } %>
 
-		<% if (layout === 'error') { %>
-			<% include error %>
-		<% } %>
+				<% if (layout === 'clone-interview') { %>
+					<% include interviews/clone %>
+				<% } %>
 
-		<script>site.init();</script>
+				<% if (layout === 'live-interview') { %>
+					<% include interviews/live %>
+				<% } %>
+
+				<% if (layout === 'on-complete-interview') { %>
+					<% include interviews/on_complete %>
+				<% } %>
+
+				<% if (layout === 'completed-interviews') { %>
+					<% include interviews/completed %>
+				<% } %>
+
+				<% if (layout === 'interviews') { %>
+					<% include interviews/interviews %>
+				<% } %>
+
+				<% if (layout === 'report-interview') { %>
+					<% include interviews/report %>
+				<% } %>
+
+				<% if (layout === 'users') { %>
+					<% include users/users %>
+				<% } %>
+
+				<% if (layout === 'add-users') { %>
+					<% include users/add %>
+				<% } %>
+
+				<% if (layout === 'edit-user') { %>
+					<% include users/edit %>
+				<% } %>
+
+				<% if (layout === 'remove-user') { %>
+					<% include users/remove %>
+				<% } %>
+
+				<% if (layout === 'reset-user-password') { %>
+					<% include users/reset_password %>
+				<% } %>
+
+				<% if (layout === 'account') { %>
+					<% include account/account %>
+				<% } %>
+
+
+				<% if (layout === 'search') { %>
+					<% include search/results %>
+				<% } %>
+
+				<% if (layout === 'error') { %>
+					<% include error %>
+				<% } %>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+    	LogicPull.admin.init();
+	    $("#menu-toggle").click(function(e) {
+	        e.preventDefault();
+	        $("#wrapper").toggleClass("toggled");
+	    });
+    </script>
 	</body>
 </html>

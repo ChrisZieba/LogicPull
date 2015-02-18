@@ -1,166 +1,266 @@
-<div id="admin">
-	<% include ../header %>
-	<div class="contents-container">
-		<div class="contents">
-			<div class="title"><h1><%= interview.name %></h1></div>
-			<div class="clear"></div>
-			<div class="span-17 left">
-				<table class="interviews-table table">
-					<tbody class="b">
-			            <tr>
-			            	<td><div class="label">Name:</div></td>
-			            	<td><%= interview.name %></td>
-			            </tr>
-			            <tr>
-			            	<td><div class="label">Creator:</div></td>
-			            	<td><%= user.name %><br><%= user.email %></td>
-			            </tr>
-			            <tr>
-			            	<td><div class="label">Description:</div></td>
-			            	<td><%= interview.description %></td>
-			            </tr>
-			            <tr>
-			            	<td><div class="label">Locked:</div></td>
-			            	<td><%= interview.locked.toString().toUpperCase() %></td>
-			            </tr>
-			            <tr>
-			            	<td><div class="label">Live:</div></td>
-			            	<td><%= interview.live.toString().toUpperCase() %></td>
-			            </tr>
-			            <tr>
-			            	<td><div class="label">Creation:</div></td>
-			            	<td><%= interview.creation_date.toLocaleDateString() %> <%= interview.creation_date.toLocaleTimeString() %></td>
-			            </tr>
-			            <tr>
-			            	<td><div class="label">On Complete:</div></td>
-			            	<td>
+<div class="row">
+	<div class="col-lg-12">
+		<h1><%= interview.name %></h1>
+		<div class="btn-group margin-20-bottom" role="group">
+			<a class="btn btn-default" href="<%= interview.live_url %>" title="Live Interview">View Interview</a>
+			<a class="btn btn-default" href="<%= interview.edit_url %>" title="Edit Interview">Open Editor</a>
+			<div class="btn-group" role="group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<i class="fa fa-gear"></i>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="<%= interview.stage_url %>" title="Staging Area">View Stage</a></li>
+					<li><a href="/manager/interview/<%= interview.id %>/lock" title="Lock/Unlock Interview">Lock/Unlock Interview</a></li>
+					<li><a href="/manager/interview/<%= interview.id %>/report" title="Interview report">View Report</a></li>
+					<li><a href="/manager/interview/<%= interview.id %>/live" title="Change Live Status">Change Live Status</a></li>
+					<li><a href="/manager/interview/<%= interview.id %>/on_complete" title="Edit On Complete options">View Settings</a></li>
+					<li><a href="/manager/interview/<%= interview.id %>/completed" title="Completed">View Completed</a></li>
+					<li><a href="/manager/interview/<%= interview.id %>/import_interview" title="Import Interview data">Import Interview Data</a></li>
+					<li><a href="/manager/interview/<%= interview.id %>/export_interview" title="Export Interview data">Export Interview Data</a></li>
+					<li class="divider"></li>
+					<li title="Clone this interview"><a href="/manager/interviews/clone/<%= interview.id %>">Clone</a></li>
+					<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interview.id %>">Remove</a></li>
+				</ul>
+			</div>
+		</div>
 
-			            		<div><strong>Email deliverables to client:</strong> <%= interview.on_complete.email_deliverables_to_client.toString().toUpperCase() %></div><br/>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<!-- Default panel contents -->
+					<div class="panel-heading"><strong>Details</strong></div>
+					<div class="panel-body">
+						<p><strong>Description:</strong> <%= interview.description %> <a href="/manager/interview/<%= interview.id %>/description" title="Edit Description"><i class="fa fa-pencil"></i></a></p>
+						<p><strong>Created:</strong> <%= interview.creation_date.toLocaleDateString() %> <em><%= interview.creation_date.toLocaleTimeString() %></em> (<i class="fa fa-user"></i> <%= user.name %> <em><i class="fa fa-email"></i> <%= user.email %></em>)</p>
+						
+					</div>
 
-			            		 <%  if (email_notification.length) { %>
-			            		 	<div><strong>Email Notification to:</strong></div>
-		            		 		<ul class="m-e-lst">
-			            		 		<% for (var j=0; j < email_notification.length; j++) { %>
-			            		 			<li><%= email_notification[j] %></li>
-			            		 		<% } %>
-		            		 		</ul>
-		            		 		<br/>
-			            		 <% } else { %>
-			            		 	<div><strong>Email Notification to:</strong> &lt;None&gt;</div><br/>
-			            		 <% } %>
+					<ul class="list-group">
+						<li class="list-group-item"><strong>Locked:</strong> <%= interview.locked.toString().toUpperCase() %> <a href="/manager/interview/<%= interview.id %>/lock" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a></li>
+						<li class="list-group-item"><strong>Live:</strong> <%= interview.live.toString().toUpperCase() %> <a href="/manager/interview/<%= interview.id %>/live" title="Change Live Status"><i class="fa fa-pencil"></i></a></li>
+					</ul>
+				</div>
+			</div>
 
-			            		 <% if (email_deliverables) { %>
-			            		 	<div><strong>Email Deliverables to:</strong></div>
-		            		 		<ul class="m-e-lst">
-		            		 		<% for (var k=0; k < email_deliverables.length; k++) { %>
-		            		 			<li><%= email_deliverables[k] %></li>
-		            		 		<% } %>
-		            		 		</ul>
-			            		 	<br/>
-			            		 <% } else { %>
-			            		 	<div><strong>Email Deliverables to: &lt;None&gt;</strong></div><br/>
-			            		 <% } %>
-			            	</td>
-			            </tr>
-					</tbody>
-				</table>
-				<div class="clear"></div>
-				<table class="interviews-table table">
-					<thead class="a">
-						<tr>
-							<th colspan="6">Deliverables</th>
-						</tr>
-						<tr class="b">
-							<th>Filename</th>
-							<th>Description</th>
-							<th>Output (Type)</th>
-							<th>Options</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% if (interview.deliverables.length !== 0) { %>
-							<% for (var i=0; i < interview.deliverables.length; i++) { %>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<!-- Default panel contents -->
+					<div class="panel-heading"><strong>Settings</strong></div>
+					<div class="panel-body">
+					  	<p><strong>Email Deliverables to Client:</strong> <%= interview.on_complete.email_deliverables_to_client.toString().toUpperCase() %> <a href="/manager/interview/<%= interview.id %>/on_complete" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a>
+					  	</p>
+					</div>
+					<ul class="list-group">
+						<li class="list-group-item">
+
+							<p>
+								<strong>Email Notification to:</strong>
+								<% if (interview.on_complete.email_notification) { %>
+									<%= interview.on_complete.email_notification %>
+								<% } else { %>
+									&lt;None&gt;
+								<% } %>
+								<a href="/manager/interview/<%= interview.id %>/on_complete" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a>
+							</p>
+
+							<p>
+								<strong>Email Deliverables to:</strong>
+								<% if (interview.on_complete.email_deliverables) { %>
+									<%= interview.on_complete.email_deliverables %>
+								<% } else { %>
+									&lt;None&gt;
+								<% } %>
+								<a href="/manager/interview/<%= interview.id %>/on_complete" title="Lock/Unlock Interview"><i class="fa fa-pencil"></i></a>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<br/>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Deliverables 
+					<div class="btn-group pull-right">
+						<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+							<i class="fa fa-gear"></i>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interview.id %>/deliverables/add" title="Add Deliverable"><i class="fa fa-plus-square"></i> Add Deliverable</a></li>
+
+						</ul>
+					</div>
+				</h3>
+			</div>
+			<div class="panel-body">
+				<% if (interview.deliverables.length !== 0) { %>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Filename</th>
+								<th>Description</th>
+								<th>Output (Type)</th>
+								<th>Options</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<% for (var i=0; i < interview.deliverables.length; i++) { 
+								deliverable_type = "fa-file-o";
+
+								if (interview.deliverables[i].output.type.toUpperCase() === 'PDF' || interview.deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { 
+									deliverable_type = "fa-file-pdf-o"; 
+								} 
+
+								if (interview.deliverables[i].output.type.toUpperCase() === 'XML' || interview.deliverables[i].output.type.toUpperCase() === 'XML_MSACCESS') {
+									deliverable_type = "fa-file-code-o";
+								}
+
+								if (interview.deliverables[i].output.type.toUpperCase() === 'RTF' || interview.deliverables[i].output.type.toUpperCase() === 'ODT') {
+									deliverable_type = "fa-file-text-o";
+								}
+
+								if (interview.deliverables[i].output.type.toUpperCase() === 'DOC' || interview.deliverables[i].output.type.toUpperCase() === 'DOCX') {
+									deliverable_type = "fa-file-word-o";
+								}
+							%>
 								<tr>
-									<td><a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" target="_blank"><%= interview.deliverables[i].input.name %></a>
-										<br/><br/>
-										<strong>Last Modified: </strong><%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %>
-										<br/> 
-										<strong>By: </strong><%= interview.deliverables[i].input.creator.name %>
+									<td>
+										<a href="/manager/download/deliverable/stylesheet/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="Last Modified: <%= interview.deliverables[i].input.modified.toLocaleDateString() %> <%= interview.deliverables[i].input.modified.toLocaleTimeString() %> (<%= interview.deliverables[i].input.creator.name %>)" target="_blank"><i class="fa <%= deliverable_type %>"></i> <%= interview.deliverables[i].input.name %></a>
 									</td>
 									<td><%= interview.deliverables[i].description %></td>
-									<td><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong></td>
 									<td>
-										<ul class="options-menu">
-											<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interview.id %>/deliverables/update/<%= i %>">Update</a></li>
-											<li title="Remove this stylesheet" class="remove"><a href="/manager/interview/<%= interview.id %>/deliverables/remove/<%= i %>">Remove</a></li>
-										</ul>
+										<div><%= interview.deliverables[i].output.name %> <strong>(<%= interview.deliverables[i].output.type.toUpperCase() %>)</strong>
+						        		 	<% if (interview.deliverables[i].output.type.toUpperCase() === 'PDF_FORM') { %>
+						        		 		<a href="/manager/download/deliverable/form/<%= i %>/<%= interview.id %>/<%= interview.deliverables[i].id %>" data-toggle="tooltip" title="" data-original-title="Download the PDF Form"><i class="fa fa-download"></i>
+						        		 	<% } %>
+						        		</div>
+									</td>
+									<td>
+										<div class="btn-group pull-right">
+											<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+												<i class="fa fa-gear"></i>
+												<span class="caret"></span>
+												<span class="sr-only">Toggle Dropdown</span>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li title="Update this stylesheet" class="download"><a href="/manager/interview/<%= interview.id %>/deliverables/update/<%= i %>">Update</a></li>
+												<li title="Remove this stylesheet" class="remove"><a href="/manager/interview/<%= interview.id %>/deliverables/remove/<%= i %>">Remove</a></li>
+											</ul>
+										</div>
 									</td>
 								</tr>
 							<% } %>
-						<% } else { %>
-								<tr><td colspan="5" class="center">&lt;There are currently no user defined deliverables. This means that when a user completes an interview, only the xml answer set will be generated.&gt;</td></tr>
-						<% } %>
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				<% } else { %>
+					<p class="alert alert-warning">This interview does not have any deliverables.</p>
+				<% } %>
 			</div>
-
-		<div class="span-5 right">
-			<table class="side-table table">
-				<thead class="b">
-					<tr>
-						<th>Quick Links</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><div class="ql-con"><span class="ql-preview">+</span><a href="<%= interview.live_url %>" title="Live Interview">View Live</a></div></td>
-					</tr>
-					<tr>
-						<td><div class="ql-con"><span class="ql-stage">+</span><a href="<%= interview.stage_url %>" title="Staging Area">View Stage</a></div></td>
-					</tr>
-					<tr>
-						<td><div class="ql-con"><span class="ql-edit">+</span><a href="<%= interview.edit_url %>" title="Edit Interview">Open in editor</a></div></td>
-					</tr>
-
-					<tr>
-						<td><div class="ql-con"><span class="ql-add">+</span><a href="/manager/interview/<%= interview.id %>/deliverables/add" title="Add Deliverable">Add Deliverable</a></div></td>
-					</tr>
-					<tr>
-						<td><div class="ql-con"><span class="ql-report">+</span><a href="/manager/interview/<%= interview.id %>/report" title="Interview report">View Report</a></div></td>
-					</tr>
-					<tr>
-						<td>
-							<div class="ql-con">
-								<span class="ql-lock">+</span>
-								<a href="/manager/interview/<%= interview.id %>/lock" title="Lock/Unlock Interview"> 
-									<% if (interview.locked) { %>
-										Unlock
-									<% } else { %>
-										Lock
-									<% } %>							
-									Interview
-								</a>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td><div class="ql-con"><span class="ql-live">+</span><a href="/manager/interview/<%= interview.id %>/live" title="Change Live Status">Change Live Status</a></div></td>
-					</tr>
-					<tr>
-						<td><div class="ql-con"><span class="ql-complete">+</span><a href="/manager/interview/<%= interview.id %>/on_complete" title="Edit On Complete options">Edit On Complete</a></div></td>
-					</tr>
-					<tr>
-						<td><div class="ql-con"><span class="ql-complete">+</span><a href="/manager/interview/<%= interview.id %>/import_interview" title="Import Interview data">Import Interview Data</a></div></td>
-					</tr>
-					<tr>
-						<td><div class="ql-con"><span class="ql-complete">+</span><a href="/manager/interview/<%= interview.id %>/export_interview" title="Export Interview data">Export Interview Data</a></div></td>
-					</tr>
-				</tbody>
-			</table>
-
 		</div>
-		<div class="clear"></div>
-		</div>
+
+		<% if (user.privledges['view_completed_interviews']) { %>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Recently Completed</h3>
+				</div>
+				<div class="panel-body">
+					<% if (outputs.length !== 0) { %>
+						<div class="table-responsive">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Client</th>
+										<th>Deliverables</th>
+										<th>Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% for (var k = 0; k < outputs.length; k++) { %>
+									<tr>
+										<td><%= outputs[k].client_fullname %></td>
+										<td>
+											<% for (var l = 0; l < outputs[k].deliverables.length; l++) {
+												deliverable_type = "fa-file-o";
+
+												if (outputs[k].deliverables[l].type.toUpperCase() === 'PDF' || outputs[k].deliverables[l].type.toUpperCase() === 'PDF_FORM') { 
+													deliverable_type = "fa-file-pdf-o"; 
+												} 
+
+												if (outputs[k].deliverables[l].type.toUpperCase() === 'XML' || outputs[k].deliverables[l].type.toUpperCase() === 'XML_MSACCESS') {
+													deliverable_type = "fa-file-code-o";
+												}
+
+												if (outputs[k].deliverables[l].type.toUpperCase() === 'RTF' || outputs[k].deliverables[l].type.toUpperCase() === 'ODT') {
+													deliverable_type = "fa-file-text-o";
+												}
+
+												if (outputs[k].deliverables[l].type.toUpperCase() === 'DOC' || outputs[k].deliverables[l].type.toUpperCase() === 'DOCX') {
+													deliverable_type = "fa-file-word-o";
+												}
+											%>
+												<div><i class="fa <%= deliverable_type %>"></i> <a href="/manager/download/deliverable/output/<%= outputs[k].id %>/<%= outputs[k].interview.id %>/<%= outputs[k].deliverables[l].id %>" target="_blank"><%= outputs[k].deliverables[l].name %></a></div>
+											<% } %>
+
+										</td>
+										<td>
+											<%= outputs[k].date.toLocaleDateString() %> <em><%= outputs[k].date.toLocaleTimeString() %></em>
+										</td>
+									</tr>
+									<% } %>
+								</tbody>
+							</table>
+						</div>
+					<% } else { %>
+						<p class="alert alert-warning">This interview has not been completed yet.</p>
+					<% } %>
+				</div>
+			</div>
+		<% } %>
+
+		<% if (user.privledges['view_saved_interviews']) { %>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Recently Saved</h3>
+				</div>
+				<div class="panel-body">
+					<% if (saved.length !== 0) { %>
+						<div class="table-responsive">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>User</th>
+										<th>Description</th>
+										<th>Progress</th>
+										<th>Date Last Saved</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% for (var j = 0; j < saved.length; j++) { %>
+									<tr>
+										<td><%= saved[j].user_id %></td>
+										<td><%= saved[j].note %></td>
+										<td><%= saved[j].data.state.distance[saved[j].qid] %></td>
+										<td><%= saved[j].created %></td>
+									</tr>
+									<% } %>
+								</tbody>
+							</table>
+						</div>
+						<div class="text-right">
+							<a href="/manager/interview/<%= interview.id %>/saved">View More <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					<% } else { %>
+						<p class="alert alert-warning">This interview has no saves.</p>
+					<% } %>
+				</div>
+			</div>
+		<% } %>
+
 	</div>
-	<div class="clear"></div>
 </div>

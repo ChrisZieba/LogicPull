@@ -25,14 +25,20 @@ var tmps_schema = new Schema({
 	history : { type: Schema.Types.Mixed, required: true }
 });
 
-// Store each question in its own document to increas eperformacne while the intewview is being worked on
+// Store each question in its own document to increase performacne while the intewview is being worked on
 var states_schema = new Schema({
 	id : { type: Number, required: true },
-	// reference the master record, which hold
-	//tmp_id : { type: Number, required: true },
+	loop_id : { type: Number, required: false },
+	// used to find states for a given question. Primarily
+	// used to get a previous answer when we go gorward.
+	// It is the qid of the question where answered.
+	base_qid : { type: String, required: false },
+	//run_qid : { type: String, required: false },
+	// reference to the master record
+	tmp_id : { type: Number, required: false },
 	created: { type: Date, default: Date.now },
 	last_modified: { type: Date, default: Date.now },
-	// contains the mater object, which hold the the state of the interview
+	// contains the mater object, which holds the the state of the interview
 	data : { type: Schema.Types.Mixed, required: true }
 });
 
@@ -96,6 +102,8 @@ var interview_schema = new Schema({
 // The output model
 var output_schema = new Schema({
 	id : { type: Number, required: true },
+	// Not required since unregistered users can also create documents.
+	user_id : { type: Number, required: false },
 	client_lastname : { type: String, required: true },
 	client_firstname : { type: String, required: true },
 	client_fullname : { type: String, required: true },
@@ -114,6 +122,7 @@ var user_schema = new Schema({
 	group : { type: Number, required: true },
 	privledges : { type: Schema.Types.Mixed, required: true },
 	created: { type: Date, default: Date.now },
+	last_login: { type: Date, default: Date.now },
 	reset_date: { type: Date, required: false },
 	reset_token :  { type: String, required: false }
 });

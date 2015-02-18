@@ -244,6 +244,8 @@ Editor.details.contents.fields.textDropdown = (function () {
 			output.push(common.fieldType(type));
 			output.push(common.fieldName(field.name, index));
 			output.push(common.fieldLabel(field.label, index));
+			output.push(common.fieldSize(field.size, index));
+			output.push(common.fieldLine(field.line, index));
 			output.push(common.fieldDefault(field.def, index));
 			output.push(common.fieldValidation(field.validation, type, index));
 			// this is specific only to the text dropdown fields

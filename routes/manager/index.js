@@ -36,13 +36,13 @@ module.exports = function (app) {
 		outputs = outputs.limit(100).sort('-date');
 
 		interviews.exec(function(err, interviews) {
-			if(err) {
+			if (err) {
 				console.log(err);
 				throw err;
 			}
 
 			outputs.exec(function (err, outputs) {
-				if(err) {
+				if (err) {
 					console.log(err);
 					throw err;
 				} 
@@ -89,7 +89,10 @@ module.exports = function (app) {
 						var token = require('crypto').createHash('md5').update(user.email + new Date().getTime()).digest("hex");
 
 						// update the user reset info
-						models.Users.update({id:user.id}, {reset_date: new Date(), reset_token: token}, function (err) {
+						models.Users.update({id:user.id}, {
+							reset_date: new Date(), 
+							reset_token: token
+						}, function (err) {
 							if (err) {
 								console.log(err);
 								throw err;
@@ -168,7 +171,11 @@ module.exports = function (app) {
 							throw err;
 						} 
 						// update the password and remove the token from the table
-						models.Users.findOneAndUpdate({id:res.locals.user.id}, {password: hash, reset_token: null, reset_data: null}, function (err, user) {
+						models.Users.findOneAndUpdate({id:res.locals.user.id}, {
+							password: hash, 
+							reset_token: null, 
+							reset_data: null
+						}, function (err, user) {
 							if (err) {
 								console.log(err);
 								throw err;
@@ -193,6 +200,70 @@ module.exports = function (app) {
 			}
 		} else {
 			view({msg:null, valid: false});
+		}
+	});
+
+	app.get('/manager/account', [auth.validated], function (req, res) {
+		var group_id = req.session.user.group;
+		var user_id = req.session.user.id;
+
+		// send the output to the view
+		res.render('manager/layout', { 
+			title: 'LogicPull Manager | Account',
+			name: req.session.user.name,
+			layout: 'account',
+			user: req.session.user
+		});
+	});
+
+	app.get('/manager/search', [auth.validated], function (req, res) {
+		if (!req.query.q) {
+			// find any comlpeted interviews where the name matches
+			res.render('manager/layout', { 
+				title: 'LogicPull Manager | Search Results',
+				name: req.session.user.name,
+				layout: 'search',
+				interviews: [],
+				outputs: [],
+				user: req.session.user
+			});
+		} else {
+			var query = req.query.q;
+			var group_id = req.session.user.group;
+			
+			// What the user typed into the search bar
+			var regex = new RegExp('.*' + query + '.*', 'i');
+			var interviews = models.Interviews.find( { $or: [ { "name": regex } , { "description": regex } ] });
+			var outputs = models.Outputs.find({"client_fullname": regex});
+
+			// make sure the group id of the logged in user matches that from the URL
+			interviews = interviews.where('group').equals(group_id);
+			//outputs = outputs.where('interview.group').equals(group_id);
+			outputs = outputs.limit(100).sort('-date');
+
+			interviews.exec(function (err, interviews) {
+				if (err) {
+					console.log(err);
+					throw err;
+				}
+
+				outputs.exec(function (err, outputs) {
+					if (err) {
+						console.log(err);
+						throw err;
+					} 
+
+					// find any comlpeted interviews where the name matches
+					res.render('manager/layout', { 
+						title: 'LogicPull Manager | Search Results',
+						name: req.session.user.name,
+						layout: 'search',
+						interviews: interviews,
+						outputs: outputs,
+						user: req.session.user
+					});
+				});
+			});
 		}
 	});
 

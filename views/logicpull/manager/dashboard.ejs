@@ -1,92 +1,106 @@
-<div id="admin">
-	<% include header %>
-	<div class="contents-container">
-		<div class="contents">
-			<h1>Dashboard</h1>
-			<div class="span-19 left">
-				<table class="interviews-table table">
-					<thead class="b">
-						<tr><th colspan="4">Interviews</th></tr>
-						<tr>
-							<th>Name</th>
-							<th>Description</th>
-							<th>Live</th>
-							<th>Options</th>
-						</tr>
-					</thead>
-					<tbody class="a">
-						<% for (var j = 0; j < interviews.length; j++) { %>
-						<tr>
-							<td><a href="/manager/interview/<%= interviews[j].id %>"><%= interviews[j].name %></a></td>
-							<td><%= interviews[j].description %></td>
-							<td><%= interviews[j].live %></td>
-							<td>
-								<ul class="options-menu">
+<div class="row">
+	<div class="col-lg-12">
 
-									<li title="Clone this interview" class="clone"><a href="/manager/interviews/clone/<%= interviews[j].id %>">Clone</a></li>
-									<li title="Remove this interview" class="remove"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
-								</ul>
-							</td>
-						</tr>
-						<% } %>
-					</tbody>
-				</table>
+		<h1>Dashboard</h1>
 
-				<% if (user.privledges['view_completed_interviews']) { %>
-					<table class="interviews-table table">
-						<thead class="b">
-							<tr><th colspan="4">Recently Completed Interviews</th></tr>
-							<tr>
-								<th>Client</th>
-								<th>Interview</th>
-								<th>Deliverables</th>
-								<th>Date</th>
-							</tr>
-						</thead>
-						<tbody class="a">
-
-							<% for (var k = 0; k < outputs.length; k++) { %>
-							<tr>
-								<td style="min-width: 85px;"><%= outputs[k].client_fullname %></td>
-								<td><a href="/manager/interview/<%= outputs[k].interview.id %>"><%=  outputs[k].interview.name %></a></td>
-								<td>
-									<% for (var l = 0; l < outputs[k].deliverables.length; l++) { %>
-										<div class="dash-out-dn"><span class="ql-<%= outputs[k].deliverables[l].type %>">+</span><a href="/manager/download/deliverable/output/<%= outputs[k].id %>/<%= outputs[k].interview.id %>/<%= outputs[k].deliverables[l].id %>" target="_blank"><%= outputs[k].deliverables[l].name %></a></div>
-									<% } %>
-
-								</td>
-								<td><%= outputs[k].date.toLocaleDateString() %></td>
-							</tr>
-							<% } %>
-						</tbody>
-					</table>
-				<% } %>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Interviews</h3>
 			</div>
-			<div class="span-5 right">
-				<table class="side-table table">
-					<thead class="b">
-						<tr>
-							<th>Quick Links</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><div class="ql-con"><span class="ql-add">+</span><a title="Add a new interview" href="/manager/interviews/add">Add Interview</a></div></td>
-						</tr>
-						<tr>
-							<td><div class="ql-con"><span class="ql-report">+</span><a href="/manager/interviews/completed" title="Edit Interview">Completed Interviews</a></div></td>
-						</tr>
-						<tr>
-							<td><div class="ql-con"><span class="ql-users">+</span><a href="/manager/users" title="Edit Interview">Edit Users</a></div></td>
-						</tr>
-					</tbody>
-				</table>
-			</div><!-- span -->
-			<div class="clear"></div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<% for (var j = 0; j < interviews.length; j++) { %>
+						<li class="list-group-item">
+							<div class="btn-group pull-right">
+								<a class="btn btn-xs btn-default" href="/manager/interview/<%= interviews[j].id %>"><i class="fa fa-gear"></i></a>
+								<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+									<span class="caret"></span>
+									<span class="sr-only">Toggle Dropdown</span>
+								</button>
+
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="<%= interviews[j].stage_url %>" title="Staging Area">View Stage</a></li>
+									<li><a href="/manager/interview/<%= interviews[j].id %>/lock" title="Lock/Unlock Interview">Lock/Unlock Interview</a></li>
+									<li><a href="/manager/interview/<%= interviews[j].id %>/report" title="Interview report">View Report</a></li>
+									<li><a href="/manager/interview/<%= interviews[j].id %>/live" title="Change Live Status">Change Live Status</a></li>
+									<li><a href="/manager/interview/<%= interviews[j].id %>/on_complete" title="Edit On Complete options">View Settings</a></li>
+									<li><a href="/manager/interview/<%= interviews[j].id %>/import_interview" title="Import Interview data">Import Interview Data</a></li>
+									<li><a href="/manager/interview/<%= interviews[j].id %>/export_interview" title="Export Interview data">Export Interview Data</a></li>
+									<li class="divider"></li>
+									<li title="Clone this interview"><a href="/manager/interviews/clone/<%= interviews[j].id %>">Clone</a></li>
+									<li title="Remove this interview"><a href="/manager/interviews/remove/<%= interviews[j].id %>">Remove</a></li>
+								</ul>
+							</div>
+							<a href="/manager/interview/<%= interviews[j].id %>" data-toggle="tooltip" title="" data-original-title="<%= interviews[j].description %>"><%= interviews[j].name %></a>
+							<!-- <span data-toggle="tooltip" title="" data-original-title="Number of deliverables" class="label label-default"><%= interviews[j].deliverables.length %></span> -->
+						</li>
+					<% } %>
+				</ul>
+				<div class="text-right">
+					<a href="/manager/interviews">View All Interviews <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
 		</div>
+
+		<% if (user.privledges['view_completed_interviews']) { %>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Recently Completed</h3>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Client</th>
+									<th>Interview</th>
+									<th>Deliverables</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for (var k = 0; k < outputs.length; k++) { %>
+								<tr>
+									<td><%= outputs[k].client_fullname %></td>
+									<td><a href="/manager/interview/<%= outputs[k].interview.id %>"><%=  outputs[k].interview.name %></a></td>
+									<td>
+										<% for (var l = 0; l < outputs[k].deliverables.length; l++) {
+											deliverable_type = "fa-file-o";
+
+											if (outputs[k].deliverables[l].type.toUpperCase() === 'PDF' || outputs[k].deliverables[l].type.toUpperCase() === 'PDF_FORM') { 
+												deliverable_type = "fa-file-pdf-o"; 
+											} 
+
+											if (outputs[k].deliverables[l].type.toUpperCase() === 'XML' || outputs[k].deliverables[l].type.toUpperCase() === 'XML_MSACCESS') {
+												deliverable_type = "fa-file-code-o";
+											}
+
+											if (outputs[k].deliverables[l].type.toUpperCase() === 'RTF' || outputs[k].deliverables[l].type.toUpperCase() === 'ODT') {
+												deliverable_type = "fa-file-text-o";
+											}
+
+											if (outputs[k].deliverables[l].type.toUpperCase() === 'DOC' || outputs[k].deliverables[l].type.toUpperCase() === 'DOCX') {
+												deliverable_type = "fa-file-word-o";
+											}
+										%>
+											<div><i class="fa <%= deliverable_type %>"></i> <a href="/manager/download/deliverable/output/<%= outputs[k].id %>/<%= outputs[k].interview.id %>/<%= outputs[k].deliverables[l].id %>" target="_blank"><%= outputs[k].deliverables[l].name %></a></div>
+										<% } %>
+
+									</td>
+									<td>
+										<%= outputs[k].date.toLocaleDateString() %> <em><%= outputs[k].date.toLocaleTimeString() %></em>
+									</td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="text-right">
+						<a href="/manager/interviews/completed">View All Completed <i class="fa fa-arrow-circle-right"></i></a>
+					</div>
+				</div>
+			</div>
+		<% } %>
 	</div>
-	<div class="clear"></div>
-
-	<% include footer %>
-
 </div>

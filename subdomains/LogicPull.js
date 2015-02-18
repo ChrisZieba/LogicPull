@@ -18,7 +18,7 @@ var express = require('express'),
 // set the development variables
 logicpull.configure('development', function () {
 	logicpull.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
-	for(var setting in config.development) {
+	for (var setting in config.development) {
 		logicpull.set(setting, config.development[setting]);
 	}
 });
@@ -26,7 +26,7 @@ logicpull.configure('development', function () {
 // set the production variables
 logicpull.configure('production', function () {
 	logicpull.use(express.errorHandler()); 
-	for(var setting in config.production) {
+	for (var setting in config.production) {
 		logicpull.set(setting, config.production[setting]);
 	}
 });
@@ -42,6 +42,12 @@ logicpull.configure(function () {
 
 require('../routes/index')(logicpull);
 require('../routes/interviews/index')(logicpull);
+
+// Non manager admin users (clients completing interviews)
+require('../routes/admin/login')(logicpull);
+require('../routes/admin/index')(logicpull);
+
+// Manager users
 require('../routes/manager/login')(logicpull);
 require('../routes/manager/interviews')(logicpull);
 require('../routes/manager/deliverables')(logicpull);

@@ -10,7 +10,9 @@
     <http://www.gnu.org/licenses/>.
 */
 
-var site = {
+var LogicPull = LogicPull || {};
+
+LogicPull.admin = {
 	init: function () {
 		// start lsitengin for events
 		this.eventListeners();
@@ -19,5 +21,7 @@ var site = {
 		$(".nfo-con").hover(function () {
 			$(this).children(".body").toggle();
 		});
+
+		$('[data-toggle="tooltip"]').tooltip();
 	}
 };

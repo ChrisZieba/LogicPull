@@ -1,0 +1,297 @@
+<div class="row">
+	<div class="col-lg-12">
+
+		<h1>Edit User</h1>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<% if (msg) { %>
+					<div class="alert alert-danger" role="alert">
+						<%- msg %>
+					</div>
+				<% } %>
+
+				<form role="form" method="post" action="" enctype="multipart/form-data">
+					<input type="hidden" name="_csrf" value="<%= token %>"/>
+
+					<div class="form-group">
+						<label for="form-email">Name</label>
+						<input type="text" class="form-control" name="name" value="<%= user.name %>" />
+					</div>
+
+					<div class="form-group">
+						<label for="form-email">Email</label>
+						<input type="text" class="form-control" name="email" id="form-email" value="<%= user.email %>"/>
+					</div>
+
+					<div class="form-group">
+						
+						<div class="checkbox">
+							<label>
+								<input name="manager_access" type="checkbox" <%= (user.group != 0) ? 'checked="checked"' : '' %> />
+								Manager Access
+							</label>
+						</div>
+						<p class="help-block">Enabling this checkbox will give the user access to the backend /manager. The manager is where interviews are created, deleted, etc. If this is unchecked the user will only have access to the admin panel. Thea admin area is for clients, and where saved interviews can be viewed. Be careful that you do not lock yourself out of the manager!</p>
+					</div>
+
+				    <h3>Privledges</h3>
+
+				    <h4>Interviews</h4>
+
+				    <div class="well">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="add_interview" type="checkbox" <%= (user.privledges.add_interview) ? 'checked="checked"' : '' %> />
+									Add a new interview
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="remove_interview" type="checkbox" <%= (user.privledges.remove_interview) ? 'checked="checked"' : '' %> />
+									Remove an interview
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="clone_interview" type="checkbox" <%= (user.privledges.clone_interview) ? 'checked="checked"' : '' %> />
+									Clone an interview 
+								</label>
+							</div>
+							<p class="help-block">This will copy an interview and all its deliverables.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="edit_interviews" type="checkbox" <%= (user.privledges.edit_interviews) ? 'checked="checked"' : '' %> />
+									Edit Interviews
+								</label>
+							</div>
+							<p class="help-block">This will restrict access to the interview page, except to the creator of the interview.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="change_interview_status" type="checkbox" <%= (user.privledges.change_interview_status) ? 'checked="checked"' : '' %> />
+									Change the status of an interview
+								</label>
+							</div>
+							<p class="help-block">The status of an interview refers to whehter is is available for the public to see or not.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="lock_interview" type="checkbox" <%= (user.privledges.lock_interview) ? 'checked="checked"' : '' %> />
+									Lock or unlock an interview
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="view_report" type="checkbox" <%= (user.privledges.view_report) ? 'checked="checked"' : '' %> />
+									View interview report
+								</label>
+							</div>
+							<p class="help-block">Locking an interview prevents anyone, except its creator from making changes to it.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="edit_on_complete" type="checkbox" <%= (user.privledges.edit_on_complete) ? 'checked="checked"' : '' %> />
+									Edit the on complete settings
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+					</div>
+
+					<h4>Editor</h4>
+					<div class="well">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="editor_save" type="checkbox" <%= (user.privledges.editor_save) ? 'checked="checked"' : '' %> />
+									Save edits made to an interview
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+					</div>
+
+					<h4>Users</h4>
+
+					<div class="well">
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="remove_user" type="checkbox" <%= (user.privledges.remove_user) ? 'checked="checked"' : '' %>/>
+									Remove users
+								</label>
+							</div>
+							<p class="help-block">The user will have the ability to remove any user account from the system.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="reset_user_password" type="checkbox" <%= (user.privledges.reset_user_password) ? 'checked="checked"' : '' %> />
+									Reset Passwords
+								</label>
+							</div>
+							<p class="help-block">The user will have the ability to reset user passwords.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="edit_user" type="checkbox" <%= (user.privledges.edit_user) ? 'checked="checked"' : '' %> />
+									Edit a user
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="add_user" type="checkbox" <%= (user.privledges.add_user) ? 'checked="checked"' : '' %> />
+									Add users
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="edit_privledges" type="checkbox" <%= (user.privledges.edit_privledges) ? 'checked="checked"' : '' %> />
+									Change a users privledges
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="view_users" type="checkbox" <%= (user.privledges.view_users) ? 'checked="checked"' : '' %> />
+									View users
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+					</div>
+
+					<h4>Deliverables</h4>
+
+					<div class="well">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="add_deliverable" type="checkbox" <%= (user.privledges.add_deliverable) ? 'checked="checked"' : '' %> />
+									Add a deliverable
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="remove_deliverable" type="checkbox" <%= (user.privledges.remove_deliverable) ? 'checked="checked"' : '' %> />
+									Remove a deliverable
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="update_deliverable" type="checkbox" <%= (user.privledges.update_deliverable) ? 'checked="checked"' : '' %> />
+									Update a deliverable
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="download_deliverable" type="checkbox" <%= (user.privledges.download_deliverable) ? 'checked="checked"' : '' %> />
+									Download a deliverable
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="download_stylesheet" type="checkbox" <%= (user.privledges.download_stylesheet) ? 'checked="checked"' : '' %> />
+									Download style sheet
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+					</div>
+
+					<h4>Misc</h4>
+
+					<div class="well">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="view_completed_interviews" type="checkbox" <%= (user.privledges.view_completed_interviews) ? 'checked="checked"' : '' %> />
+									View completed interviews
+								</label>
+							</div>
+							<p class="help-block">The completed interviews, as done by the clients. This included the processed deliverables, along with the answer set.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="view_saved_interviews" type="checkbox" <%= (user.privledges.view_saved_interviews) ? 'checked="checked"' : '' %> />
+									View saved interviews
+								</label>
+							</div>
+							<p class="help-block">Interviews which have been saved but not yet completed.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="download_answer_set" type="checkbox" <%= (user.privledges.download_stylesheet) ? 'checked="checked"' : '' %> />
+									Download style sheet
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+					</div>
+					
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a href="/manager/users" class="btn btn-default pull-right">Cancel</a>
+				</form>
+			</div>		
+		</div>
+	</div>
+</div>

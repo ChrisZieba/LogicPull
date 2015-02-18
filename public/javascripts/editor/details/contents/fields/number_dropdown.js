@@ -22,24 +22,7 @@ Editor.details.contents.fields.numberDropdown = (function () {
 	"use strict";
 
 	var eventListeners = function () {
-		// when a checkbox changed its value, change it in the questions object
-		$(".field-checkbox").live("change", function () {
-			var qid = Editor.main.getCurrentQuestion();
-			var index = $(this).data('field-index');	
-			var field_id_type = $(this).data('field-checkbox-id');	
 
-			//save the value to the questions object
-			// run the validation when a textbox changes, and save it if it passes
-			switch (field_id_type) {
-				case 'descending':
-					if ($(this).is(":checked")) {
-						questions[qid].fields[index][field_id_type] = 'yes';
-					} else {
-						questions[qid].fields[index][field_id_type] = 'no';
-					}
-					break;
-			}
-		});
 	};
 
 	var fieldDefault = function (default_value, index) {
@@ -110,7 +93,9 @@ Editor.details.contents.fields.numberDropdown = (function () {
 			output.push(common.fieldType(type));
 			output.push(common.fieldName(field.name, index));
 			output.push(common.fieldLabel(field.label, index));
-
+			output.push(common.fieldSize(field.size, index));
+			output.push(common.fieldLine(field.line, index));
+			
 			// use this default not the common one
 			output.push(fieldDefault(field.def, index));
 			output.push(fieldStart(field.start, index));

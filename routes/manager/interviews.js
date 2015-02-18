@@ -42,7 +42,7 @@ function validateEmails (input) {
 	var emails = input.split(',');
 
 	for (var i = 0; i < emails.length; i+=1) {
-		if ( ! validator.check(emails[i], ['email'])) {
+		if ( ! validator.check(emails[i].trim(), ['email'])) {
 			return false;
 		}
 	}
@@ -52,22 +52,87 @@ function validateEmails (input) {
 module.exports = function (app) {
 	"use strict";
 
+	app.get('/manager/interviews', [auth.validated], function (req, res) {
+		// The group id of the user.. so we can show only the relevant interviews
+		var group_id = req.session.user.group;
+		var user_id = req.session.user.id;
+		var interviews = models.Interviews.find({});
+		var outputs = models.Outputs.find({});
+
+		// make sure the group id of the logged in user matches that from the URL
+		interviews = interviews.where('group').equals(group_id).where('disabled').equals(false);
+		outputs = outputs.where('interview.group').equals(group_id);
+		outputs = outputs.limit(100).sort('-date');
+
+		interviews.exec(function(err, interviews) {
+			if (err) {
+				console.log(err);
+				throw err;
+			}
+
+			outputs.exec(function (err, outputs) {
+				if (err) {
+					console.log(err);
+					throw err;
+				} 
+				// send the output to the view
+				res.render('manager/layout', { 
+					title: 'LogicPull Manager | Interviews',
+					name: req.session.user.name,
+					layout: 'interviews',
+					interviews: interviews,
+					outputs: outputs,
+					user: req.session.user
+				});
+			});
+		});
+	});
+
 	// show an interview page
 	app.get('/manager/interview/:interview', [auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('edit_interviews')], function (req, res) {
-		var data = {
-			title: 'LogicPull',
-			name: req.session.user.name,
-			layout:'interview',
-			env: app.settings.env,
-			email_notification: res.locals.interview.on_complete.email_notification.split(','),
-			email_deliverables: res.locals.interview.on_complete.email_deliverables.split(','),
-			user: {
-				name: req.session.user.name,
-				email: req.session.user.email
-			}
-		};
+		var group_id = req.session.user.group;
+		var user_id = req.session.user.id;
+		var interview = res.locals.interview.id;
+		var outputs = models.Outputs.find({});
 
-		res.render('manager/layout', data);	
+		outputs = outputs.where('interview.group').equals(group_id).where('interview.id').equals(interview);
+		outputs = outputs.limit(100).sort('-date');
+
+		outputs.exec(function (err, outputs) {
+			if (err) {
+				console.log(err);
+				throw err;
+			} 
+
+			var saved = models.Saves.find({});
+			saved = saved.where('interview_id').equals(interview);
+			saved = saved.limit(100).sort('-created');
+			saved.exec(function (err, saved) {
+				if (err) {
+					console.log(err);
+					throw err;
+				} 
+
+				// send the output to the view
+				var data = {
+					title: 'LogicPull',
+					name: req.session.user.name,
+					layout:'interview',
+					env: app.settings.env,
+					email_notification: res.locals.interview.on_complete.email_notification,
+					email_deliverables: res.locals.interview.on_complete.email_deliverables,
+					user: {
+						name: req.session.user.name,
+						email: req.session.user.email,
+						privledges: req.session.user.privledges
+					},
+					outputs: outputs,
+					saved: saved
+				};
+
+				res.render('manager/layout', data);	
+			});
+		});
 	});
 
 	// this is the stage URL, must be logged in to view the interview, available to all users from the group
@@ -117,6 +182,54 @@ module.exports = function (app) {
 		});
 	});
 
+	app.get('/manager/interview/:interview/completed', [auth.validated, auth.validateInterview, auth.privledges('view_completed_interviews')], function (req, res) {
+		var group_id = req.session.user.group;
+		var user_id = req.session.user.id;
+		var interview = res.locals.interview.id;
+		var outputs = models.Outputs.find({});
+
+		outputs = outputs.where('interview.group').equals(group_id).where('interview.id').equals(interview);
+		outputs = outputs.limit(500).sort('-date');
+
+		outputs.exec(function (err, outputs) {
+			if (err) {
+				console.log(err);
+				throw err;
+			} 
+			// send the output to the view
+			res.render('manager/layout', { 
+				title: 'LogicPull - Completed Interviews',
+				name: req.session.user.name,
+				layout: 'completed-interviews',
+				outputs: outputs
+			});
+		});
+	});
+
+	app.get('/manager/interview/:interview/saved', [auth.validated, auth.validateInterview, auth.privledges('view_saved_interviews')], function (req, res) {
+		var group_id = req.session.user.group;
+		var user_id = req.session.user.id;
+		var interview = res.locals.interview.id;
+		var saved = models.Saves.find({});
+
+		saved = saved.where('interview_id').equals(interview);
+		saved = saved.limit(500).sort('-created');
+
+		saved.exec(function (err, saved) {
+			if (err) {
+				console.log(err);
+				throw err;
+			} 
+			// send the output to the view
+			res.render('manager/layout', { 
+				title: 'LogicPull - Saved Interviews',
+				name: req.session.user.name,
+				layout: 'saved-interviews',
+				saved: saved
+			});
+		});
+	});
+
 	app.get('/manager/interviews/completed', [auth.validated, auth.privledges('view_completed_interviews')], function (req, res) {
 		var group_id = req.session.user.group;
 		var outputs = models.Outputs.find({});
@@ -159,7 +272,7 @@ module.exports = function (app) {
 
 		if (req.method === 'POST') {
 			// validate the input that came from the form
-			if (validator.check(sanitizor.clean(req.body.name), ['required','variable']) && validator.check(sanitizor.clean(req.body.description), ['required','label'])) {
+			if (validator.check(sanitizor.clean(req.body.name), ['required','filename']) && validator.check(sanitizor.clean(req.body.description), ['required','label'])) {
 				// get the current count of the interview
 				models.Counters.findOne({}, function (err, doc) {
 					interview = new models.Interviews();
@@ -272,14 +385,14 @@ module.exports = function (app) {
 
 					};
 
-					interview.save(function(err){
+					interview.save(function(err) {
 						if (err){
 							console.log(err);
 							throw err;
 						} 
 						//update the counter in the database
 						models.Counters.update({interview_count: count}, function (err) {
-							if(err){
+							if (err){
 								console.log(err);
 								throw err;
 							} 
@@ -302,7 +415,7 @@ module.exports = function (app) {
 					});
 				});
 			} else {
-				view('manager/layout', '<ul><li>The name field is required and can only contain <strong>letters, numbers, and underscores.</strong></li><li>The Description field is required.</li></ul>');			
+				view('manager/layout', '<ul><li>The name field is required and can only contain <strong>letters, numbers, underscores and dashes.</strong></li><li>The Description field is required.</li></ul>');
 			}
 		} else {
 			// this is a get request...just show the form
@@ -465,6 +578,44 @@ module.exports = function (app) {
 		}
 	});
 
+	// Edit the description of the interview
+	app.all('/manager/interview/:interview/description',[auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('edit_interviews')], function (req, res) {
+		var interview = res.locals.interview.id;
+
+		function view (template, msg) {
+			// the logic to see if an interview was valid is done in the middleware
+			var data = {
+				title: 'LogicPull | Edit Interview Description',
+				name: req.session.user.name,
+				layout:'interview-description',
+				msg: msg
+			};
+
+			res.render(template, data);	
+			return;
+		}
+
+		if (req.method === 'POST') {
+			if (validator.check(sanitizor.clean(req.body.description), ['required','label'])) {
+				models.Interviews.update({id: interview}, { description: req.body.description }, function (err) {
+					if (err) {
+						console.log(err);
+						throw err;
+					} 
+
+					// go back to the admin page
+					res.redirect('/manager/interview/' + interview);
+				});	
+			} else {
+				view('manager/layout', '<ul><li>The Description field is required.</li></ul>');
+			}
+
+		} else {
+			view('manager/layout', null);
+		}
+	});
+
+
 	// lock or unlock the interview
 	app.all('/manager/interview/:interview/lock',[auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('lock_interview')], function (req, res) {
 		var locked, interview, data;
@@ -480,7 +631,7 @@ module.exports = function (app) {
 			// this is the interview id
 			interview = req.body.interview;
 			models.Interviews.update({id: interview}, { locked: locked }, function (err) {
-				if(err){
+				if (err) {
 					console.log(err);
 					throw err;
 				} 
@@ -514,7 +665,7 @@ module.exports = function (app) {
 			interview = req.body.interview;
 
 			models.Interviews.update({id: interview}, { live: live }, function (err) {
-				if(err){
+				if (err) {
 					console.log(err);
 					throw err;
 				} 
@@ -558,19 +709,15 @@ module.exports = function (app) {
 				// this is the interview id
 				interview = req.body.interview;
 
-				if (req.body.email_deliverables_to_client === "on") {
-					email_deliverables_to_client = true;
-				} else {
-					email_deliverables_to_client = false;
-				}
+				email_deliverables_to_client = (req.body.email_deliverables_to_client === "on") ? true : false;
 
 				on_complete = {
 					email_deliverables_to_client: email_deliverables_to_client, 
-					email_notification: email_notification,
-					email_deliverables: email_deliverables						
+					email_notification: (email_notification !== '') ? email_notification : null,
+					email_deliverables: (email_deliverables !== '') ? email_deliverables : null						
 				};
 
-				models.Interviews.update({id: interview}, { on_complete: on_complete }, function (err) {
+				models.Interviews.update({id: interview}, {on_complete: on_complete}, function (err) {
 					if (err) {
 						console.log(err);
 						throw err;
@@ -579,7 +726,7 @@ module.exports = function (app) {
 					res.redirect('/manager/interview/' + interview);
 				});	
 			} else {
-				view('manager/layout', '<p>There were problems with the information you entered.</p><br><ul><li>Any emails you enter must be valid. <strong>If you enter more than one email, they must be seperated by a semi-colon</strong></li></ul>');			
+				view('manager/layout', '<ul><li>Any emails you enter must be valid. <strong>If you enter more than one email, they must be seperated by a comma.</strong></li></ul>');			
 			}
 		} else {
 			view('manager/layout', null);

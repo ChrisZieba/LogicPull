@@ -80,21 +80,14 @@ Viewer.socket = (function() {
 				Viewer.interview.setInterviewID(packet.id);
 
 				// get rid of the loader
-				$('.continue-button').css('background-position','-298px -8px');
-				$('.finish-button').css('background-position','-432px -8px');
+				$('.btn').button('reset');
 
-				$('.loading').remove();
-				//$('.loading-button').addClass('continue-button button');
-				//$('button').removeClass('loading-button');
 				// if the validation cleared for all the fields
-
 				if (packet.valid) {
 					// if the questions is being loaded from a partial hide the saves container
 					if (packet.partial) {
 						// hide the login incase it was shown
-						if ($("#saves-container").is(":visible")) {
-							$("#saves-container").hide();
-						}
+						$("#open-saves").modal('hide');
 					}
 
 					// this loads in the new question
@@ -118,24 +111,24 @@ Viewer.socket = (function() {
 				}
 			});
 
-			// this is when the server returns after the interview has been successfully saved
+			// This is the handler when the server returns after the interview has been successfully saved
 			socket.on('saved_progress', function (packet) {
 				// this sets the save variable to true again and allows the save button to be clicked again
 				Viewer.interview.saved(true);
 
 				if (packet.valid) {
 					// the progress was saved successfully
-					$("#note-container").hide();
+					$('#save-interview').modal('hide');
 				} else {
 					alert('Your interview could not be saved at this time. Please try again.');
 				}
 			});
 
+			// Show the user their saved interviews
 			socket.on('open_saved', function (packet) {
 				if (packet.valid) {
-					// now we can show them the saved interviews
-					$("#saves-container #data-payload").html(packet.data);
-					$("#saves-container").show();
+					$("#saves-data-payload").html(packet.data);
+					$('#open-saves').modal();
 				} else {
 					alert('There was a problem retrieving your saved interviews. Please try again.');
 				}
@@ -202,68 +195,11 @@ Viewer.interview = (function() {
 		// this is used to pass the the value of the drop down when it changes
 		var previous, login_path;
 
-		// the help tooltip
-		$(".help-tooltip, .field-tooltip").live('click',function () {
-			// we need to figure out the best position to show the learn more so its not off the screen
-			var pointer = $(this).children(".pointer");
-			var tooltip = $(this).children(".body");
-			var container = $(".contents .prompt");
-			var container_pos = container.offset();
-			var tooltip_pos = Math.round($(this).offset().left + $(this).width()/2 - tooltip.width()/2);
-
-			// subtract 10 for the width of the pointer div
-			pointer.css('left', Math.round($(this).width()/2) - 14).toggle();
-
-			// check to see if the left edge of the tooltip is outside the container and adjust accrodingly
-			if (tooltip_pos < container_pos.left) {
-				tooltip.css('left', '0px');
-			// check the right edge
-			} else if (parseInt(tooltip_pos + tooltip.width(),10) > parseInt(container_pos.left + container.width(),10)) {
-				tooltip.css('left', '-' + Math.round(tooltip.width() - 65) + 'px');
-			} else {
-				tooltip.css('left', Math.round($(this).width()/2 - tooltip.width()/2));
-			}
-
-			if(tooltip.css("visibility") === "visible") { 
-				tooltip.css({ 'visibility': 'hidden'}); 
-			} else { 
-				tooltip.css({ 'visibility': 'visible'}); 
-			}
-		});
-
-		$(".lm-display, .lm-data").live('click',function () {
-			var target = $('.lm-data');
-
-			if (target.is(':hidden')) {
-				target.show();
-			} else {
-				target.hide();
-			}
-		});
-
-		// when youtube video links are clicked
-		$(".youtube-popout").live('click',function () {
-			var popup = $("#youtube-container .popup");
-			var link = $(this).find('.video-link a:first').attr('href');
-			var width = popup.width();
-			var height = popup.height();
-
-			if (width === '440') {
-				height = '248';
-			} else if (width === '280') {
-				height = '158';
-			}
-
-			// create the embedded video
-			popup.html('<iframe width="' + width + '" height="' + height + '" src="' + link + '" frameborder="0" allowfullscreen></iframe>');
-			$("#youtube-container").show();
-		});
-
 		// this is when the save icon is clicked
 		$('#save').click(function () {
 			var socket = Viewer.socket.getSocket();
 
-			if (save) {
+			if (save && id) {
 				// set this so we know what pop up to show after the login happens
 				login_path = 'save';
 
@@ -276,16 +212,16 @@ Viewer.interview = (function() {
 				// check if the user is logged in
 				$.ajax({
 					type: 'GET',
-					url: BASE_URL + '/interviews/post/status?d=' + new Date().getTime(),
+					url: BASE_URL + '/admin/post/status?d=' + new Date().getTime(),
 					dataType: 'json',
 					cache: false,
 					success: function (res) {
 						if (res.logged_in) {
 							// if we get here the user is logged in and we can show the save popup and add in an optional note
-							$("#note-container").show();
+							$('#save-interview').modal();
 						} else {
 							// the user is not logged in so show them the login form
-							$("#login-container").show();
+							$('#login-register').modal();
 						}
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
@@ -295,17 +231,18 @@ Viewer.interview = (function() {
 			}
 		});
 
-		$('#open').click(function () {
+		// The open folder icon
+		$('#open').click(function (elem) {
 			// if the user is logged in fetch their id and then send it via socket to the server to retrieve the
 			var socket = Viewer.socket.getSocket();
 
-			if (save) {
+			if (save && id) {
 				// set this so we know what pop up to show after the login happens
 				login_path = 'open';
 				// check if the user is logged in
 				$.ajax({
 					type: 'GET',
-					url: BASE_URL + '/interviews/post/status?d=' + new Date().getTime(),
+					url: BASE_URL + '/admin/post/status?d=' + new Date().getTime(),
 					dataType: 'json',
 					cache: false,
 					success: function (res) {
@@ -324,7 +261,7 @@ Viewer.interview = (function() {
 							socket.emit('open_saves', data);	
 						} else {
 							// the user is not logged in so show them the login form
-							$("#login-container").show();
+							$('#login-register').modal();
 						}
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
@@ -335,7 +272,6 @@ Viewer.interview = (function() {
 		});
 
 		$('#back').click(function () {
-
 			var socket;
 			// get the value of the progress dropdown..this will tell us what qid we are on, and what index the array is on
 			var progress = document.getElementById('progress'); 
@@ -345,7 +281,7 @@ Viewer.interview = (function() {
 			var data;
 
 			// this checks to see if the block is enabled..i.e..we haven't just click the back button with the info not arriving first
-			if (back) {
+			if (back && id) {
 				// if there are no options in the progress the ID will be undefined
 				if (progress.options) {
 					if (progress.options[progress.selectedIndex]) {
@@ -371,45 +307,10 @@ Viewer.interview = (function() {
 			}
 		});
 
-		// when the close button on a popup modal is clicked
-		$("#l-d-close").live("click", function () {
-			// hide the login incase it was shown
-			if ($("#login-container").is(":visible")) {
-				$("#login-container").hide();
-			}
-		});
-
-		// when the close button on a popup modal is clicked
-		$("#s-d-close").live("click", function () {
-			// hide the login incase it was shown
-			if ($("#saves-container").is(":visible")) {
-				$("#saves-container").hide();
-			}
-		});
-
-		// when the close button on a popup modal is clicked
-		$("#t-d-close").live("click", function () {
-			// hide the login incase it was shown
-			if ($("#note-container").is(":visible")) {
-				$("#note-container").hide();
-			}
-		});
-
-		// when the close button on a popup modal is clicked
-		$("#y-d-close").live("click", function () {
-			// hide the login incase it was shown
-			if ($("#youtube-container").is(":visible")) {
-				// clear out the contents so the video stops playing..ie8 has a black screen so clear the iframe to fix it
-				$("#youtube-container .popup iframe").hide();
-				$("#youtube-container .popup").empty().html('<span></span>');
-				$("#youtube-container").hide();
-			}
-		});
-
 		// when the user clicks an options icon to load a previous 
-		$(".partial-sav-int").live("click", function () {
+		$("body").on('click', ".partial-sav-int", function () {
 			// get the id of the record that corresponds to the saved data in the databases
-			if (click_partial_allowed) {
+			if (click_partial_allowed && id) {
 				var interview = $('#interview-id').html();
 				var partial_id = this.id;
 				var qid = $(this).html();
@@ -423,19 +324,29 @@ Viewer.interview = (function() {
 
 				socket.emit('load_saved', data);
 
-				$('#partial-loading-msg').show();
 				// this makes sure we don't try to load the interview multiple times
 				click_partial_allowed = false;
 			}
 		});
 
+		// when youtube video links are clicked
+		$("body").on('click', ".youtube-modal", function () {
+			var target = $(this).data('target');
+			var content = $(target).find('.embed-responsive').first();
+			var link = $(this).attr('href');
+
+			content.html('<iframe src="' + link + '" frameborder="0" allowfullscreen></iframe>');
+			$(target).modal();
+			return false;
+		});
 
 		// listen for when the button to continue is clicked
-		$(".button").live("click", function () {
-			if (click_continue_allowed) {
+		$("body").on('click', ".button", function () {
+			if (click_continue_allowed && id) {
 				var text_selector = $('.text');
 				var interview = $('#interview-id').html();
-				var qid = $(this).html();
+				var qid = $(this).data('qid');
+
 				var socket = Viewer.socket.getSocket();
 				var data = {
 					id: id,
@@ -444,8 +355,7 @@ Viewer.interview = (function() {
 					fields: Viewer.interview.collectFieldData(qid)
 				};
 				
-				$('.continue-button').css('background-position','-298px -47px');
-				$(this).prepend('<span class="loading"></span>');
+				$(this).button('loading');
 
 				click_continue_allowed = false;
 				socket.emit('question', data);
@@ -453,33 +363,34 @@ Viewer.interview = (function() {
 		});	
 
 		// listen for when the login is clicked
-		$("#ltf-login").live("submit", function (e) {
+		$("body").on('click', "#ltf-login-btn", function (ev) {
 			// show the login spinner
-			$("#ltf-loader").css('display','inline-block');
+			//$("#ltf-loader").css('display','inline-block');
+			$(this).button('loading');
 
 			// this will prevent the form from being uploaded to the server the conventional way
-			e.preventDefault();
+			ev.preventDefault();
 
 			// the form data
-			var data = $(this).serialize();
+			var data = $('#ltf-login').serialize();
 
 			// this logs the user in 
 			$.ajax({
 				type: 'POST',
-				url: BASE_URL + '/interviews/ltf_login?d=' + new Date().getTime(),
+				url: BASE_URL + '/admin/ltf_login?d=' + new Date().getTime(),
 				data: data,
 				dataType: 'json',
 				cache: false,
 				success: function (res) {
 					// get rid of the loader
-					$("#ltf-loader").hide();
+					$('#ltf-login-btn').button('reset');
 
 					if (res.error) {
 						// this means the server did not log us in
 						$("#sf-g-error").html(res.msg).show();
 					} else {
 						// successful login..hide the login incase it was shown
-						$("#login-container").hide();
+						$('#login-register').modal('hide');
 						// hide any errors that may be showing
 						$("#sf-g-error").hide();
 						// clear the form
@@ -497,7 +408,7 @@ Viewer.interview = (function() {
 
 							socket.emit('open_saves', data);	
 						} else {
-							$("#note-container").show();
+							$('#save-interview').modal();
 						}
 					}
 				},
@@ -510,33 +421,33 @@ Viewer.interview = (function() {
 		});	
 
 		// listen for when the register form is trying to be submitted
-		$("#ltf-register").live("submit", function (e) {
+		$("body").on('click', "#ltf-register-btn", function (ev) {
 			// show the login spinner
-			$("#ltf-r-loader").css('display','inline-block');
+			$(this).button('loading');
 
 			// this will prevent the form from being uploaded to the server the conventional way
-			e.preventDefault();
+			ev.preventDefault();
 
 			// the form data
-			var data = $(this).serialize();
+			var data = $('#ltf-register').serialize();
 
 			// this logs the user in 
 			$.ajax({
 				type: 'POST',
-				url: BASE_URL + '/interviews/ltf_register?d=' + new Date().getTime(),
+				url: BASE_URL + '/admin/ltf_register?d=' + new Date().getTime(),
 				data: data,
 				dataType: 'json',
 				cache: false,
 				success: function (res) {
 					// get rid of the loader
-					$("#ltf-r-loader").hide();
+					$('#ltf-register-btn').button('reset');
 
 					if (res.error) {
 						// this means the server did not log us in
 						$("#sf-h-error").html(res.msg).show();
 					} else {
 						// successful login..hide the login incase it was shown
-						$("#login-container").hide();
+						$('#login-register').modal('hide');
 						// hide any errors that may be showing
 						$("#sf-h-error").hide();
 						// clear the form
@@ -553,7 +464,7 @@ Viewer.interview = (function() {
 							};
 							socket.emit('open_saves', data);	
 						} else {
-							$("#note-container").show();
+							$('#save-interview').modal();
 						}
 					}
 				},
@@ -566,7 +477,7 @@ Viewer.interview = (function() {
 		});	
 
 		// when the user clicks the save button for an interview
-		$("#vfh-save").live("click", function () {
+		$("body").on('click', "#vfh-save", function () {
 			if (save) {
 				var socket = Viewer.socket.getSocket();
 				var interview = $('#interview-id').html();
@@ -586,10 +497,10 @@ Viewer.interview = (function() {
 		});	
 
 		// listen for when the finish button is clicked
-		$("#finish-interview").live("click", function () {
-			if (finish_interview_allowed) {
+		$("body").on('click', "#finish-interview", function () {
+			if (finish_interview_allowed && id) {
 				var interview = $('#interview-id').html();
-				var qid = $(this).html();
+				var qid = $(this).data('qid');
 				var socket = Viewer.socket.getSocket();
 				var data = {
 					id: id,
@@ -598,8 +509,7 @@ Viewer.interview = (function() {
 					fields: Viewer.interview.collectFieldData(qid)
 				};
 
-				$('.finish-button').css('background-position','-432px -47px');
-				$(this).prepend('<span class="loading"></span>');
+				$(this).button('loading');
 
 				// make sure the user cant click the button more than once..when the server returns with a response this is set to true
 				finish_interview_allowed = false;
@@ -609,12 +519,12 @@ Viewer.interview = (function() {
 		});	
 
 		// exit an interview without processing
-		$("#exit-interview").live("click", function () {
+		$("body").on('click', "#exit-interview", function () {
 			window.location.replace(BASE_URL);
 		});	
 
 		// when the very last question with the send button is clicked
-		$("#complete-interview").live("click", function () {
+		$("body").on('click', "#complete-interview", function () {
 			if (complete_interview_allowed) {
 				var interview = $('#interview-id').html();
 				var socket = Viewer.socket.getSocket();
@@ -624,8 +534,7 @@ Viewer.interview = (function() {
 					email: $.trim($("input[name=q-final]").val())
 				};
 
-				$('.send-button').css('background-position','-566px -47px');
-				$(this).prepend('<span class="loading"></span>');
+				$(this).button('loading');
 				complete_interview_allowed = false;
 				socket.emit('send', data);
 			}
@@ -646,7 +555,7 @@ Viewer.interview = (function() {
 			var progress = document.getElementById('progress'); 
 
 			// if there are no options in the progress the ID will be undefined
-			if (progress.options) {
+			if (progress.options && id) {
 				if (progress.options[progress.selectedIndex]) {
 					var backid = progress.options[progress.selectedIndex].value;
 					var socket = Viewer.socket.getSocket();
@@ -666,7 +575,7 @@ Viewer.interview = (function() {
 		});
 
 		// when we focus on a field with an answer
-		$('.id-field').live('click', function () {
+		$("body").on('click', ".id-field", function () {
 			var split = this.id.split(":");
 			var name = split[0];
 			var container = $("#" + name + "-var-container");
@@ -677,55 +586,38 @@ Viewer.interview = (function() {
 		});
 
 		// listen when a check box is clicked, which has a NOTA in the list
-		$('.id-cb').live('click', function () {
+		$("body").on('click', ".id-cb", function () {
 			// get the name of the field by splitting before the dash (name-4)
 			var name = this.id.split('-')[0];
 
 			// when a checkbox is clicked, check to see if the nota is clicked, and if it is remove the check
 			if ($("#" + name + "-nota").is(":checked")) {
-				$("#" + name + "-nota").attr('checked', false);
+				$("#" + name + "-nota").prop('checked', false);
 			}
 		});
 
 		// listen when the nota check box is clicked
-		$("input[id$='-nota']").live('click', function () {
+		$("body").on('click', "input[id$='-nota']", function () {
 			var name = this.id.split('-')[0];
 
 			// when we click on the nota, we need to remove the check from every other box
 			$(".id-cb[name='" + name + "']").each(function(index) {
 				if ($(this).is(":checked")) {
-					$(this).attr('checked', false);
+					$(this).prop('checked', false);
 				}
 			});
-			$(this).attr('checked', true);
+
+			$(this).prop('checked', true);
 		});
 
-		$("#header .scale ul li").click(function () {
-			var size = $(this).attr("class");
-
-			if (size === "small") {
-				$("#main").css("font-size", "1.0em");
-			} else if (size === "medium") {
-				$("#main").css("font-size", "1.5em");
-			} else if (size === "large") {
-				$("#main").css("font-size", "2.0em");
+		// Make sure links are opened in a new window
+		$("body").on('click', ".text a, .learnmore a, .help-modal a", function (ev) {
+			var url = $(this).prop("href");
+			if (!$(this).attr('data-target')) {
+				window.open(url);
+				ev.preventDefault();
+				return false;
 			}
-		});	
-
-		$(".learnmore-button").live('click', function () {
-			if ($("#lmt").is(":visible")) {
-				$(this).css('background-position','-700px -7px');
-			} else {
-				$(this).css('background-position','-700px -56px');
-			}
-			$("#lmt").slideToggle("fast");
-		});	
-
-		$(".prompt a, .helpbox a, .learnmore a").live('click', function (e) {
-			var url = $(this).attr("href");
-			window.open(url);
-			e.preventDefault();
-			return false;
 		});	
 	};
 
@@ -799,18 +691,9 @@ Viewer.interview = (function() {
 		},
 
 		question: function (question) {
-			// ie8 hack
-			$(".help-tooltip, .youtube-popout").each(function() {
-				$(this).css('position','static');
-			});
-
-			$(".question").fadeOut("fast", function () {
+			$("#question").fadeOut("fast", function () {
 				$(this).empty().html(question.content);
 				$(this).fadeIn("fast",function () {
-					// ie8 hack
-					$(".help-tooltip, .youtube-popout").each(function() {
-						$(this).css('position','relative');
-					});
 				});
 
 				// if the question has a date, we need to add it to the DOM
@@ -818,8 +701,13 @@ Viewer.interview = (function() {
 					Viewer.interview.datePicker(question.date_pickers);
 				}
 
-				// only when the question is displayed can we issue the back button
+				// only when the question is displayed can we use the back button again
 				back = true; 
+			});
+
+			$(".learnmore").fadeOut("fast", function () {
+				$(this).empty().html(question.learnmore);
+				$(this).fadeIn("fast");
 			});
 		},
 
@@ -839,54 +727,59 @@ Viewer.interview = (function() {
 		},
 
 		datePicker: function (pickers) {
+
+			if (!pickers) {
+				return;
+			}
 			// if there is a date field, we need to build the picker and show it
 			var dp;
 
-			if (pickers) {
-				for (var i = 0; i < pickers.length; i+=1) {
-					dp = $( "#" + pickers[i].name + "_picker" );
-					// this has to be initialized first 
-					dp.datepicker();
-					dp.datepicker('option', 'changeMonth', true);
-					dp.datepicker('option', 'changeYear', true);
-					dp.datepicker('option', 'yearRange', "1900:2100"); // these have to be set in order to sue monDate and MaxDate correctly
 
-					// this sets the format to whatever is given
-					if (pickers[i].format) {
-						dp.datepicker('option', 'dateFormat', pickers[i].format);
-					}
+			for (var i = 0; i < pickers.length; i+=1) {
+				dp = $( "#" + pickers[i].name + "_picker" );
+				// this has to be initialized first 
+				dp.datepicker();
+				dp.datepicker('option', 'changeMonth', true);
+				dp.datepicker('option', 'changeYear', true);
+				// these have to be set in order to sue monDate and MaxDate correctly
+				dp.datepicker('option', 'yearRange', "1900:2100"); 
 
-					for (var key in pickers[i].validation) {
-						if (pickers[i].validation.hasOwnProperty(key)) {
-							if (key === 'min_date') {
-								dp.datepicker('option', 'minDate', pickers[i].validation[key]);
-							} else if (key === 'max_date') {
-								if (pickers[i].validation[key].toUpperCase() === 'TODAY') {
-									dp.datepicker('option', 'maxDate', '0');
-								} else {
-									dp.datepicker('option', 'maxDate', pickers[i].validation[key]);
-								}
+				// this sets the format to whatever is given
+				if (pickers[i].format) {
+					dp.datepicker('option', 'dateFormat', pickers[i].format);
+				}
+
+				for (var key in pickers[i].validation) {
+					if (pickers[i].validation.hasOwnProperty(key)) {
+						if (key === 'min_date') {
+							dp.datepicker('option', 'minDate', pickers[i].validation[key]);
+						} else if (key === 'max_date') {
+							if (pickers[i].validation[key].toUpperCase() === 'TODAY') {
+								dp.datepicker('option', 'maxDate', '0');
+							} else {
+								dp.datepicker('option', 'maxDate', pickers[i].validation[key]);
 							}
 						}
 					}
-
-					// THE DEFAULT is for highlighting the date when the pop up opens...it does not set the date in the text field!
-					if (pickers[i].def) {
-						if (pickers[i].def.toUpperCase() === 'TODAY') {
-							dp.datepicker('option', 'defaultDate', null);
-						} else {
-							dp.datepicker('option', 'defaultDate', pickers[i].def);
-						}
-					}
-
-					if (pickers[i].set !== null) {
-						dp.datepicker("setDate", pickers[i].set);
-					}
-
-					// so Google translate doesn't break the date-picker
-					$('.ui-datepicker').addClass('notranslate');
 				}
+
+				// THE DEFAULT is for highlighting the date when the pop up opens...it does not set the date in the text field!
+				if (pickers[i].def) {
+					if (pickers[i].def.toUpperCase() === 'TODAY') {
+						dp.datepicker('option', 'defaultDate', null);
+					} else {
+						dp.datepicker('option', 'defaultDate', pickers[i].def);
+					}
+				}
+
+				if (pickers[i].set !== null) {
+					dp.datepicker("setDate", pickers[i].set);
+				}
+
+				// so Google translate doesn't break the date-picker
+				$('.ui-datepicker').addClass('notranslate');
 			}
+
 		},
 
 		setContinueGate: function (b) {

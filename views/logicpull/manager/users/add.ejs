@@ -1,176 +1,317 @@
-<div id="admin">
+<div class="row">
+	<div class="col-lg-12">
 
-	<% include ../header %>
+		<h1>Add a New User</h1>
 
-	<div class="contents-container">
-		<div class="contents">
-			<div class="title"><h1>Add a New User</h1></div>
-			<div class="clear"></div>
-			<div class="side">
-				<h2>Help</h2>
-				<p>If a user is already registered, submitting this form will <strong>overwrite</strong> their account information.</p>
-			</div>
-
-			<div class="wide">
+		<div class="row">
+			<div class="col-lg-8">
 				<% if (msg) { %>
-					<div class="error">
+					<div class="alert alert-danger" role="alert">
 						<%- msg %>
 					</div>
 				<% } %>
-				<form method="post" action="">
+
+				<p>You can choose to manually set the user password, or you can send the email a verification email where the user can add there own password with 24 hours.</p>
+
+				<form role="form" method="post" action="" enctype="multipart/form-data">
 					<input type="hidden" name="_csrf" value="<%= token %>"/>
-					<table class="add-table table">
-						<tbody class="b">
-				            <tr>
-				            	<td>
-				            		<div class="label">Email:</div>
-				            		<input type="text" name="email" class="ab">
 
-				            	</td>
-				            </tr>
-				            <tr>
-				            	<td>
-				            		<div class="label">Privledges:</div>
-				            		<div>
-				            			<table class="users-table">
-				            				<tr>
-				            					<td colspan="2"><strong>Interviews</strong><br><br></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Add a new interview </td>
-				            					<td><input name="add_interview" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Remove an interview</td>
-				            					<td><input name="remove_interview" type="checkbox" /></td>
-				            				</tr>			            				
-				            				<tr>
-				            					<td>Clone an interview 
-													<div class="nfo-con">
-														<div class="display">?</div>
-														<div class="body">This will copy an interview and all its deliverables.</div>
-													</div>
-				            					</td>
-				            					<td><input name="clone_interview" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Edit Interviews
-													<div class="nfo-con">
-														<div class="display">?</div>
-														<div class="body">This will restrict access to the interview page, except to the creator of the interview.</div>
-													</div>
-												</td>
-				            					<td><input name="edit_interviews" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Change the status of an interview
-													<div class="nfo-con">
-														<div class="display">?</div>
-														<div class="body">The status of an interview refers to whehter is is available for the public to see or not.</div>
-													</div>
-				            					</td>
-				            					<td><input name="change_interview_status" type="checkbox" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Lock or unlock an interview</td>
-				            					<td><input name="lock_interview" type="checkbox" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>View interview report
-													<div class="nfo-con">
-														<div class="display">?</div>
-														<div class="body">Locking an interview prevents anyone, except its creator from making changes to it.</div>
-													</div>
-				            					</td>
-				            					<td><input name="view_report" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Edit the on complete settings</td>
-				            					<td><input name="edit_on_complete" type="checkbox" /></td>
-				            				</tr>
-				            				<tr><td colspan="2">&nbsp;</td></tr>
-				            				<tr>
-				            					<td colspan="2"><strong>Editor</strong><br><br></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Save edits made to an interview</td>
-				            					<td><input name="editor_save" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            				<tr><td colspan="2">&nbsp;</td></tr>
-				            				<tr>
-				            					<td colspan="2"><strong>Users</strong><br><br></td>
-				            				</tr>            				
-				            				<tr>
-				            					<td>Edit a user</td>
-				            					<td><input name="edit_user" type="checkbox" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Change a users privledges</td>
-				            					<td><input name="edit_privledges" type="checkbox" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>View users</td>
-				            					<td><input name="view_users" type="checkbox" /></td>
-				            				</tr>
-				            				<tr><td colspan="2">&nbsp;</td></tr>
-				            				<tr>
-				            					<td colspan="2"><strong>Deliverables</strong><br><br></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Add a deliverable</td>
-				            					<td><input name="add_deliverable" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Remove a deliverable</td>
-				            					<td><input name="remove_deliverable" type="checkbox" /></td>
-				            				</tr>			            				
-				            				<tr>
-				            					<td>Update a deliverable</td>
-				            					<td><input name="update_deliverable" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Download a deliverable</td>
-				            					<td><input name="download_deliverable" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Download style sheet</td>
-				            					<td><input name="download_stylesheet" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            				<tr><td colspan="2">&nbsp;</td></tr>
-				            				<tr>
-				            					<td colspan="2"><strong>Misc</strong><br><br></td>
-				            				</tr>
-				            				<tr>
-				            					<td>View completed interviews
-													<div class="nfo-con">
-														<div class="display">?</div>
-														<div class="body">The completed interviews, as done by the clients. This included the processed deliverables, along with the answer set.</div>
-													</div>
-				            					</td>
-				            					<td><input name="view_completed_interviews" type="checkbox" /></td>
-				            				</tr>
-				            				<tr>
-				            					<td>Download style sheet</td>
-				            					<td><input name="download_answer_set" type="checkbox" checked="checked" /></td>
-				            				</tr>
-				            			</table>
-				            		</div>
-				            	</td>
-				            </tr>
-						</tbody>
-					</table>
+					<div class="form-group">
+						<div class="checkbox">
+							<label>
+								<input name="verification_email" type="checkbox" />
+								Send verification email
+							</label>
+						</div>
+						<p class="help-block">If checked, the name and password will be ignored. An email will be sent to the user where they can follow a link to insert this information and register an account.</p>
+					</div>
 
-					<div class="clear"></div>
-					<input type="submit" value="Add New User" class="right"/>
-					<a class="confirm right" href="/manager/users"><span>Cancel, and go Back</span></a>
-					<br>
+					<div class="form-group">
+						<label for="form-email">Name</label>
+						<input type="text" class="form-control" name="name" />
+					</div>
+
+					<div class="form-group">
+						<label for="form-email">Email</label>
+						<input type="text" class="form-control" name="email" id="form-email" />
+					</div>
+
+					<div class="form-group">
+						<label>Password</label>
+						<input type="password" class="form-control" name="password" />
+						<p class="help-block">Only applies if the "Send verification email" checkbox is left unchecked.</p>
+					</div>
+
+					<div class="form-group">
+						<label>Verify Password</label>
+						<input type="password" class="form-control" name="verify_password" />
+					</div>
+
+
+				    <h3>Privledges</h3>
+
+				    <h5>Interviews</h5>
+
+				    <div class="well">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="add_interview" type="checkbox" checked="checked" />
+									Add a new interview
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="remove_interview" type="checkbox" />
+									Remove an interview
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="clone_interview" type="checkbox" checked="checked" />
+									Clone an interview 
+								</label>
+							</div>
+							<p class="help-block">This will copy an interview and all its deliverables.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="edit_interviews" type="checkbox" checked="checked" />
+									Edit Interviews
+								</label>
+							</div>
+							<p class="help-block">This will restrict access to the interview page, except to the creator of the interview.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="change_interview_status" type="checkbox" />
+									Change the status of an interview
+								</label>
+							</div>
+							<p class="help-block">The status of an interview refers to whehter is is available for the public to see or not.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="lock_interview" type="checkbox" />
+									Lock or unlock an interview
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="view_report" type="checkbox" checked="checked" />
+									View interview report
+								</label>
+							</div>
+							<p class="help-block">Locking an interview prevents anyone, except its creator from making changes to it.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="edit_on_complete" type="checkbox" />
+									Edit the on complete settings
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+					</div>
+
+					<h4>Editor</h4>
+					<div class="well">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="editor_save" type="checkbox" checked="checked" />
+									Save edits made to an interview
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+					</div>
+
+					<h4>Users</h4>
+
+					<div class="well">
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="remove_user" type="checkbox" />
+									Remove users
+								</label>
+							</div>
+							<p class="help-block">The user will have the ability to remove any user account from the system.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="reset_user_password" type="checkbox" />
+									Reset Passwords
+								</label>
+							</div>
+							<p class="help-block">The user will have the ability to reset user passwords.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="edit_user" type="checkbox" />
+									Edit a user
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="add_user" type="checkbox" />
+									Add users
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="edit_privledges" type="checkbox" />
+									Change a users privledges
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="view_users" type="checkbox" />
+									View users
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+					</div>
+
+					<h4>Deliverables</h4>
+
+					<div class="well">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="add_deliverable" type="checkbox" checked="checked" />
+									Add a deliverable
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="remove_deliverable" type="checkbox" />
+									Remove a deliverable
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="update_deliverable" type="checkbox" checked="checked" />
+									Update a deliverable
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="download_deliverable" type="checkbox" checked="checked" />
+									Download a deliverable
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="download_stylesheet" type="checkbox" checked="checked" />
+									Download style sheet
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+					</div>
+
+					<h4>Misc</h4>
+
+					<div class="well">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="view_completed_interviews" type="checkbox" />
+									View completed interviews
+								</label>
+							</div>
+							<p class="help-block">The completed interviews, as done by the clients. This included the processed deliverables, along with the answer set.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="view_saved_interviews" type="checkbox" checked="checked" />
+									View saved interviews
+								</label>
+							</div>
+							<p class="help-block">The completed interviews, as done by the clients. This included the processed deliverables, along with the answer set.</p>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input name="download_answer_set" type="checkbox" checked="checked" />
+									Download style sheet
+								</label>
+							</div>
+							<p class="help-block"></p>
+						</div>
+					</div>
+					
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<a href="/manager/users" class="btn btn-default pull-right">Cancel</a>
 				</form>
-
-				<div class="clear"></div>
 			</div>
-			<div class="clear"></div>
+
+			<div class="col-lg-4">
+				<div class="well">
+					<h3>Help</h3>
+					<p>If a user is already registered, submitting this form will <strong>overwrite</strong> their account information.</p>
+				</div>
+			</div>			
 		</div>
 	</div>
-	<div class="clear"></div>
-	<% include ../footer %>
 </div>
