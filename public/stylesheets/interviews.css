@@ -1,3 +1,272 @@
 h1{
-	margin-top:0;margin-bottom:20px
+	margin-top:0;
+	margin-bottom:20px
+}
+
+#topnav {
+    position: absolute;
+    top:25px;
+    right:35px;
+    z-index: 1210;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 225px;
+}
+
+.sidebar-nav > .sidebar-brand img.logo {
+    margin-top: 22px;
+}
+
+.navbar-default {
+    border-color: #ddd;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 225px;
+    width: 0;
+    height: 100%;
+    margin-left: -225px;
+    overflow-y: auto;
+    background: #272525;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 225px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 15px 15px 15px 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -225px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 225px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    padding-left: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #FFF;
+    font-size:1.2em;
+
+    letter-spacing: 1px;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #999;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 83px;
+    font-size: 18px;
+    line-height: 60px;
+    background:#333;
+    margin-bottom: 20px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
+
+.light-grey {
+	color: #999;
+}
+
+.panel-green {
+    border-color: #5CB85C;
+}
+
+.panel-green .panel-heading {
+    border-color: #5CB85C;
+    color: #FFF;
+    background-color: #5CB85C;
+    }
+
+.panel-yellow {
+    border-color: #F0AD4E;
+}
+
+.panel-yellow .panel-heading {
+    border-color: #F0AD4E;
+    color: #FFF;
+    background-color: #F0AD4E;
+}
+
+.panel-red {
+    border-color: #D9534F;
+}
+
+.panel-red .panel-heading {
+    border-color: #D9534F;
+    color: #FFF;
+    background-color: #D9534F;
+}
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-title {
+	font-size: 20px;
+}
+
+.panel-heading a {
+	color: #333;
+	text-decoration: none;
+}
+
+.panel-heading a:hover {
+	color:#000;
+	text-decoration: none;
+}
+
+.panel-body p:last-child {
+    margin-bottom: 0;
+}
+
+.well h3 {
+	font-size:20px;
+	font-weight: 700;
+	margin-top: 0
+}
+
+.well p:last-child {
+	margin-bottom: 0;
+}
+
+.margin-20-bottom {
+	margin-bottom: 20px;
+}
+
+.margin-20-top {
+	margin-top: 20px;
+}
+
+.interview-deliverable:hover {
+/*	cursor: pointer;
+	border-color:#ccc;*/
+}
+
+.interview-deliverable .media p {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-ms-word-break: break-all;
+	word-break: break-all;
+
+	/* Non standard for webkit */
+	word-break: break-word;
+
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+
+.interview-deliverable .media-body {
+	font-size: 0.9em;
+	color:#333;
+}
+
+.fa-2 {
+	font-size: 2em;
+}
+
+.fa-3 {
+	font-size: 3em;
+}
+
+.fa-4 {
+	font-size: 4em;
+}
+
+.login {
+    margin-top: 150px;
+}
+
+.error-template {
+    border:1px solid #e1e1e1; 
+    margin-top:100px
+}
+
+@media (min-width:768px) {
+    #wrapper {
+        padding-left: 225px;
+    }
+
+	#topbar-wrapper {
+	    left: 225px;
+	}
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 225px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px 20px 20px 20px;
+
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
 }

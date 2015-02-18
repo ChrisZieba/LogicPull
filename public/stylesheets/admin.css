@@ -30,13 +30,6 @@ h1 {
     border-color: #ddd;
 }
 
-/*.navbar .container-fluid, .navbar-collapse {
-    padding-left:0;
-}
-.navbar-collapse.in {
-    padding-left:30px;
-}*/
-
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
