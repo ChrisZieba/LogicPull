@@ -92,7 +92,7 @@ module.exports = function (app) {
 	app.get('/manager/interview/:interview', [auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('edit_interviews')], function (req, res) {
 		var group_id = req.session.user.group;
 		var user_id = req.session.user.id;
-		var interview = res.locals.interview.id
+		var interview = res.locals.interview.id;
 		var outputs = models.Outputs.find({});
 
 		outputs = outputs.where('interview.group').equals(group_id).where('interview.id').equals(interview);
@@ -185,7 +185,7 @@ module.exports = function (app) {
 	app.get('/manager/interview/:interview/completed', [auth.validated, auth.validateInterview, auth.privledges('view_completed_interviews')], function (req, res) {
 		var group_id = req.session.user.group;
 		var user_id = req.session.user.id;
-		var interview = res.locals.interview.id
+		var interview = res.locals.interview.id;
 		var outputs = models.Outputs.find({});
 
 		outputs = outputs.where('interview.group').equals(group_id).where('interview.id').equals(interview);
@@ -209,7 +209,7 @@ module.exports = function (app) {
 	app.get('/manager/interview/:interview/saved', [auth.validated, auth.validateInterview, auth.privledges('view_saved_interviews')], function (req, res) {
 		var group_id = req.session.user.group;
 		var user_id = req.session.user.id;
-		var interview = res.locals.interview.id
+		var interview = res.locals.interview.id;
 		var saved = models.Saves.find({});
 
 		saved = saved.where('interview_id').equals(interview);

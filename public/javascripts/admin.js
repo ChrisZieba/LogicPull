@@ -22,16 +22,6 @@ LogicPull.admin = {
 			$(this).children(".body").toggle();
 		});
 
-		$('[data-toggle="tooltip"]').tooltip()
-
-		// $(".interview-deliverable").click(function (e) {
-	 //        if ($(e.target).is('.btn-group')){
-	 //            e.preventDefault();
-	 //            return;
-	 //        }
-		// 	var link = $(this).data('link');
-		// 	window.location.href = link;
-		// });
-
+		$('[data-toggle="tooltip"]').tooltip();
 	}
 };

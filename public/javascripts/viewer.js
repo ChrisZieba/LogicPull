@@ -80,7 +80,7 @@ Viewer.socket = (function() {
 				Viewer.interview.setInterviewID(packet.id);
 
 				// get rid of the loader
-				$('.btn').button('reset')
+				$('.btn').button('reset');
 
 				// if the validation cleared for all the fields
 				if (packet.valid) {
