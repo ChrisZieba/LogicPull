@@ -1,4 +1,4 @@
-h1{
+h1 {
 	margin-top:0;
 	margin-bottom:20px
 }
@@ -58,8 +58,6 @@ h1{
     position: absolute;
     margin-right: -225px;
 }
-
-/* Sidebar Styles */
 
 .sidebar-nav {
     position: absolute;
@@ -193,11 +191,6 @@ h1{
 	margin-top: 20px;
 }
 
-.interview-deliverable:hover {
-/*	cursor: pointer;
-	border-color:#ccc;*/
-}
-
 .interview-deliverable .media p {
 	white-space: nowrap;
 	overflow: hidden;
@@ -211,11 +204,6 @@ h1{
 	-webkit-hyphens: auto;
 	-moz-hyphens: auto;
 	hyphens: auto;
-}
-
-.interview-deliverable .media-body {
-	font-size: 0.9em;
-	color:#333;
 }
 
 .fa-2 {
