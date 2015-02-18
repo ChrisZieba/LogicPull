@@ -332,9 +332,12 @@ Viewer.interview = (function() {
 		// when youtube video links are clicked
 		$("body").on('click', ".youtube-modal", function () {
 			var target = $(this).data('target');
-			var content = $(target).find('embed-responsive').first();
+			var content = $(target).find('.embed-responsive').first();
 			var link = $(this).attr('href');
-			content.load(link);
+
+			content.html('<iframe src="' + link + '" frameborder="0" allowfullscreen></iframe>');
+			$(target).modal();
+			return false;
 		});
 
 		// listen for when the button to continue is clicked
@@ -608,11 +611,13 @@ Viewer.interview = (function() {
 		});
 
 		// Make sure links are opened in a new window
-		$("body").on('click', ".learnmore a, .help-modal a", function (ev) {
+		$("body").on('click', ".text a, .learnmore a, .help-modal a", function (ev) {
 			var url = $(this).prop("href");
-			window.open(url);
-			ev.preventDefault();
-			return false;
+			if (!$(this).attr('data-target')) {
+				window.open(url);
+				ev.preventDefault();
+				return false;
+			}
 		});	
 	};
 
