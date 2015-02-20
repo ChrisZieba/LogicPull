@@ -52,9 +52,9 @@
 						<a href="/manager/interview/<%= interviews[j].id %>" data-toggle="tooltip" title="" data-original-title="<%= interviews[j].description %>"><%= interviews[j].name %></a>
 
 						<% if (interviews[j].locked) { %>
-							<span class="badge"><i class="fa fa-lock" data-toggle="tooltip" title="This interview is locked. It can not be edited by any other users" data-original-title="This interview is locked. It can not be edited by any other users."></i></span>
+							<span class="badge" data-toggle="tooltip" title="This interview is locked. It can not be edited by any other users" data-original-title="This interview is locked. It can not be edited by any other users."><i class="fa fa-lock"></i></span>
 						<% } else { %>
-							<span class="badge"><i class="fa fa-unlock" data-toggle="tooltip" title="This interview is unlocked. It can be edited by any other users" data-original-title="This interview is unlocked. It can be edited by any other users."></i></span>
+							<span class="badge" data-toggle="tooltip" title="This interview is unlocked. It can be edited by any other users" data-original-title="This interview is unlocked. It can be edited by any other users."><i class="fa fa-unlock"></i></span>
 						<% } %>
 						
 					</h3>
