@@ -5,12 +5,19 @@
 		<title><%= title %></title>
 	  	<meta charset="utf-8"/>
 	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	 	<meta name="robots" content="noindex, nofollow" />
 
 		<script src="/javascripts/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
 		<script src="/javascripts/lib/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+	    <!--[if lt IE 9]>
+	      <script src="/javascripts/lib/html5shiv.min.js"></script>
+	      <script src="/javascripts/lib/respond.min.js"></script>
+	    <![endif]-->
+
 	    <!-- Custom Fonts -->
 	    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<% if (settings.env === 'development') { %>
