@@ -13,11 +13,6 @@
 		<script src="/javascripts/lib/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-	    <!--[if lt IE 9]>
-	      <script src="/javascripts/lib/html5shiv.min.js"></script>
-	      <script src="/javascripts/lib/respond.min.js"></script>
-	    <![endif]-->
-
 	    <!-- Custom Fonts -->
 	    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<% if (settings.env === 'development') { %>
@@ -26,7 +21,13 @@
 		<% } else { %>
 			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
 			<script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
-		<% } %>	
+		<% } %>
+
+	    <!--[if lt IE 9]>
+	      <script src="/javascripts/lib/html5shiv.min.js"></script>
+	      <script src="/javascripts/lib/respond.min.js"></script>
+	    <![endif]-->
+	    
 	</head>
 
 	<body>
