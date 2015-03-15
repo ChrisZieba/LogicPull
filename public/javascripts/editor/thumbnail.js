@@ -172,7 +172,7 @@ Editor.thumbnail = (function () {
 								var m;
 								if (descending === 'yes') {
 									for (m = max; m >= min; m-=1) {
-										if (input_default === m) {
+										if (input_default === m.toString()) {
 											output.push('<option selected="selected">' + m + '</option>');									
 										} else {
 											output.push('<option>' + m + '</option>');	
@@ -180,7 +180,7 @@ Editor.thumbnail = (function () {
 									}
 								} else {
 									for (m = min; m <= max; m+=1) {
-										if (input_default === m) {
+										if (input_default === m.toString()) {
 											output.push('<option selected="selected">' + m + '</option>');									
 										} else {
 											output.push('<option>' + m + '</option>');	
