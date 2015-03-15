@@ -18,23 +18,20 @@ Editor.details.contents = Editor.details.contents || {};
 Editor.details.contents.fields = Editor.details.contents.fields || {};
 
 Editor.details.contents.fields.numberDropdown = (function () {
-
 	"use strict";
 
-	var eventListeners = function () {
-
-	};
+	var eventListeners = function () {};
 
 	var fieldDefault = function (default_value, index) {
 		var output = [];
 
-		if ( !default_value) {
+		if (!default_value) {
 			default_value = '';
 		}
 
 		output.push('<div class="field-property">');
 		output.push('<div class="b-label">Default: </div>');
-		output.push('<input type="text" value="' + default_value.replace(/"/g, '&quot;') +'" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
+		output.push('<input type="text" value="' + default_value.toString(10).replace(/"/g, '&quot;') + '" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
 		output.push('</div>');
 
 		return output.join('');			
