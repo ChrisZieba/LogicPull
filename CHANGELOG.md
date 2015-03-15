@@ -1,5 +1,19 @@
 #Changelog
 
+##Version 0.9.1 (2015-03-15)
+
+###Editor
+- Add the size option to number fields
+- Update the thumbnail preview to show number dropdown defaults
+- Bug Fix: Correct issue with number dropdowns (#23)
+- Bug Fix: Make sure values do not get cut off in the editor (#24)
+
+###Viewer
+- Add boostrap shim and support for Internet Explorer < 9
+
+###Misc
+- Prevent interviews from crashing if the graph distance errors out
+
 ##Version 0.9.0 (2015-02-18)
 
 ###Editor
