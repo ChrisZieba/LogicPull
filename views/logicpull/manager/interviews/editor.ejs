@@ -426,7 +426,13 @@
 			.attr("id", "canvas")
 			.append('svg:g');
 
-		Editor.settings.set('<%= interview %>','<%= interview_settings.name %>', '<%= interview_settings.description %>', '<%= interview_settings.start %>', '<%- interview_settings.steps %>');
+		Editor.settings.set(
+			'<%= interview %>',
+			'<%= interview_settings.name %>', 
+			'<%= interview_settings.description %>', 
+			'<%= interview_settings.start %>', 
+			'<%- interview_settings.steps %>'
+		);
 
 	</script>
 </html>

@@ -173,7 +173,7 @@ module.exports = function (app) {
 				env: app.settings.env,
 				interview_settings: {
 					name: interview.name,
-					description: interview.description.replace(/'/g, "&apos;").replace(/"/g, "&quot;"),
+					description: interview.description.replace(/'/g, "&apos;").replace(/"/g, "&quot;").replace(/(\r\n|\n|\r)/gm, ""),
 					start: interview.start,
 					steps: JSON.stringify(interview.steps)
 				}
@@ -597,7 +597,10 @@ module.exports = function (app) {
 
 		if (req.method === 'POST') {
 			if (validator.check(sanitizor.clean(req.body.description), ['required','label'])) {
-				models.Interviews.update({id: interview}, { description: req.body.description }, function (err) {
+				// the new lines need to be removed
+				var description = req.body.description.replace(/'/g, "&apos;").replace(/"/g, "&quot;").replace(/(\r\n|\n|\r)/gm, "");
+
+				models.Interviews.update({id: interview}, { description: description }, function (err) {
 					if (err) {
 						console.log(err);
 						throw err;
