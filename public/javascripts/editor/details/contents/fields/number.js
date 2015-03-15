@@ -45,7 +45,8 @@ Editor.details.contents.fields.number = (function () {
 			output.push(common.fieldType(type));
 			output.push(common.fieldName(field.name, index));
 			output.push(common.fieldLabel(field.label, index));
-
+			output.push(common.fieldSize(field.size, index));
+			
 			// use this default not the common one
 			output.push(fieldDefault(field.def, index));
 			output.push(common.fieldValidation(field.validation, type, index));
