@@ -30,13 +30,13 @@
 					<div class="form-group">
 						<label>Email Notifications</label>
 						<input type="text" class="form-control" name="email_notification" value="<%= (interview.on_complete.email_notification) ? interview.on_complete.email_notification : '' %>"/>
-						<p class="help-block">Notify the emails provided when a client completes an interview. If you enter more than one email, they must be seperated by a semi-colon.</p>
+						<p class="help-block">Notify the emails provided when a client completes an interview. If you enter more than one email, they must be seperated by a comma.</p>
 					</div>
 
 					<div class="form-group">
 						<label>Deliverables</label>
 						<input type="text" class="form-control" name="email_deliverables" value="<%= (interview.on_complete.email_deliverables) ? interview.on_complete.email_deliverables : '' %>"/>
-						<p class="help-block">The deliverables created by an interview can be emailed to selected individuals by entering a semi-colon delimited (;) list here.</p>
+						<p class="help-block">The deliverables created by an interview can be emailed to selected individuals by entering a comma delimited (,) list here.</p>
 					</div>
 
 					<button type="submit" class="btn btn-primary">Submit</button>
