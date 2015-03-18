@@ -46,6 +46,7 @@ Editor.details.contents.fields.number = (function () {
 			output.push(common.fieldName(field.name, index));
 			output.push(common.fieldLabel(field.label, index));
 			output.push(common.fieldSize(field.size, index));
+			output.push(common.fieldLine(field.line, index));
 			
 			// use this default not the common one
 			output.push(fieldDefault(field.def, index));
