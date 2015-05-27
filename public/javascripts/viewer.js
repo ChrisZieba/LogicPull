@@ -92,16 +92,21 @@ Viewer.socket = (function() {
           }
 
           // this loads in the new question
-          Viewer.interview.question(packet.data.question); 
+          Viewer.interview.question(packet.data.question);
 
           // load in the new progress status in the drop down
-          Viewer.interview.progress(packet.data.progress); 
+          Viewer.interview.progress(packet.data.progress);
 
           // load in the fractional progress
-          Viewer.interview.fraction(packet.data.fraction); 
+          Viewer.interview.fraction(packet.data.fraction);
 
           // set the current qID
-          Viewer.interview.setCurrentQID(packet.qid); 
+          Viewer.interview.setCurrentQID(packet.qid);
+
+          // If loading a saved interview, check if there is form data for the current question
+          if (packet.data.fields) {
+            Viewer.interview.populateFieldData(packet.data.fields);
+          }
         } else {
           // handle the error
           if ( ! $("#" + packet.data.name + "-var-container").hasClass("var-error")) {
@@ -469,7 +474,7 @@ Viewer.interview = (function() {
         };
 
         socket.emit('save_progress', data); 
-        
+
         // Disable clicking the save button until the server returns
         save = false;     
       }
@@ -666,6 +671,33 @@ Viewer.interview = (function() {
 
       });
       return fields;
+    },
+
+    populateFieldData: function (fields) {
+      for (var i = 0; i < fields.length; i+=1) {
+        switch (fields[i].type) {
+          case 'text':
+          case 'number':
+            $("input[name=" + fields[i].name + "]").val(fields[i].answer);
+            break;
+          case 'textarea':
+            $("textarea[name=" + fields[i].name + "]").val(fields[i].answer);
+            break;
+          case 'radio':
+            //value = $.trim($("input[name=" + name + "]:checked").val());
+            //$("input[name=" + fields[i].name + "]").prop("checked", true)
+            break;
+          case 'date':
+            $("#" + fields[i].name + "_picker").datepicker().val(fields[i].answer);
+            break;
+          case 'checkbox':
+            break;
+          case 'text_dropdown':
+          case 'number_dropdown':
+            $("select[name=" + fields[i].name + "]").val(fields[i].answer);
+            break;
+        }
+      };
     },
 
     question: function (question) {
