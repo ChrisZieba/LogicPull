@@ -143,32 +143,6 @@ Viewer.socket = (function() {
       socket.on('srv_error', function (packet) {
         Viewer.interview.question({content: packet.error});
       });
-
-      socket.on('reconnect', function () {
-        //alert('reconnected');
-      });
-
-      socket.on('connect_failed', function () {
-        //alert('reconnected');
-      });
-
-      socket.on('error', function () {
-        //window.location.href = '/basket/clear';
-      });
-
-      socket.on('connect_failed', function () {
-        //window.location.href = '/basket/clear';
-      });
-
-      socket.on('reconnect_failed', function () {
-        //window.location.href = '/basket/clear';
-        //alert('reconnec failed');
-      });
-
-      socket.on('disconnect', function () {
-        //window.location.href = '/basket/clear';
-        //socket.emit('client_disconnect', null);
-      });
     },
     getSocket: function() {
       return socket;
