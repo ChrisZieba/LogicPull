@@ -151,15 +151,16 @@ Viewer.socket = (function() {
 }());
 
 Viewer.interview = (function() {
-
   "use strict";
 
-  // use this to prevent multiple back button clicks in a row//
+  // Use this to prevent multiple back button clicks in a row
   // only after the question is shown, is the block removed
   var back = true;
   var save = true;
-  // each interview started gets an id that matches a record in the saves database table
+
+  // Ech interview started gets an id that matches a record in the saves database table
   var id = null;
+
   var current_qid = null;
   var finish_interview_allowed = true;
   var complete_interview_allowed = true;
@@ -167,24 +168,24 @@ Viewer.interview = (function() {
   var click_partial_allowed = true;
 
   var eventListeners = function () {
-    // this is used to pass the the value of the drop down when it changes
+    // This is used to pass the the value of the drop down when it changes
     var previous, login_path;
 
-    // this is when the save icon is clicked
+    // This is when the save icon is clicked
     $('#save').click(function () {
       var socket = Viewer.socket.getSocket();
 
       if (save && id) {
-        // set this so we know what pop up to show after the login happens
+        // Set this so we know what pop up to show after the login happens
         login_path = 'save';
 
-        // this will call the server for the note and put it in the HTML 
+        // This will call the server for the note and put it in the HTML 
         // pass in the id of the tmp record (which is equivalent to the saved id)
         socket.emit('get_saved_note', {
           id: id
         });
 
-        // check if the user is logged in
+        // Check if the user is logged in
         $.ajax({
           type: 'GET',
           url: BASE_URL + '/admin/post/status?d=' + new Date().getTime(),
@@ -192,10 +193,10 @@ Viewer.interview = (function() {
           cache: false,
           success: function (res) {
             if (res.logged_in) {
-              // if we get here the user is logged in and we can show the save popup and add in an optional note
+              // If we get here the user is logged in and we can show the save popup and add in an optional note
               $('#save-interview').modal();
             } else {
-              // the user is not logged in so show them the login form
+              // The user is not logged in so show them the login form
               $('#login-register').modal();
             }
           },
@@ -208,7 +209,7 @@ Viewer.interview = (function() {
 
     // The open folder icon
     $('#open').click(function (elem) {
-      // if the user is logged in fetch their id and then send it via socket to the server to retrieve the
+      // If the user is logged in fetch their id and then send it via socket to the server to retrieve the
       var socket = Viewer.socket.getSocket();
 
       if (save && id) {
