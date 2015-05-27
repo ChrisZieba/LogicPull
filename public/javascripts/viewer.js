@@ -458,16 +458,19 @@ Viewer.interview = (function() {
         var socket = Viewer.socket.getSocket();
         var interview = $('#interview-id').html();
         var data = {
-          // this gets sent back to the server, it is the id of the tmp interview record
+          // This gets sent back to the server, it is the id of the tmp interview record
           id: id,
           qid: current_qid,
           note: $.trim($("textarea[name=t-d-note]").val()),
-          // the id of the interview
-          interview: interview
+          // The id of the interview
+          interview: interview,
+          // We need the send the form data because it is saved as well
+          fields: Viewer.interview.collectFieldData(current_qid)
         };
 
         socket.emit('save_progress', data); 
-        // disable clicking the save button until the server returns
+        
+        // Disable clicking the save button until the server returns
         save = false;     
       }
     }); 
