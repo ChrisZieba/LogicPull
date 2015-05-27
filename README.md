@@ -1,4 +1,4 @@
-[LogicPull](https://www.logicpull.com/)
+LogicPull
 ======================================
 
 LogicPull gives you the tools to quickly create advanced question and answer interviews for end-users. The answers are then combined with templates to produce all the documents you need. Take the [tour](https://logicpull.com/tour) to find out more about what LogicPull.
@@ -166,4 +166,4 @@ Author
 Copyright
 ---------
 
-Copyright 2014 Chris Zieba
+Copyright 2015 Chris Zieba
