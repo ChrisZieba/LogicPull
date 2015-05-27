@@ -13,8 +13,7 @@
 var Viewer = Viewer || {};
 
 Viewer.socket = (function() {
-
-  "use strict";
+  'use strict';
 
   var socket;
   var editor_id = null;
