@@ -38,27 +38,27 @@ Viewer.socket = (function() {
       socket = io.connect(BASE_URL);
 
       socket.on('connect', function () {
-        // only let the interview start once
+        // Only let the interview start once
         if (interview_begin) {
           var preview = null; 
           var start = null;
 
           interview_begin = false;
 
-          // check to see if we are in preview mode. If true, than get the editro_id from the query string, passed from the editor
-          // check the query string
+          // Check to see if we are in preview mode. If true, than get the editro_id from the query string, 
+          // passed from the editor check the query string
           if (window.location.search) {
             preview = getParameterByName('preview');
             editor_id = getParameterByName('id');
             start = getParameterByName('start');
 
-            // send the id back to the server and attach it to the client socket 
+            // Send the id back to the server and attach it to the client socket 
             socket.emit('editor_id', editor_id);
           }
 
           var interview_id = $('#interview-id').html();
 
-          // either we are starting from the middle somewhere or the beginning as defined in the settings
+          // Either we are starting from the middle somewhere or the beginning as defined in the settings
           if (interview_id) {
             socket.emit('start', {
               interview_id: interview_id,
@@ -69,23 +69,25 @@ Viewer.socket = (function() {
         }
       });
 
-      // this is when the server returns with wither the question to display, or the error from the question that failed validate
+      // This is when the server returns with wither the question to 
+      // display, or the error from the question that failed validate
       socket.on('question', function (packet) {
         Viewer.interview.setFinishGate(true);
         Viewer.interview.setCompleteGate(true);
         Viewer.interview.setContinueGate(true);
         Viewer.interview.setPartialGate(true);
-        // set the id of the socket that corresponds to the database record for the saved data
+
+        // Set the id of the socket that corresponds to the database record for the saved data
         Viewer.interview.setInterviewID(packet.id);
 
-        // get rid of the loader
+        // Get rid of the loader
         $('.btn').button('reset');
 
-        // if the validation cleared for all the fields
+        // If the validation cleared for all the fields
         if (packet.valid) {
-          // if the questions is being loaded from a partial hide the saves container
+          // If the questions is being loaded from a partial hide the saves container
           if (packet.partial) {
-            // hide the login incase it was shown
+            // Hide the login incase it was shown
             $("#open-saves").modal('hide');
           }
 
