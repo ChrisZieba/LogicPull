@@ -92,7 +92,7 @@ Viewer.socket = (function() {
           }
 
           // this loads in the new question
-          Viewer.interview.question(packet.data.question);
+          Viewer.interview.question(packet.data.question, packet.data.fields);
 
           // load in the new progress status in the drop down
           Viewer.interview.progress(packet.data.progress);
@@ -102,11 +102,6 @@ Viewer.socket = (function() {
 
           // set the current qID
           Viewer.interview.setCurrentQID(packet.qid);
-
-          // If loading a saved interview, check if there is form data for the current question
-          if (packet.data.fields) {
-            Viewer.interview.populateFieldData(packet.data.fields);
-          }
         } else {
           // handle the error
           if ( ! $("#" + packet.data.name + "-var-container").hasClass("var-error")) {
@@ -700,15 +695,19 @@ Viewer.interview = (function() {
       };
     },
 
-    question: function (question) {
+    question: function (question, fields) {
       $("#question").fadeOut("fast", function () {
         $(this).empty().html(question.content);
-        $(this).fadeIn("fast",function () {
-        });
+        $(this).fadeIn("fast", function () {});
 
-        // if the question has a date, we need to add it to the DOM
+        // If the question has a date, we need to add it to the DOM
         if (question.date_pickers) {
           Viewer.interview.datePicker(question.date_pickers);
+        }
+
+        // If loading a saved interview, check if there is form data for the current question
+        if (fields) {
+          Viewer.interview.populateFieldData(fields);
         }
 
         // only when the question is displayed can we use the back button again
