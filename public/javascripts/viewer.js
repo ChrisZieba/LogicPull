@@ -729,20 +729,19 @@ Viewer.interview = (function() {
       $("#fraction").html(fraction);
     },
 
-    // this gets called after the server returns, after a user has clicked the save button.
-    // It is possible there was an error
+    // This gets called after the server returns, after a user has clicked the save button.
+    // It is possible there was an error.
     saved: function (valid) {
       save = true;
     },
 
     datePicker: function (pickers) {
-
       if (!pickers) {
         return;
       }
-      // if there is a date field, we need to build the picker and show it
-      var dp;
 
+      // If there is a date field, we need to build the picker and show it
+      var dp;
 
       for (var i = 0; i < pickers.length; i+=1) {
         dp = $( "#" + pickers[i].name + "_picker" );
@@ -772,7 +771,7 @@ Viewer.interview = (function() {
           }
         }
 
-        // THE DEFAULT is for highlighting the date when the pop up opens...it does not set the date in the text field!
+        // The default is for highlighting the date when the pop up opens...it does not set the date in the text field!
         if (pickers[i].def) {
           if (pickers[i].def.toUpperCase() === 'TODAY') {
             dp.datepicker('option', 'defaultDate', null);
@@ -785,7 +784,7 @@ Viewer.interview = (function() {
           dp.datepicker("setDate", pickers[i].set);
         }
 
-        // so Google translate doesn't break the date-picker
+        // So Google translate doesn't break the date-picker
         $('.ui-datepicker').addClass('notranslate');
       }
 
