@@ -213,9 +213,10 @@ Viewer.interview = (function() {
       var socket = Viewer.socket.getSocket();
 
       if (save && id) {
-        // set this so we know what pop up to show after the login happens
+        // Set this so we know what pop up to show after the login happens
         login_path = 'open';
-        // check if the user is logged in
+
+        // Check if the user is logged in
         $.ajax({
           type: 'GET',
           url: BASE_URL + '/admin/post/status?d=' + new Date().getTime(),
@@ -223,7 +224,7 @@ Viewer.interview = (function() {
           cache: false,
           success: function (res) {
             if (res.logged_in) {
-              // if we get here the user is logged in and we can show the saved interviews
+              // If we get here the user is logged in and we can show the saved interviews
               var socket;
               var data;
               var interview;
@@ -236,7 +237,7 @@ Viewer.interview = (function() {
               };
               socket.emit('open_saves', data);  
             } else {
-              // the user is not logged in so show them the login form
+              // The user is not logged in so show them the login form
               $('#login-register').modal();
             }
           },
@@ -249,21 +250,21 @@ Viewer.interview = (function() {
 
     $('#back').click(function () {
       var socket;
-      // get the value of the progress dropdown..this will tell us what qid we are on, and what index the array is on
+      // Get the value of the progress dropdown..this will tell us what qid we are on, and what index the array is on
       var progress = document.getElementById('progress'); 
       var backid;
       var split;
       var interview;
       var data;
 
-      // this checks to see if the block is enabled..i.e..we haven't just click the back button with the info not arriving first
+      // This checks to see if the block is enabled..i.e..we haven't just click the back button with the info not arriving first
       if (back && id) {
-        // if there are no options in the progress the ID will be undefined
+        // If there are no options in the progress the ID will be undefined
         if (progress.options) {
           if (progress.options[progress.selectedIndex]) {
             backid = progress.options[progress.selectedIndex].value;
             split = backid.split(":");
-            // if the index is zero that means we are at the start of the interview and we cant go back any further
+            // If the index is zero that means we are at the start of the interview and we cant go back any further
             if (split[1] !== '0') { 
               socket = Viewer.socket.getSocket();
               interview = $('#interview-id').html();
@@ -275,7 +276,7 @@ Viewer.interview = (function() {
               };
 
               socket.emit('back', data);
-              // disable clicking the back button until the question is displayed
+              // Disable clicking the back button until the question is displayed
               back = false;
             } 
           }
@@ -283,9 +284,9 @@ Viewer.interview = (function() {
       }
     });
 
-    // when the user clicks an options icon to load a previous 
+    // When the user clicks an options icon to load a previous 
     $("body").on('click', ".partial-sav-int", function () {
-      // get the id of the record that corresponds to the saved data in the databases
+      // Get the id of the record that corresponds to the saved data in the databases
       if (click_partial_allowed && id) {
         var interview = $('#interview-id').html();
         var partial_id = this.id;
@@ -300,12 +301,12 @@ Viewer.interview = (function() {
 
         socket.emit('load_saved', data);
 
-        // this makes sure we don't try to load the interview multiple times
+        // This makes sure we don't try to load the interview multiple times
         click_partial_allowed = false;
       }
     });
 
-    // when youtube video links are clicked
+    // When youtube video links are clicked
     $("body").on('click', ".youtube-modal", function () {
       var target = $(this).data('target');
       var content = $(target).find('.embed-responsive').first();
@@ -338,10 +339,9 @@ Viewer.interview = (function() {
       }
     }); 
 
-    // listen for when the login is clicked
+    // Listen for when the login is clicked
     $("body").on('click', "#ltf-login-btn", function (ev) {
-      // show the login spinner
-      //$("#ltf-loader").css('display','inline-block');
+      // Show the login spinner
       $(this).button('loading');
 
       // this will prevent the form from being uploaded to the server the conventional way
