@@ -18,104 +18,104 @@ Editor.details.contents = Editor.details.contents || {};
 Editor.details.contents.fields = Editor.details.contents.fields || {};
 
 Editor.details.contents.fields.numberDropdown = (function () {
-	"use strict";
+  "use strict";
 
-	var eventListeners = function () {};
+  var eventListeners = function () {};
 
-	var fieldDefault = function (default_value, index) {
-		var output = [];
+  var fieldDefault = function (default_value, index) {
+    var output = [];
 
-		if (!default_value) {
-			default_value = '';
-		}
+    if (!default_value) {
+      default_value = '';
+    }
 
-		output.push('<div class="field-property">');
-		output.push('<div class="b-label">Default: </div>');
-		output.push('<input type="text" value="' + default_value.toString(10).replace(/"/g, '&quot;') + '" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
-		output.push('</div>');
+    output.push('<div class="field-property">');
+    output.push('<div class="b-label">Default: </div>');
+    output.push('<input type="text" value="' + default_value.toString(10).replace(/"/g, '&quot;') + '" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
+    output.push('</div>');
 
-		return output.join('');			
-	};
+    return output.join('');     
+  };
 
-	var fieldStart = function (start, index) {
-		var output = [];
+  var fieldStart = function (start, index) {
+    var output = [];
 
-		output.push('<div class="field-property">');
-		output.push('<div class="b-label">Start: </div>');
-		output.push('<input type="text" value="' + start +'" class="field-textbox ac" data-field-textbox-id="start" data-field-index="' + index + '"/>');
-		output.push('</div>');
+    output.push('<div class="field-property">');
+    output.push('<div class="b-label">Start: </div>');
+    output.push('<input type="text" value="' + start +'" class="field-textbox ac" data-field-textbox-id="start" data-field-index="' + index + '"/>');
+    output.push('</div>');
 
-		return output.join('');			
-	};
+    return output.join('');     
+  };
 
-	var fieldEnd = function (end, index) {
-		var output = [];
+  var fieldEnd = function (end, index) {
+    var output = [];
 
-		output.push('<div class="field-property">');
-		output.push('<div class="b-label">End: </div>');
-		output.push('<input type="text" value="' + end +'" class="field-textbox ac" data-field-textbox-id="end" data-field-index="' + index + '"/>');
-		output.push('</div>');
+    output.push('<div class="field-property">');
+    output.push('<div class="b-label">End: </div>');
+    output.push('<input type="text" value="' + end +'" class="field-textbox ac" data-field-textbox-id="end" data-field-index="' + index + '"/>');
+    output.push('</div>');
 
-		return output.join('');			
-	};
+    return output.join('');     
+  };
 
-	var fieldDescending = function (descending, index) {
-		var output = [];
+  var fieldDescending = function (descending, index) {
+    var output = [];
 
-		output.push('<div class="field-property">');
-		output.push('<div class="b-label">Descending: </div>');
+    output.push('<div class="field-property">');
+    output.push('<div class="b-label">Descending: </div>');
 
-		if (descending === 'yes') {
-			output.push('<input type="checkbox" checked="yes" class="field-checkbox" data-field-checkbox-id="descending" data-field-index="' + index + '"/>');
-		} else {
-			output.push('<input type="checkbox" class="field-checkbox" data-field-checkbox-id="descending" data-field-index="' + index + '" />');
-		}
+    if (descending === 'yes') {
+      output.push('<input type="checkbox" checked="yes" class="field-checkbox" data-field-checkbox-id="descending" data-field-index="' + index + '"/>');
+    } else {
+      output.push('<input type="checkbox" class="field-checkbox" data-field-checkbox-id="descending" data-field-index="' + index + '" />');
+    }
 
-		output.push('</div>');
-		return output.join('');			
-	};
+    output.push('</div>');
+    return output.join('');     
+  };
 
-	return {
+  return {
 
-		init: function () {
-			eventListeners();
-		},
+    init: function () {
+      eventListeners();
+    },
 
-		buildNumberDropdownField: function (field, index) {
+    buildNumberDropdownField: function (field, index) {
 
-			var output = [];
-			var type = "number_dropdown";
-			var common = Editor.details.contents.fields.common;
-			
-			output.push(common.fieldType(type));
-			output.push(common.fieldName(field.name, index));
-			output.push(common.fieldLabel(field.label, index));
-			output.push(common.fieldSize(field.size, index));
-			output.push(common.fieldLine(field.line, index));
-			
-			// use this default not the common one
-			output.push(fieldDefault(field.def, index));
-			output.push(fieldStart(field.start, index));
-			output.push(fieldEnd(field.end, index));
-			output.push(fieldDescending(field.descending, index));
-			output.push(common.fieldValidation(field.validation, type, index));
+      var output = [];
+      var type = "number_dropdown";
+      var common = Editor.details.contents.fields.common;
+      
+      output.push(common.fieldType(type));
+      output.push(common.fieldName(field.name, index));
+      output.push(common.fieldLabel(field.label, index));
+      output.push(common.fieldSize(field.size, index));
+      output.push(common.fieldLine(field.line, index));
+      
+      // use this default not the common one
+      output.push(fieldDefault(field.def, index));
+      output.push(fieldStart(field.start, index));
+      output.push(fieldEnd(field.end, index));
+      output.push(fieldDescending(field.descending, index));
+      output.push(common.fieldValidation(field.validation, type, index));
 
-			return output.join('');	
-		},
+      return output.join(''); 
+    },
 
-		defaultNumberDropdownField: function () {
-			return {
-				"name": 'var',
-				"label": '',
-				"type": 'number_dropdown',
-				"def": '',
-				"start": 0,
-				"end": 10,
-				"descending": 'no',
-				"validation": {
-					"required": 'no'
-				}
-			};
-		}
-	};
+    defaultNumberDropdownField: function () {
+      return {
+        "name": 'var',
+        "label": '',
+        "type": 'number_dropdown',
+        "def": '',
+        "start": 0,
+        "end": 10,
+        "descending": 'no',
+        "validation": {
+          "required": 'no'
+        }
+      };
+    }
+  };
 }());

@@ -14,113 +14,113 @@ var Editor = Editor || {};
 
 Editor.interview = (function () {
 
-	"use strict";
+  "use strict";
 
-	var eventListeners = function () {
-		var socket = Editor.socket.getSocket();
+  var eventListeners = function () {
+    var socket = Editor.socket.getSocket();
 
-		socket.on('graph', function (data) {
+    socket.on('graph', function (data) {
 
-			var qid;
+      var qid;
 
-			// the nodes need to be drawn first, because the paths are bases on their positions
-			for (qid in data) {
-				if (data.hasOwnProperty(qid)) {
-					Editor.graph.moveNode(qid, data[qid].x, data[qid].y);
-				}
-			}
-			// read above comment for why this loop is run again
-			for (qid in data) {
-				if (data.hasOwnProperty(qid)) {
-					Editor.graph.movePaths(qid);
-				}
-			}
+      // the nodes need to be drawn first, because the paths are bases on their positions
+      for (qid in data) {
+        if (data.hasOwnProperty(qid)) {
+          Editor.graph.moveNode(qid, data[qid].x, data[qid].y);
+        }
+      }
+      // read above comment for why this loop is run again
+      for (qid in data) {
+        if (data.hasOwnProperty(qid)) {
+          Editor.graph.movePaths(qid);
+        }
+      }
 
-			$('#container').scrollLeft(0).scrollTop(0);
-		});	
+      $('#container').scrollLeft(0).scrollTop(0);
+    }); 
 
-		socket.on('saved', function (data) {
-			$('.nf-pnd').remove();
-			// this is when the user does not have privileges to save an interview in the editor 
-			if (!data) {
-				alert('Saving is currently disabled. All changes have been discarded.');
-			}
-		});	
+    socket.on('saved', function (data) {
+      $('.nf-pnd').remove();
+      // this is when the user does not have privileges to save an interview in the editor 
+      if (!data) {
+        alert('Saving is currently disabled. All changes have been discarded.');
+      }
+    }); 
 
-		// Dom listeners
-		$("#m-preview-close").live("click", function () {
-			previewClose();
-		});
-	};
+    // Dom listeners
+    $("#m-preview-close").live("click", function () {
+      previewClose();
+    });
+  };
 
-	var previewClose = function () {
-		$('#w-preview').html('');
-		$('#m-preview').addClass('none');
+  var previewClose = function () {
+    $('#w-preview').html('');
+    $('#m-preview').addClass('none');
 
-		Editor.debug.hideDebug();
-		// this makes sure the edit-q button on the menu will pull the right question if we reopen the preview
-		Editor.debug.setActiveQuestion(null);
-		Editor.thumbnail.showThumbnail();
-		// this updates the menu
-		Editor.main.closeWindow('preview'); 
-		Editor.menu.set();
-	}; 
+    Editor.debug.hideDebug();
+    // this makes sure the edit-q button on the menu will pull the right question if we reopen the preview
+    Editor.debug.setActiveQuestion(null);
+    Editor.thumbnail.showThumbnail();
+    // this updates the menu
+    Editor.main.closeWindow('preview'); 
+    Editor.menu.set();
+  }; 
 
-	// show the notification that the interview is saving and then save it
-	var saveInterview = function () {
-		var socket = Editor.socket.getSocket();
-		var interview = {
-			id: Editor.settings.getID(), 
-			data: questions,
-			settings: Editor.settings.get()
-		};
+  // show the notification that the interview is saving and then save it
+  var saveInterview = function () {
+    var socket = Editor.socket.getSocket();
+    var interview = {
+      id: Editor.settings.getID(), 
+      data: questions,
+      settings: Editor.settings.get()
+    };
 
-		$("body").prepend('<div class="nf-pnd">Saving ...</div>');
-		// push the changes to the server
-		socket.emit('save', interview);
-	};
+    $("body").prepend('<div class="nf-pnd">Saving ...</div>');
+    // push the changes to the server
+    socket.emit('save', interview);
+  };
 
-	return {
-		init: function () {
-			eventListeners();
-		},
+  return {
+    init: function () {
+      eventListeners();
+    },
 
-		// @qid is an optional parameter, that is used to start an interview at a specific question
-		// if qid is not entered, he defined start will be used for where to begin the interview
-		preview: function (qid) {
-			var preview = $("#w-preview");
-			// the interview id number is an integer
-			var id = Editor.settings.getID();
-			var editor_id = Editor.socket.getEditorID();
+    // @qid is an optional parameter, that is used to start an interview at a specific question
+    // if qid is not entered, he defined start will be used for where to begin the interview
+    preview: function (qid) {
+      var preview = $("#w-preview");
+      // the interview id number is an integer
+      var id = Editor.settings.getID();
+      var editor_id = Editor.socket.getEditorID();
 
-			saveInterview();
+      saveInterview();
 
-			if (qid !== null && typeof qid !== 'undefined') {
-				preview.html('<iframe src="/manager/interview/' + id + '/stage?preview=true&id='+ editor_id +'&start=' + qid + '"></iframe>');
-			} else {
-				preview.html('<iframe src="/manager/interview/' + id + '/stage?preview=true&id='+ editor_id +'"></iframe>');
-			}
+      if (qid !== null && typeof qid !== 'undefined') {
+        preview.html('<iframe src="/manager/interview/' + id + '/stage?preview=true&id='+ editor_id +'&start=' + qid + '"></iframe>');
+      } else {
+        preview.html('<iframe src="/manager/interview/' + id + '/stage?preview=true&id='+ editor_id +'"></iframe>');
+      }
 
-			Editor.thumbnail.hideThumbnail();
-			Editor.debug.buildDebug();
-			Editor.debug.showDebug();
-			$("#m-preview").removeClass('none');	
-			Editor.main.openWindow('preview');
-			Editor.menu.set();		
-		},
+      Editor.thumbnail.hideThumbnail();
+      Editor.debug.buildDebug();
+      Editor.debug.showDebug();
+      $("#m-preview").removeClass('none');  
+      Editor.main.openWindow('preview');
+      Editor.menu.set();    
+    },
 
-		graph: function () {
-			var socket = Editor.socket.getSocket();
-			var graph = Editor.graph.orderGraph();
-			socket.emit('graph', graph);
-		},
+    graph: function () {
+      var socket = Editor.socket.getSocket();
+      var graph = Editor.graph.orderGraph();
+      socket.emit('graph', graph);
+    },
 
-		save: function () {
-			saveInterview();
-		},
+    save: function () {
+      saveInterview();
+    },
 
-		closePreview: function () {
-			previewClose();
-		}
-	};
+    closePreview: function () {
+      previewClose();
+    }
+  };
 }());

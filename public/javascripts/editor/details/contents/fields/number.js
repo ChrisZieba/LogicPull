@@ -18,55 +18,55 @@ Editor.details.contents.fields = Editor.details.contents.fields || {};
 
 Editor.details.contents.fields.number = (function () {
 
-	"use strict";
+  "use strict";
 
-	var fieldDefault = function (default_value, index) {
-		var output = [];
+  var fieldDefault = function (default_value, index) {
+    var output = [];
 
-		if ( !default_value) {
-			default_value = '';
-		}
+    if ( !default_value) {
+      default_value = '';
+    }
 
-		output.push('<div class="field-property">');
-		output.push('<div class="b-label">Default: </div>');
-		output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
-		output.push('</div>');
+    output.push('<div class="field-property">');
+    output.push('<div class="b-label">Default: </div>');
+    output.push('<input type="text" value="' + default_value +'" class="field-textbox ac" data-field-textbox-id="default" data-field-index="' + index + '"/>');
+    output.push('</div>');
 
-		return output.join('');			
-	};
+    return output.join('');     
+  };
 
-	return {
+  return {
 
-		buildNumberField: function (field, index) {
-			var output = [];
-			var type = "number";
-			var common = Editor.details.contents.fields.common;
-			
-			output.push(common.fieldType(type));
-			output.push(common.fieldName(field.name, index));
-			output.push(common.fieldLabel(field.label, index));
-			output.push(common.fieldSize(field.size, index));
-			output.push(common.fieldLine(field.line, index));
-			
-			// use this default not the common one
-			output.push(fieldDefault(field.def, index));
-			output.push(common.fieldValidation(field.validation, type, index));
+    buildNumberField: function (field, index) {
+      var output = [];
+      var type = "number";
+      var common = Editor.details.contents.fields.common;
+      
+      output.push(common.fieldType(type));
+      output.push(common.fieldName(field.name, index));
+      output.push(common.fieldLabel(field.label, index));
+      output.push(common.fieldSize(field.size, index));
+      output.push(common.fieldLine(field.line, index));
+      
+      // use this default not the common one
+      output.push(fieldDefault(field.def, index));
+      output.push(common.fieldValidation(field.validation, type, index));
 
-			return output.join('');	
-		},
+      return output.join(''); 
+    },
 
-		defaultNumberField: function () {
-			return {
-				"name": 'var',
-				"label": '',
-				"type": 'number',
-				"def": null,
-				"validation": {
-					"required": 'no',
-					"less_than" : null,
-					"greater_than": null
-				}
-			};
-		}
-	};
+    defaultNumberField: function () {
+      return {
+        "name": 'var',
+        "label": '',
+        "type": 'number',
+        "def": null,
+        "validation": {
+          "required": 'no',
+          "less_than" : null,
+          "greater_than": null
+        }
+      };
+    }
+  };
 }());

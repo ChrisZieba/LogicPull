@@ -20,23 +20,23 @@ Editor.details.contents = Editor.details.contents || {};
 Editor.details.contents.fields = Editor.details.contents.fields || {};
 
 window.onload = function() {
-	Editor.socket.init();
-	Editor.menu.init();
-	Editor.graph.init();
-	Editor.list.init();
-	Editor.settings.init();
-	Editor.interview.init();
-	Editor.debug.init();
-	Editor.details.manager.init();
-	Editor.details.tabs.init();
-	Editor.details.contents.question.init();
-	Editor.details.contents.learnmore.init();
-	Editor.details.contents.fields.common.init();
-	Editor.details.contents.advanced.init();
-	Editor.details.contents.buttons.init();
+  Editor.socket.init();
+  Editor.menu.init();
+  Editor.graph.init();
+  Editor.list.init();
+  Editor.settings.init();
+  Editor.interview.init();
+  Editor.debug.init();
+  Editor.details.manager.init();
+  Editor.details.tabs.init();
+  Editor.details.contents.question.init();
+  Editor.details.contents.learnmore.init();
+  Editor.details.contents.fields.common.init();
+  Editor.details.contents.advanced.init();
+  Editor.details.contents.buttons.init();
 };
 
 window.onbeforeunload = function() {
-	var message = "Some data is not saved.";
-	return null;
+  var message = "Some data is not saved.";
+  return null;
 };

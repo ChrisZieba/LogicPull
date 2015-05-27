@@ -13,34 +13,34 @@
 var Editor = Editor || {};
 
 Editor.socket = (function () {
-	"use strict";
+  "use strict";
 
-	var socket;
-	var editor_id = null;
+  var socket;
+  var editor_id = null;
 
-	return {
-		init: function() {
-			socket = io.connect(BASE_URL);
-			socket.on('connect', function () {
-				// when the client connects, send the server an id for the editor that will be shared with the preview
-				editor_id = (Date.now() + (Math.floor(Math.random() * (100000)) + 2)).toString();
-				// send the id back to the server and attach it to the client socket 
-				socket.emit('editor_id', editor_id);
-			});
+  return {
+    init: function() {
+      socket = io.connect(BASE_URL);
+      socket.on('connect', function () {
+        // when the client connects, send the server an id for the editor that will be shared with the preview
+        editor_id = (Date.now() + (Math.floor(Math.random() * (100000)) + 2)).toString();
+        // send the id back to the server and attach it to the client socket 
+        socket.emit('editor_id', editor_id);
+      });
 
-			socket.on('connect_failed', function () {
-				//window.location.href = '/basket/clear';
-			});
+      socket.on('connect_failed', function () {
+        //window.location.href = '/basket/clear';
+      });
 
-			socket.on('disconnect', function () {
-				//window.location.href = '/basket/clear';
-			});
-		},
-		getEditorID: function () {
-			return editor_id;
-		},
-		getSocket: function() {
-			return socket;
-		}
-	};
+      socket.on('disconnect', function () {
+        //window.location.href = '/basket/clear';
+      });
+    },
+    getEditorID: function () {
+      return editor_id;
+    },
+    getSocket: function() {
+      return socket;
+    }
+  };
 }());
