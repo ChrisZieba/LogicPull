@@ -18,36 +18,36 @@ Editor.details.contents.fields = Editor.details.contents.fields || {};
 
 Editor.details.contents.fields.textarea = (function () {
 
-	"use strict";
+  "use strict";
 
-	return {
-		buildTextareaField: function (field, index) {
-			var output = [];
-			var type = "textarea";
-			var common = Editor.details.contents.fields.common;
-			
-			output.push(common.fieldType(type));
-			output.push(common.fieldName(field.name, index));
-			output.push(common.fieldLabel(field.label, index));
-			output.push(common.fieldSize(field.size, index));
-			output.push(common.fieldDefault(field.def, index));
-			output.push(common.fieldValidation(field.validation, type, index));
+  return {
+    buildTextareaField: function (field, index) {
+      var output = [];
+      var type = "textarea";
+      var common = Editor.details.contents.fields.common;
+      
+      output.push(common.fieldType(type));
+      output.push(common.fieldName(field.name, index));
+      output.push(common.fieldLabel(field.label, index));
+      output.push(common.fieldSize(field.size, index));
+      output.push(common.fieldDefault(field.def, index));
+      output.push(common.fieldValidation(field.validation, type, index));
 
-			return output.join('');	
-		},
+      return output.join(''); 
+    },
 
-		defaultTextareaField: function () {
-			return {
-				"name": '',
-				"label": '',
-				"type": 'textarea',
-				"def": null,
-				"validation": {
-					"required": 'no',
-					"min_length" : null,
-					"max_length": null
-				}
-			};
-		}
-	};
+    defaultTextareaField: function () {
+      return {
+        "name": '',
+        "label": '',
+        "type": 'textarea',
+        "def": null,
+        "validation": {
+          "required": 'no',
+          "min_length" : null,
+          "max_length": null
+        }
+      };
+    }
+  };
 }());

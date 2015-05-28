@@ -18,39 +18,39 @@ Editor.details.contents.fields = Editor.details.contents.fields || {};
 
 Editor.details.contents.fields.text = (function () {
 
-	"use strict";
-	
-	return {
-		buildTextField: function (field, index) {
+  "use strict";
+  
+  return {
+    buildTextField: function (field, index) {
 
-			var output = [];
-			var type = "text";
-			var common = Editor.details.contents.fields.common;
-			
-			output.push(common.fieldType(type));
-			output.push(common.fieldName(field.name, index));
-			output.push(common.fieldLabel(field.label, index));
-			output.push(common.fieldSize(field.size, index));
-			output.push(common.fieldLine(field.line, index));
-			output.push(common.fieldDefault(field.def, index));
-			output.push(common.fieldValidation(field.validation, type, index));
+      var output = [];
+      var type = "text";
+      var common = Editor.details.contents.fields.common;
+      
+      output.push(common.fieldType(type));
+      output.push(common.fieldName(field.name, index));
+      output.push(common.fieldLabel(field.label, index));
+      output.push(common.fieldSize(field.size, index));
+      output.push(common.fieldLine(field.line, index));
+      output.push(common.fieldDefault(field.def, index));
+      output.push(common.fieldValidation(field.validation, type, index));
 
-			return output.join('');	
-		},
+      return output.join(''); 
+    },
 
-		defaultTextField: function () {
-			return {
-				"name": '',
-				"label": '',
-				"type": 'text',
-				"def": null,
-				"size": 3,
-				"validation": {
-					"required": 'no',
-					"min_length" : null,
-					"max_length": null
-				}
-			};
-		}
-	};
+    defaultTextField: function () {
+      return {
+        "name": '',
+        "label": '',
+        "type": 'text',
+        "def": null,
+        "size": 3,
+        "validation": {
+          "required": 'no',
+          "min_length" : null,
+          "max_length": null
+        }
+      };
+    }
+  };
 }());

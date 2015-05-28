@@ -14,54 +14,54 @@ var Editor = Editor || {};
 
 Editor.debug = (function () {
 
-	"use strict";
+  "use strict";
 
-	// this is the question that is currently being shown in the viewer
-	// use it to edit a certain question when looking at the viewer
-	var active_question = null;
+  // this is the question that is currently being shown in the viewer
+  // use it to edit a certain question when looking at the viewer
+  var active_question = null;
 
-	// local events
-	var eventListeners = function () {
+  // local events
+  var eventListeners = function () {
 
-		var socket = Editor.socket.getSocket();
+    var socket = Editor.socket.getSocket();
 
-		socket.on('question', function (pack) {
-			Editor.debug.addData(pack.data.debug);
-			active_question = pack.qid;
-		});	
-	};
+    socket.on('question', function (pack) {
+      Editor.debug.addData(pack.data.debug);
+      active_question = pack.qid;
+    }); 
+  };
 
-	return {
-		init: function () {
-			eventListeners();
-		},
+  return {
+    init: function () {
+      eventListeners();
+    },
 
-		getActiveQuestion: function () {
-			return active_question;
-		},
+    getActiveQuestion: function () {
+      return active_question;
+    },
 
-		// this is called when the preview is closed with a null 
-		setActiveQuestion: function (id) {
-			active_question = id;
-		},
+    // this is called when the preview is closed with a null 
+    setActiveQuestion: function (id) {
+      active_question = id;
+    },
 
-		buildDebug: function () {
-			Editor.thumbnail.hideThumbnail();	
-			$("#debug").html('');	
-		},
+    buildDebug: function () {
+      Editor.thumbnail.hideThumbnail(); 
+      $("#debug").html(''); 
+    },
 
-		showDebug: function () {
-			$("#debug").removeClass('none');	
-		},
+    showDebug: function () {
+      $("#debug").removeClass('none');  
+    },
 
-		hideDebug: function () {
-			$("#debug").addClass('none');
-		},
+    hideDebug: function () {
+      $("#debug").addClass('none');
+    },
 
-		addData: function (data) {
-			var d = $("#debug");
-			d.append(data);
-			d.scrollTop(d.get(0).scrollHeight);
-		}
-	};
+    addData: function (data) {
+      var d = $("#debug");
+      d.append(data);
+      d.scrollTop(d.get(0).scrollHeight);
+    }
+  };
 }());

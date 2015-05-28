@@ -13,15 +13,15 @@
 var LogicPull = LogicPull || {};
 
 LogicPull.admin = {
-	init: function () {
-		// start lsitengin for events
-		this.eventListeners();
-	},
-	eventListeners: function () {
-		$(".nfo-con").hover(function () {
-			$(this).children(".body").toggle();
-		});
+  init: function () {
+    // start lsitengin for events
+    this.eventListeners();
+  },
+  eventListeners: function () {
+    $(".nfo-con").hover(function () {
+      $(this).children(".body").toggle();
+    });
 
-		$('[data-toggle="tooltip"]').tooltip();
-	}
+    $('[data-toggle="tooltip"]').tooltip();
+  }
 };
