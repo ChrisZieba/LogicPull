@@ -106,11 +106,6 @@ The below node modules are built into [LogicPull](https://logicpull.com) and can
 TODO
 ----
 
-__Manager__ 
-
-* Add functionality to remove users from the manager
-* Add functionality to update a users privileges
-
 __Editor__ 
 
 * Complete Validations. The following validations are not yet implemented.
@@ -148,20 +143,10 @@ License
 
 The platform code for LogicPull is released under the Affero General Public License. This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details. You should have received a copy of the GNU Affero General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Your Content
-------------
-
-Any and all audio, text, photos, pictures, graphics, stylesheets, comments, and other content, data or information that you upload, store, transmit, submit, exchange or make available to or via the Platform (hereinafter "Your Content") is generated, owned and controlled solely by you, and not by LogicPull. LogicPull does not claim any ownership rights in Your Content, and you hereby expressly acknowledge and agree that Your Content remains your sole responsibility. 
-
-Liability for Content 
----------------------
-
-You are solely responsible for all of Your Content that you upload, post or distribute to, on or through the Platform, and to the extent permissible by law, LogicPull excludes all liability with respect to all Content (including Your Content) and the activities of its users with respect thereto. LogicPull and its subsidiaries, affiliates, successors, assigns, employees, agents, directors, officers and shareholders hereby exclude, to the fullest extent permitted by law, any and all liability which may arise from any Content uploaded to the Platform by users, including, but not limited to, any claims for infringement of intellectual property rights, rights of privacy or publicity rights, any claims relating to publication of defamatory, pornographic, obscene or offensive material, or any claims relating to the completeness, accuracy, currency or reliability of any information provided by users of the Platform. By using the Platform, you irrevocably waive the right to assert any claim with respect to any of the foregoing against LogicPull or any of its subsidiaries, affiliates, successors, assigns, employees, agents, directors, officers or shareholders.
-
 Author
 ------
 
-[@ChrisZieba](https://www.twitter.com/ChrisZieba)
+[@ChrisZieba](http://chriszieba.com)
 
 Copyright
 ---------
