@@ -20,16 +20,16 @@ Demo
 ----
 
 1. Basic
-   * [**Viewer**](https://interviews.logicpull.com/active/2): The Résumé Builder is just one of the endless guided interviews which can be built.
+   * [**Viewer**](http://demo.logicpull.com/interviews/active/3): The Résumé Builder is just one of the endless guided interviews which can be built.
    * [**Editor**](https://logicpull.com/demo/editor/2): This is the tool used to create the Resume Builder.
 2. Advanced
-   * [**Viewer**](https://interviews.logicpull.com/active/3): Shows more of the features that LogicPull offers.
+   * [**Viewer**](http://demo.logicpull.com/interviews/active/2): Shows more of the features that LogicPull offers.
       - Nested Looping
       - Field Validation
       - Saving and resuming interviews
       - Advanced Functions
       - Popovers and embedded Youtube videos
-   * [**Editor**](https://logicpull.com/demo/editor/3): The tool used to create the advanced demo.
+   * [**Editor**](https://logicpull.com/demo/editor/2): The tool used to create the advanced demo.
 
 Docs
 ----
