@@ -679,13 +679,23 @@ Viewer.interview = (function() {
             $("textarea[name=" + fields[i].name + "]").val(fields[i].answer);
             break;
           case 'radio':
-            //value = $.trim($("input[name=" + name + "]:checked").val());
-            //$("input[name=" + fields[i].name + "]").prop("checked", true)
+            // The answer will be empty id nothing was selected
+            var val = fields[i].answer;
+            if (val) {
+              $("input[name=" + fields[i].name + "][value=" + val + "]").prop("checked", true);
+            }
             break;
           case 'date':
             $("#" + fields[i].name + "_picker").datepicker().val(fields[i].answer);
             break;
           case 'checkbox':
+            var vals = fields[i].answer;
+            if (vals) {
+              for (var j = 0; j < vals.length; j+=1) {
+                $("input[name=" + fields[i].name + "][value=" + vals[j] + "]").prop("checked", true);
+              }
+            }
+            console.log(fields[i]);
             break;
           case 'text_dropdown':
           case 'number_dropdown':
