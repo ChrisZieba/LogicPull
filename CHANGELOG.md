@@ -1,5 +1,10 @@
 #Changelog
 
+##Version 0.9.2 (2015-05-27)
+
+###Editor
+- Feature: Save current question data on save ([#25](https://github.com/ChrisZieba/LogicPull/issues/25))
+
 ##Version 0.9.1 (2015-03-15)
 
 ###Editor
