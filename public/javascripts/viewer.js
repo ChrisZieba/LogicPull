@@ -702,7 +702,7 @@ Viewer.interview = (function() {
             $("select[name=" + fields[i].name + "]").val(fields[i].answer);
             break;
         }
-      };
+      }
     },
 
     question: function (question, fields) {
