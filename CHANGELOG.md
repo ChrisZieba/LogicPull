@@ -1,5 +1,9 @@
 #Changelog
 
+##Version 0.9.3 (2015-05-31)
+
+- Text-drop down displaying underscores in output deliverables ([#25](https://github.com/ChrisZieba/LogicPull/issues/26))
+
 ##Version 0.9.2 (2015-05-27)
 
 ###Editor
