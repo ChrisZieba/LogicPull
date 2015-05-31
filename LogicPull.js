@@ -84,13 +84,7 @@ app.configure(function () {
 	// these have to be before the subdomains!
 	app.use(app.router);
 
-	/* To set up more subdomains you can use the examples below
-		app.use(express.vhost(app.get('manager_vhost'), require('./subdomains/Manager')));
-		app.use(express.vhost(app.get('help_vhost'), require('./subdomains/Help')));
-		app.use(express.vhost(app.get('interviews_vhost'), require('./subdomains/Interviews')));
-	*/
-
-	// Listen for 
+	// Listen
 	app.use(express.vhost(app.get('base_vhost'), require('./subdomains/LogicPull')));
 
 });
