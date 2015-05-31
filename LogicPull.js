@@ -95,6 +95,6 @@ app.configure(function () {
 
 });
 
-// run the server with sockets
+// run the server with websockets
 server.listen(app.get('server_port'));
 socket.listen(server, sessionStore, app);
