@@ -117,7 +117,7 @@ __Editor__
 * Create undo function
 * Add a variable lookup/finder in the editor
 * Select multiple nodes from graph and move
-* Disallow duplicate field names
+* Disallow duplicate variable field names
 
 __Viewer__
 
@@ -135,7 +135,6 @@ Possible Improvements
 ---------------------
 * Replace ejs templating engine with more robust solution 
 * Replace apache FOP with [XMLMind](http://www.xmlmind.com/foconverter/) 
-* Use [Twitter BS 3](http://getbootstrap.com/)
 * Use mardown instead of wysihtml5 in the editor
 
 License
