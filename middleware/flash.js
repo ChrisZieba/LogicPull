@@ -38,29 +38,29 @@ var format = require('util').format;
  * @api public
  */
 function _flash (type, msg) {
-	var msgs, arr, args;
+  var msgs, arr, args;
 
-	if (typeof this.session === 'undefined') {
-		throw Error('req.flash() requires sessions');
-	}
+  if (typeof this.session === 'undefined') {
+    throw Error('req.flash() requires sessions');
+  }
 
-	msgs = this.session.flash = this.session.flash || {};
+  msgs = this.session.flash = this.session.flash || {};
 
-	if (type && msg) {
-		// util.format is available in Node.js 0.6+
-		if (arguments.length > 2 && format) {
-			args = Array.prototype.slice.call(arguments, 1);
-			msg = format.apply(undefined, args);
-		}
-		return (msgs[type] = msgs[type] || []).push(msg);
-	} else if (type) {
-		arr = msgs[type];
-		delete msgs[type];
-		return arr || [];
-	} else {
-		this.session.flash = {};
-		return msgs;
-	}
+  if (type && msg) {
+    // util.format is available in Node.js 0.6+
+    if (arguments.length > 2 && format) {
+      args = Array.prototype.slice.call(arguments, 1);
+      msg = format.apply(undefined, args);
+    }
+    return (msgs[type] = msgs[type] || []).push(msg);
+  } else if (type) {
+    arr = msgs[type];
+    delete msgs[type];
+    return arr || [];
+  } else {
+    this.session.flash = {};
+    return msgs;
+  }
 }
 
 /**
@@ -70,14 +70,14 @@ function _flash (type, msg) {
  * @api public
  */
 module.exports = function flash (options) {
-	options = options || {};
-	var safe = (options.unsafe === undefined) ? true : ! options.unsafe;
-	
-	return function (req, res, next) {
-		if (req.flash && safe) { 
-			return next(); 
-		}
-		req.flash = _flash;
-		next();
-	};
+  options = options || {};
+  var safe = (options.unsafe === undefined) ? true : ! options.unsafe;
+  
+  return function (req, res, next) {
+    if (req.flash && safe) { 
+      return next(); 
+    }
+    req.flash = _flash;
+    next();
+  };
 };
