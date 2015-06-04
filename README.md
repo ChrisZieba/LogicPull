@@ -72,36 +72,13 @@ Software Requirements
 
 | Package | Description | License |
 | --- | --- | --- |
-| [MongoDB 2.0.4](http://www.mongodb.org/) | Database used to store all interviews, and answer sets. | AGPL |
-| [nodeJS 0.8.8](http://nodejs.org/) | Server side JavaScript platform. | MIT |
-| [stunnel 3.4.22](https://www.stunnel.org/index.html) | Decryption for SSL traffic. | GPL |
-| [nginx 1.1.19](http://nginx.org/) | Server for static resources. | BSD |
-| [varnish 3.0.2](https://www.varnish-cache.org/) | Used to cache resources. | BSD |
-| [graphviz 2.26.3](http://www.graphviz.org/) | Open source graph visualization software, used in editor. | EPL |
-| [Apache FOP 1.1](http://xmlgraphics.apache.org/fop/) | Document assembler. | Apache |
-
-The below node modules are built into [LogicPull](https://logicpull.com) and can be installed by running `npm install`.
-
-| Package | Description | License |
-| --- | --- | --- |
-| [express](https://github.com/visionmedia/express) | Web application framework for nodeJS | MIT |
-| [socket.io](https://github.com/learnboost/socket.io) | Real-time connection library. | MIT |
-| [wysihtml5](https://github.com/xing/wysihtml5) | JavaScript text editor. | MIT |
-| [d3](https://github.com/mbostock/d3) | JavaScript Library for manipulating documents. | MIT |
-| [graphviz](https://github.com/glejeune/node-graphviz) | JavaScript Wrapper for Graphviz system. | MIT |
-| [bcrypt](https://github.com/ncb000gt/node.bcrypt.js/) | Password hashing. | MIT |
-| [ejs](https://github.com/visionmedia/ejs) | JavaScript templating engine. | MIT |
-| [mongoose](https://github.com/LearnBoost/mongoose) | Object modeling for mongodb. | MIT |
-| [connect-mongo](https://github.com/kcbanner/connect-mongo) | Database driver. | MIT |
-| [esprima](https://github.com/ariya/esprima) | JavaScript parser. | BSD |
-| [escodegen](https://github.com/Constellation/escodegen) | Code generator for parsed JavaScript. | BSD |
-| [async](https://github.com/caolan/async) | Asynchronous JavaScript library. | MIT |
-| [nodemailer](https://github.com/andris9/Nodemailer) | Module for sending emails. | MIT |
-| [moment](https://github.com/moment/moment/) | Date library for parsing, validating, manipulating, and formatting dates. | MIT |
-| [accounting](https://github.com/josscrowcroft/accounting.js) | Library for number, money and currency formatting. | MIT |
-| [forever](https://github.com/nodejitsu/forever) | CLI tool to ensure scripts run continuously. | MIT |
-| [jQuery](http://jquery.com/) | JavaScript library used on front end. | MIT |
-| [jQuery DatePicker](http://jqueryui.com/datepicker/) | JavaScript date picker. | MIT |
+| [MongoDB](http://www.mongodb.org/) | Database used to store all interviews, and answer sets. | AGPL |
+| [nodeJS](http://nodejs.org/) | Server side JavaScript platform. | MIT |
+| [stunnel](https://www.stunnel.org/index.html) | Decryption for SSL traffic. | GPL |
+| [nginx](http://nginx.org/) | Server for static resources. | BSD |
+| [varnish](https://www.varnish-cache.org/) | Used to cache resources. | BSD |
+| [graphviz](http://www.graphviz.org/) | Open source graph visualization software, used in editor. | EPL |
+| [Apache FOP](http://xmlgraphics.apache.org/fop/) | Document assembler. | Apache |
 
 TODO
 ----
