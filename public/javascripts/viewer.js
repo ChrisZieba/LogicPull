@@ -597,7 +597,18 @@ Viewer.interview = (function() {
         ev.preventDefault();
         return false;
       }
-    }); 
+    });
+
+    // Update the character count for the textarea
+    $('body').on('keyup', 'textarea', function (ev) {
+      var length = $(this).val().length;
+      var max_length;
+      if (max_length = $(this).data('max-length')) {
+        // Find the nect character count and populate
+        var str = '<span>' + (max_length - length) + '</span><span> character(s) left</span>'
+        $(this).next('.character-count').html(str);
+      }
+    });
   };
 
   return {
