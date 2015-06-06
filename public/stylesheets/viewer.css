@@ -404,6 +404,14 @@ h5 {font-size: 1em;color: #333;}
 .required { color:red;}
 .undefined {color:red; font-weight: 900;}
 
+.character-count {
+	font-size: 0.9em;
+	margin: 3px 0;
+	padding: 3px 0;
+	text-align: right;
+	color: #666;
+}
+
 #top-nav-1 .col-md-5{
 	padding-right: 0;
 	padding-left: 0;

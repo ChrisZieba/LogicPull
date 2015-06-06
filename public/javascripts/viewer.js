@@ -604,9 +604,15 @@ Viewer.interview = (function() {
       var length = $(this).val().length;
       var max_length;
       if (max_length = $(this).data('max-length')) {
+        var keys_left = max_length - length;
         // Find the nect character count and populate
-        var str = '<span>' + (max_length - length) + ' character(s) left</span>'
+        var str = '<span>' + keys_left + ' character(s) left</span>';
+
         $(this).next('.character-count').html(str);
+        
+        if (keys_left < 0) {
+          $('.character-count span').addClass('text-danger');
+        }
       }
     });
   };
