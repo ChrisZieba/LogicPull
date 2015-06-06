@@ -602,14 +602,14 @@ Viewer.interview = (function() {
     // Update the character count for the textarea
     $('body').on('keyup', 'textarea', function (ev) {
       var length = $(this).val().length;
-      var max_length;
-      if (max_length = $(this).data('max-length')) {
+      var max_length = $(this).data('max-length');
+      if (max_length) {
         var keys_left = max_length - length;
         // Find the nect character count and populate
         var str = '<span>' + keys_left + ' character(s) left</span>';
 
         $(this).next('.character-count').html(str);
-        
+
         if (keys_left < 0) {
           $('.character-count span').addClass('text-danger');
         }
