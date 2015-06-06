@@ -605,7 +605,7 @@ Viewer.interview = (function() {
       var max_length;
       if (max_length = $(this).data('max-length')) {
         // Find the nect character count and populate
-        var str = '<span>' + (max_length - length) + '</span><span> character(s) left</span>'
+        var str = '<span>' + (max_length - length) + ' character(s) left</span>'
         $(this).next('.character-count').html(str);
       }
     });
