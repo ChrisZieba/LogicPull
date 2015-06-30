@@ -1,4 +1,4 @@
-/*	Copyright 2014 Chris Zieba <zieba.chris@gmail.com>
+/*	Copyright 2015 Chris Zieba <zieba.chris@gmail.com>
 
 	This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 	Affero General Public License as published by the Free Software Foundation, either version 3 of the
@@ -25,12 +25,12 @@ var tmps_schema = new Schema({
 	history : { type: Schema.Types.Mixed, required: true }
 });
 
-// Store each question in its own document to increase performacne while the intewview is being worked on
+// Store each question in its own document to increase performance while the interview is being worked on
 var states_schema = new Schema({
 	id : { type: Number, required: true },
 	loop_id : { type: Number, required: false },
 	// used to find states for a given question. Primarily
-	// used to get a previous answer when we go gorward.
+	// used to get a previous answer when we go forward.
 	// It is the qid of the question where answered.
 	base_qid : { type: String, required: false },
 	//run_qid : { type: String, required: false },
