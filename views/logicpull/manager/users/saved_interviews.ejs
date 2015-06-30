@@ -10,7 +10,7 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>User</th>
+                  <th>Interview</th>
                   <th>Description</th>
                   <th>Progress</th>
                   <th>Date Last Saved</th>
@@ -19,9 +19,9 @@
               <tbody>
                 <% for (var j = 0; j < saved.length; j++) { %>
                 <tr>
-                  <td><%= saved[j].user_id %></td>
+                  <td><a href="/manager/interview/<%= saved[j].interview.id %>"><%= saved[j].interview.name %></a></td>
                   <td><%= saved[j].note %></td>
-                  <td><%= saved[j].data.state.distance[saved[j].qid] %></td>
+                  <td><%= saved[j].data.state.distance[saved[j].qid] || '' %></td>
                   <td><%= saved[j].created %></td>
                 </tr>
                 <% } %>
