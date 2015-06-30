@@ -1,56 +1,57 @@
 <div class="row">
-	<div class="col-lg-12">
+  <div class="col-lg-12">
 
-		<h1>Users</h1>
+    <h1>Users</h1>
 
-		<div class="btn-group margin-20-bottom" role="group">
-			<a class="btn btn-default" href="/manager/users/add" title="Add user"><i class="fa fa-plus-square"></i> Add User</a>
-		</div>
+    <div class="btn-group margin-20-bottom" role="group">
+      <a class="btn btn-default" href="/manager/users/add" title="Add user"><i class="fa fa-plus-square"></i> Add User</a>
+    </div>
 
-		<div class="row">
-			<% for (var j = 0; j < users.length; j++) { 
-				panel = "panel-default";
+    <div class="row">
+      <% for (var j = 0; j < users.length; j++) { 
+        panel = "panel-default";
 
-				if (users[j].group !== 0) {
-					panel = "panel-primary";
-				} 
-			%>
-				<div class="col-md-6">
-					<div class="panel <%= panel %>">
-						<div class="panel-heading">
-							<div class="btn-group pull-right">
-								<a href="/manager/users/edit/<%= users[j].id %>" class="btn btn-xs btn-default"><i class="fa fa-gear"></i></a>
-								<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									<span class="caret"></span>
-									<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li title="Remove this user"><a href="/manager/users/remove/<%= users[j].id %>">Remove</a></li>
-									<li title="Remove this user"><a href="/manager/users/reset_password/<%= users[j].id %>">Reset Password</a></li>
-								</ul>
-							</div>
+        if (users[j].group !== 0) {
+          panel = "panel-primary";
+        } 
+      %>
+        <div class="col-md-6">
+          <div class="panel <%= panel %>">
+            <div class="panel-heading">
+              <div class="btn-group pull-right">
+                <a href="/manager/users/edit/<%= users[j].id %>" class="btn btn-xs btn-default"><i class="fa fa-gear"></i></a>
+                <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li title="Remove this user"><a href="/manager/users/remove/<%= users[j].id %>">Remove</a></li>
+                  <li title="Remove this user"><a href="/manager/users/reset_password/<%= users[j].id %>">Reset Password</a></li>
+                  <li title="View saved interviews"><a href="/manager/users/saved/<%= users[j].id %>">View Saved Interviews</a></li>
+                </ul>
+              </div>
 
-							<i class="fa fa-user"></i> <strong><%= users[j].name %></strong>
-							<% access = false; %>
-							<% if (users[j].group !== 0) { %>
-								<% access = true; %>
-								<span class="label label-info" data-toggle="tooltip" title="This user has access to login to the manager. Users who create accounts during the interview process do not have access to the manager unless given." data-original-title="This user has access to login to the manager. Users who create accounts during the interview process do not have access to the manager unless given."><i class="fa fa-key"></i></span>
-							<% } %>
+              <i class="fa fa-user"></i> <strong><%= users[j].name %></strong>
+              <% access = false; %>
+              <% if (users[j].group !== 0) { %>
+                <% access = true; %>
+                <span class="label label-info" data-toggle="tooltip" title="This user has access to login to the manager. Users who create accounts during the interview process do not have access to the manager unless given." data-original-title="This user has access to login to the manager. Users who create accounts during the interview process do not have access to the manager unless given."><i class="fa fa-key"></i></span>
+              <% } %>
 
-						</div>
-						<div class="panel-body">
-							<ul class="list-group">
-								<li class="list-group-item"><i class="fa fa-envelope"></i> <strong>Email:</strong> <%= users[j].email %><br/></li>
-								<li class="list-group-item"><i class="fa fa-clock-o"></i> <strong>Created:</strong> <em><%= users[j].created.toLocaleDateString() %> <%= users[j].created.toLocaleTimeString() %></em></li>
-								<li class="list-group-item"><i class="fa fa-key"></i> <strong>Manager Access:</strong> <%= access.toString().toUpperCase() %><br/></li>
-								<% if (users[j].last_login) { %>
-									<li class="list-group-item"><i class="fa fa-clock-o"></i> <strong>Last Login:</strong> <em><%= users[j].last_login.toLocaleDateString() %> <%= users[j].last_login.toLocaleTimeString() %></em></li>
-								<% } %>
-							</ul>
-						</div>
-					</div>
-				</div>
-			<% } %>
-		</div>
-	</div>
+            </div>
+            <div class="panel-body">
+              <ul class="list-group">
+                <li class="list-group-item"><i class="fa fa-envelope"></i> <strong>Email:</strong> <%= users[j].email %><br/></li>
+                <li class="list-group-item"><i class="fa fa-clock-o"></i> <strong>Created:</strong> <em><%= users[j].created.toLocaleDateString() %> <%= users[j].created.toLocaleTimeString() %></em></li>
+                <li class="list-group-item"><i class="fa fa-key"></i> <strong>Manager Access:</strong> <%= access.toString().toUpperCase() %><br/></li>
+                <% if (users[j].last_login) { %>
+                  <li class="list-group-item"><i class="fa fa-clock-o"></i> <strong>Last Login:</strong> <em><%= users[j].last_login.toLocaleDateString() %> <%= users[j].last_login.toLocaleTimeString() %></em></li>
+                <% } %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
 </div>
