@@ -1,48 +1,48 @@
 <div class="row">
-	<div class="col-lg-12">
+  <div class="col-lg-12">
 
-		<h1>
-			<% if (interview.locked) { %>
-				Unlock the following Interview
-			<% } else { %>
-				Lock the following Interview
-			<% } %>
-		</h1>
+    <h1>
+      <% if (interview.locked) { %>
+        Unlock the following Interview
+      <% } else { %>
+        Lock the following Interview
+      <% } %>
+    </h1>
 
-		<div class="row">
-			<div class="col-lg-8">
+    <div class="row">
+      <div class="col-lg-8">
 
-				<p><strong><%= interview.name %></strong> - <%= interview.description %></p>
+        <p><strong><%= interview.name %></strong> - <%= interview.description %></p>
 
-				<form role="form" method="post" action="" enctype="multipart/form-data">
-					<input type="hidden" name="_csrf" value="<%= token %>"/>
-					<input type="hidden" name="interview" value="<%= interview.id %>"/>
-					<input type="hidden" name="locked" value="<%= interview.locked.toString() %>"/>
+        <form role="form" method="post" action="" enctype="multipart/form-data">
+          <input type="hidden" name="_csrf" value="<%= token %>"/>
+          <input type="hidden" name="interview" value="<%= interview.id %>"/>
+          <input type="hidden" name="locked" value="<%= interview.locked.toString() %>"/>
 
-					<div class="form-group">
-						<% if (interview.locked) { %>
-							<p class="help-block">Unlocking an interview will allow all users to edit it.</p>
-						<% } else { %>
-							<p class="help-block">Locking an interview will prevent anyone <strong>(except it's creator)</strong> from editing it.</p>
-						<% } %>
-					</div>
+          <div class="form-group">
+            <% if (interview.locked) { %>
+              <p class="help-block">Unlocking an interview will allow all users to edit it.</p>
+            <% } else { %>
+              <p class="help-block">Locking an interview will prevent anyone <strong>(except it's creator)</strong> from editing it.</p>
+            <% } %>
+          </div>
 
-					<% if (interview.locked) { %>
-						<button type="submit" class="btn btn-primary">Unlock</button>
-					<% } else { %>
-						<button type="submit" class="btn btn-primary">Lock</button>
-					<% } %>
+          <% if (interview.locked) { %>
+            <button type="submit" class="btn btn-primary">Unlock</button>
+          <% } else { %>
+            <button type="submit" class="btn btn-primary">Lock</button>
+          <% } %>
 
-					<a class="btn btn-default pull-right" href="/manager/interview/<%= interview.id %>">Cancel</a>
-				</form>
-			</div>
+          <a class="btn btn-default pull-right" href="/manager/interview/<%= interview.id %>">Cancel</a>
+        </form>
+      </div>
 
-			<div class="col-lg-4">
-				<div class="well">
-					<h3>Help</h3>
-					<p>Lock an interview when you would like to edit its contents without having someone else overwrite your work at the same time.</p>
-				</div>
-			</div>			
-		</div>
-	</div>
+      <div class="col-lg-4">
+        <div class="well">
+          <h3>Help</h3>
+          <p>Lock an interview when you would like to edit its contents without having someone else overwrite your work at the same time.</p>
+        </div>
+      </div>      
+    </div>
+  </div>
 </div>
