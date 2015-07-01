@@ -317,7 +317,7 @@ module.exports = function (app) {
   app.all('/manager/users/saved/:user', [auth.validated, auth.validateUser, auth.privledges('view_saved_interviews')], function (req, res) {
     // Get all the saved interviews for the user
     var saved = models.Saves.find({});
-    saved = saved.where('user_id').equals(res.locals.user.id).sort('-created');
+    saved = saved.where('user_id').equals(req.params.user).sort('-created');
     saved.exec(function (err, saved) {
       if (err) {
         console.log(err);
@@ -327,9 +327,54 @@ module.exports = function (app) {
         title: 'LogicPull Manager | Saved User Interviews',
         name: req.session.user.name,
         layout: 'view-saved-user-interviews',
-        saved: saved
+        saved: saved,
+        user: req.params.user
       });
     });
+  });
+
+  // Copy a partially saved interview to a new user
+  app.all('/manager/users/saved/:user/copy/:save', [auth.validated, auth.validateUser, auth.privledges('view_saved_interviews')], function (req, res) {
+    // Make sure the partial exists and is attached to the user
+    if (req.method === 'POST') {
+      // Copy the saved interview with the new user
+
+    } else {
+      models.Users.findOne({id: req.params.user}, function (err, user) {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+
+        models.Saves.findOne({id: req.params.save}, function (err, save) {
+          if (err) {
+            console.log(err);
+            throw err;
+          }
+
+          if (!user || !save || save.user_id !== user.id) {
+            res.status(404).render('404', {name: ''});
+          } else {
+            // Get a list of users
+            models.Users.find({}).exec(function (err, users) {
+              if (err) {
+                console.log(err);
+                throw err;
+              }
+
+              res.render('manager/layout', { 
+                title: 'LogicPull Manager | Copy Saved User Interview',
+                name: req.session.user.name,
+                layout: 'copy-saved-user-interview',
+                users: users,
+                user: user,
+                save: save
+              });
+            });
+          }
+        });
+      });
+    }
   });
 
   app.all('/manager/users/edit/:user', [auth.validated, auth.validateUser, auth.privledges('edit_user')], function (req, res) {
