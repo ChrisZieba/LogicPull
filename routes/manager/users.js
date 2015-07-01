@@ -336,26 +336,30 @@ module.exports = function (app) {
   // Copy a partially saved interview to a new user
   app.all('/manager/users/saved/:user/copy/:save', [auth.validated, auth.validateUser, auth.privledges('view_saved_interviews')], function (req, res) {
     // Make sure the partial exists and is attached to the user
-    if (req.method === 'POST') {
-      // Copy the saved interview with the new user
+    models.Users.findOne({id: req.params.user}, function (err, user) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
 
-    } else {
-      models.Users.findOne({id: req.params.user}, function (err, user) {
+      models.Saves.findOne({id: req.params.save}, function (err, save) {
         if (err) {
           console.log(err);
           throw err;
         }
 
-        models.Saves.findOne({id: req.params.save}, function (err, save) {
-          if (err) {
-            console.log(err);
-            throw err;
-          }
+        if (!user || !save || save.user_id !== user.id) {
+          res.status(404).render('404', {name: ''});
+        } else {
+          if (req.method === 'POST') {
+            models.Counters.findOne({}, function (err, counter) {
+              var tmp = new models.Tmps();
+              var tmp_count = counter.tmp_count + 1;
 
-          if (!user || !save || save.user_id !== user.id) {
-            res.status(404).render('404', {name: ''});
+              // Copy the saved interview with the new user
+              var copy = new models.Saves();
+            });
           } else {
-            // Get a list of users
             models.Users.find({}).exec(function (err, users) {
               if (err) {
                 console.log(err);
@@ -372,9 +376,9 @@ module.exports = function (app) {
               });
             });
           }
-        });
+        }
       });
-    }
+    });
   });
 
   app.all('/manager/users/edit/:user', [auth.validated, auth.validateUser, auth.privledges('edit_user')], function (req, res) {
