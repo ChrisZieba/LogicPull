@@ -1,74 +1,74 @@
 <div class="row">
-	<div class="col-lg-12">
+  <div class="col-lg-12">
 
-		<h1>Add a New Deliverable</h1>
+    <h1>Add a New Deliverable</h1>
 
-		<div class="row">
-			<div class="col-lg-8">
-				<% if (msg) { %>
-					<div class="alert alert-danger" role="alert">
-						<%- msg %>
-					</div>
-				<% } %>
+    <div class="row">
+      <div class="col-lg-8">
+        <% if (msg) { %>
+          <div class="alert alert-danger" role="alert">
+            <%- msg %>
+          </div>
+        <% } %>
 
-				<form role="form" method="post" action="" enctype="multipart/form-data">
-					<input type="hidden" name="_csrf" value="<%= token %>"/>
-					<input type="hidden" name="interview" value="<%= interview.id %>"/>
-					<div class="form-group">
-						<label for="form-name">Name</label>
-						<input type="text" class="form-control" name="outname" id="form-name" />
-						<p class="help-block">The name can only contain letters, numbers (0-9), underscores (_), dashes (-) and square brackets ([]).</p>
-					</div>
-					<div class="form-group">
-						<label for="form-description">Description</label>
-						<textarea name="description" class="form-control" rows="3"></textarea>
-						<p class="help-block">The description is used on the interview page. so you should enter a clear description of the interview.</p>
-					</div>
-					<div class="form-group">
-						<label for="form-stylesheet">Style Sheet</label>
-						<input type="file" name="file" id="form-stylesheet">
-						<p class="help-block">Files must end with .ejs</p>
-					</div>
-					<div class="form-group">
-						<label for="form-output-type">Output Type</label>
-	            		<select name="output" id="form-output-type" class="form-control">
-	            			<option value="pdf">pdf</option>
-	            			<option value="pdf_form">pdf form</option>
-	            			<option value="rtf">rtf</option>
-	            			<option value="doc">doc</option>
-	            			<option value="docx">docx</option>
-	            			<option value="odt">odt</option>
-	            			<option value="xml">xml</option>
-	            			<option value="xml_msaccess">xml (MSACCESS)</option>
-	            		</select>
-					</div>
-					<div class="form-group">
-						<label for="form-form">Form</label>
-						<input type="file" name="pdf_form_file" id="form-form">
-						<p class="help-block">Only needed if the output type you selected was "PDF Form".</p>
-					</div>
-					<div class="form-group">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="looper" value="yes" />
-								Does the deliverable need to be processed more than once?
-							</label>
-						</div>
-						<p class="help-block">For example, a "Sechedule of Parties" form may need to be processed once for every person that was input during the interview.</p>
-					</div>
+        <form role="form" method="post" action="" enctype="multipart/form-data">
+          <input type="hidden" name="_csrf" value="<%= token %>"/>
+          <input type="hidden" name="interview" value="<%= interview.id %>"/>
+          <div class="form-group">
+            <label for="form-name">Name</label>
+            <input type="text" class="form-control" name="outname" id="form-name" />
+            <p class="help-block">The name can only contain letters, numbers (0-9), underscores (_), dashes (-) and square brackets ([]).</p>
+          </div>
+          <div class="form-group">
+            <label for="form-description">Description</label>
+            <textarea name="description" class="form-control" rows="3"></textarea>
+            <p class="help-block">The description is used on the interview page. so you should enter a clear description of the interview.</p>
+          </div>
+          <div class="form-group">
+            <label for="form-stylesheet">Style Sheet</label>
+            <input type="file" name="file" id="form-stylesheet">
+            <p class="help-block">Files must end with .ejs</p>
+          </div>
+          <div class="form-group">
+            <label for="form-output-type">Output Type</label>
+                  <select name="output" id="form-output-type" class="form-control">
+                    <option value="pdf">pdf</option>
+                    <option value="pdf_form">pdf form</option>
+                    <option value="rtf">rtf</option>
+                    <option value="doc">doc</option>
+                    <option value="docx">docx</option>
+                    <option value="odt">odt</option>
+                    <option value="xml">xml</option>
+                    <option value="xml_msaccess">xml (MSACCESS)</option>
+                  </select>
+          </div>
+          <div class="form-group">
+            <label for="form-form">Form</label>
+            <input type="file" name="pdf_form_file" id="form-form">
+            <p class="help-block">Only needed if the output type you selected was "PDF Form".</p>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="looper" value="yes" />
+                Does the deliverable need to be processed more than once?
+              </label>
+            </div>
+            <p class="help-block">For example, a "Sechedule of Parties" form may need to be processed once for every person that was input during the interview.</p>
+          </div>
 
-					<button type="submit" class="btn btn-primary">Submit</button>
-					<a class="btn btn-default pull-right" href="/manager/interview/<%= interview.id %>">Cancel</a>
-				</form>
-			</div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a class="btn btn-default pull-right" href="/manager/interview/<%= interview.id %>">Cancel</a>
+        </form>
+      </div>
 
-			<div class="col-lg-4">
-				<div class="well">
-					<h3>Help</h3>
-					<p>Deliverables are processed forms that are generated when an interview is completed. A deliverable must have a stylesheet associated with it, which is used as a template to create the processed deliverable. Variables collected during the interview are fed into the stylesheet template during compilation.</p>
-					<p>A new deliverable must contain a valid name, and description.</p>
-				</div>
-			</div>			
-		</div>
-	</div>
+      <div class="col-lg-4">
+        <div class="well">
+          <h3>Help</h3>
+          <p>Deliverables are processed forms that are generated when an interview is completed. A deliverable must have a stylesheet associated with it, which is used as a template to create the processed deliverable. Variables collected during the interview are fed into the stylesheet template during compilation.</p>
+          <p>A new deliverable must contain a valid name, and description.</p>
+        </div>
+      </div>      
+    </div>
+  </div>
 </div>
