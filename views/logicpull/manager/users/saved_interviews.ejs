@@ -32,8 +32,7 @@
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu" role="menu">
-                        <li title="Update this stylesheet" class="download"><a href="/manager/interview/">Copy to another user</a></li>
-                        <li title="Remove this stylesheet" class="remove"><a href="/manager/interview/">Remove</a></li>
+                        <li title="Update this stylesheet" class="download"><a href="/manager/users/saved/4/copy/<%= saved[j].id %>">Copy to another user</a></li>
                       </ul>
                     </div>
                   </td>
@@ -45,7 +44,7 @@
         <% } else { %>
           <p class="alert alert-warning">This user has no saved interviews.</p>
         <% } %>
-      </div>      
+      </div>
     </div>
   </div>
 </div>
