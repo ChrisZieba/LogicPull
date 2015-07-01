@@ -198,6 +198,10 @@
           <% include users/saved_interviews %>
         <% } %>
 
+        <% if (layout === 'copy-saved-user-interview') { %>
+          <% include users/copy_saved_interview %>
+        <% } %>
+
         <% if (layout === 'account') { %>
           <% include account/account %>
         <% } %>

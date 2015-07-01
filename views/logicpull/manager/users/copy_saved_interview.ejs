@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-lg-12">
+
+    <h1>Copy Saved Interview</h1>
+
+    <div class="row">
+      <div class="col-lg-8">
+
+        <p>The partially saved interview by user <strong><%= user.name %> (<%= user.email %>)</strong>, will be copied to the user selected below.</p>
+
+        <form role="form" method="post" action="">
+          <input type="hidden" name="_csrf" value="<%= token %>"/>
+
+          <div class="form-group">
+            <label for="form-output-type">User</label>
+            <select name="output" id="form-output-type" class="form-control">
+              <% for (var i = 0; i < users.length; i++) { %>
+                <% if (users[i].id !== save.user_id) { %>
+                  <option value="<%= users[i].id %>"><%= users[i].name %> (<%= users[i].email %>)</option>
+                <% } %>
+              <% } %>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a class="btn btn-default pull-right" href="/manager/users/saved/<%= user.id %>">Cancel</a>
+        </form>
+      </div>      
+    </div>
+  </div>
+</div>
