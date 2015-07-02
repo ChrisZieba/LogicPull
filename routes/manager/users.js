@@ -352,6 +352,7 @@ module.exports = function (app) {
           res.status(404).render('404', {name: ''});
         } else {
           if (req.method === 'POST') {
+            // Get the dbase counter
             models.Counters.findOne({}, function (err, counter) {
               var tmp = new models.Tmps();
               var tmp_count = counter.tmp_count + 1;
