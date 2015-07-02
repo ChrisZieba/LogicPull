@@ -13,7 +13,7 @@
 
           <div class="form-group">
             <label for="form-output-type">User</label>
-            <select name="output" id="form-output-type" class="form-control">
+            <select name="user_id" id="form-output-type" class="form-control">
               <% for (var i = 0; i < users.length; i++) { %>
                 <% if (users[i].id !== save.user_id) { %>
                   <option value="<%= users[i].id %>"><%= users[i].name %> (<%= users[i].email %>)</option>
