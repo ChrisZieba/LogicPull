@@ -20,7 +20,7 @@ var tmps_schema = new Schema({
   current : { type: Number, required: true },
   created: { type: Date, default: Date.now },
   last_modified: { type: Date, default: Date.now },
-  // this will hold an aray containing the id to each question_schema, which has the state of the interview after each question
+  // this will hold an array containing the id to each question_schema, which has the state of the interview after each question
   progress : { type: Schema.Types.Mixed, required: true },
   history : { type: Schema.Types.Mixed, required: true }
 });
