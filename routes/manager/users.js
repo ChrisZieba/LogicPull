@@ -313,16 +313,16 @@ module.exports = function (app) {
     }
   });
 
-  // Display the saved interviews for a user
+  // Display all the saved interviews for a user
   app.all('/manager/users/saved/:user', [auth.validated, auth.validateUser, auth.privledges('view_saved_interviews')], function (req, res) {
-    // Get all the saved interviews for the user
     var saved = models.Saves.find({});
     saved = saved.where('user_id').equals(req.params.user).sort('-created');
     saved.exec(function (err, saved) {
       if (err) {
         console.log(err);
         throw err;
-      } 
+      }
+      
       res.render('manager/layout', { 
         title: 'LogicPull Manager | Saved User Interviews',
         name: req.session.user.name,
