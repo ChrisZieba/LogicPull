@@ -355,6 +355,7 @@ module.exports = function (app) {
             // Move the saved interview to a different user
             models.Saves.update({id: save.id}, {
               user_id: req.body.user_id,
+              note: req.body.note
             }, function (err) {
               if (err) {
                 console.log(err);
