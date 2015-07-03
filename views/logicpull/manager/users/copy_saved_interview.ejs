@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-lg-8">
 
-        <p>The partially saved interview by user <strong><%= user.name %> (<%= user.email %>)</strong>, will be moved to the user selected below.</p>
+        <p>The partially saved interview by user <strong><%= user.name %> (<%= user.email %>)</strong> for interview <%= save.interview.name %>, will be moved to the user selected below.</p>
 
         <form role="form" method="post" action="">
           <input type="hidden" name="_csrf" value="<%= token %>"/>
