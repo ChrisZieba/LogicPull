@@ -352,13 +352,16 @@ module.exports = function (app) {
           res.status(404).render('404', {name: ''});
         } else {
           if (req.method === 'POST') {
-            // Get the dbase counter
-            models.Counters.findOne({}, function (err, counter) {
-              var tmp = new models.Tmps();
-              var tmp_count = counter.tmp_count + 1;
+            // Move the saved interview to a different user
+            models.Saves.update({id: save.id}, {
+              user_id: req.body.user_id,
+            }, function (err) {
+              if (err) {
+                console.log(err);
+                throw err;
+              } 
 
-              // Copy the saved interview with the new user
-              var copy = new models.Saves();
+              res.redirect('/manager/users');
             });
           } else {
             models.Users.find({}).exec(function (err, users) {
