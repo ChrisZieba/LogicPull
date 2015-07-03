@@ -333,7 +333,7 @@ module.exports = function (app) {
     });
   });
 
-  // Copy a partially saved interview to a new user
+  // Move a partially saved interview to a different user
   app.all('/manager/users/saved/:user/copy/:save', [auth.validated, auth.validateUser, auth.privledges('view_saved_interviews')], function (req, res) {
     // Make sure the partial exists and is attached to the user
     models.Users.findOne({id: req.params.user}, function (err, user) {
