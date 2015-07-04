@@ -1,5 +1,10 @@
 #Changelog
 
+##Version 0.9.4 (2015-07-03)
+
+- Feature: Ability to assign partial interviews to other users
+- Feature: Show number of characters left in text areas
+
 ##Version 0.9.3 (2015-05-31)
 
 - Text-drop down displaying underscores in output deliverables ([#25](https://github.com/ChrisZieba/LogicPull/issues/26))
