@@ -49,6 +49,7 @@ var saves_schema = new Schema({
   user_id : { type: Number, required: true },
   interview_id : { type: Number, required: true },
   socket_id : { type: String, required: true },
+  tag : { type: String, required: false },
   qid : { type: String, required: false },
   note : { type: String, required: false },
   created: { type: Date },
