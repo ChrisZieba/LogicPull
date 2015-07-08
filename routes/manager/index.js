@@ -33,7 +33,7 @@ module.exports = function (app) {
     // make sure the group id of the logged in user matches that from the URL
     interviews = interviews.where('group').equals(group_id).where('disabled').equals(false);
     outputs = outputs.where('interview.group').equals(group_id);
-    outputs = outputs.limit(100).sort('-date');
+    outputs = outputs.limit(10).sort('-date');
 
     interviews.exec(function(err, interviews) {
       if (err) {
