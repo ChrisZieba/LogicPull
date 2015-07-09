@@ -4,6 +4,7 @@
 
 - Feature: Ability to assign partial interviews to other users
 - Feature: Show the number of characters left in textareas
+- Update the default selected text in dropdowns
 
 ##Version 0.9.3 (2015-05-31)
 
