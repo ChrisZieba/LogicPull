@@ -1,6 +1,6 @@
 #Changelog
 
-##Version 0.9.4 (2015-07-03)
+##Version 0.9.4 (2015-07-09)
 
 - Feature: Ability to assign partial interviews to other users
 - Feature: Show the number of characters left in textareas
