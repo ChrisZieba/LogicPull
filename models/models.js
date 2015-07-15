@@ -50,6 +50,7 @@ var saves_schema = new Schema({
   interview_id : { type: Number, required: true },
   socket_id : { type: String, required: true },
   qid : { type: String, required: false },
+  name : { type: String, required: false },
   note : { type: String, required: false },
   created: { type: Date },
   last_modified: { type: Date },
