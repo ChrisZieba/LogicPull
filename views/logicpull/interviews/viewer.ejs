@@ -1,226 +1,226 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title><%= title %></title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<meta name="language" content="en" />
-	<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width,height=device-height">
-	<meta name="description" content="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud."/>
-	<script>var BASE_URL = '<%= settings.base_url %>';</script>
-	<script src="/socket.io/socket.io.js"></script>
-    
-	<script src="/javascripts/lib/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
-	<script src="/javascripts/lib/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <title><%= title %></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="language" content="en" />
+  <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width,height=device-height">
+  <meta name="description" content="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud."/>
+  <script>var BASE_URL = '<%= settings.base_url %>';</script>
+  <script src="/socket.io/socket.io.js"></script>
+  
+  <script src="/javascripts/lib/jquery.min.js"></script>
+  <script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+  <script src="/javascripts/lib/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Custom Fonts -->
-    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-	<% if (env === 'development') { %>
-		<script type="text/javascript" src="/javascripts/viewer.js?v=<%= settings.version %>"></script>
-		<link rel="stylesheet" type="text/css" href="/stylesheets/viewer.css?v=<%= settings.version %>" />
-	<% } else { %>
-		<script type="text/javascript" src="/javascripts/viewer.min.js?v=<%= settings.version %>"></script>
-		<link rel="stylesheet" type="text/css" href="/stylesheets/viewer.min.css?v=<%= settings.version %>" />
-        <script>
-            $(window).bind('beforeunload', function(){
-                return 'If you leave this page any unsaved information will be lost.';
-            });
-        </script>
-	<% } %>
+  <% if (env === 'development') { %>
+    <script type="text/javascript" src="/javascripts/viewer.js?v=<%= settings.version %>"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/viewer.css?v=<%= settings.version %>" />
+  <% } else { %>
+    <script type="text/javascript" src="/javascripts/viewer.min.js?v=<%= settings.version %>"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/viewer.min.css?v=<%= settings.version %>" />
+    <script>
+      $(window).bind('beforeunload', function(){
+        return 'If you leave this page any unsaved information will be lost.';
+      });
+    </script>
+  <% } %>
 
-    <!--[if lt IE 9]>
-      <script src="/javascripts/lib/html5shiv.min.js"></script>
-      <script src="/javascripts/lib/respond.min.js"></script>
-    <![endif]-->
-    
+  <!--[if lt IE 9]>
+    <script src="/javascripts/lib/html5shiv.min.js"></script>
+    <script src="/javascripts/lib/respond.min.js"></script>
+  <![endif]-->
+  
 </head>
 
 <body>
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <img class="logo" src="/images/viewer/logo.png" alt="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud" width="200" height="40" />
-                </li>
-                <li class="name"><%= name %></li>
-                <li class="description"><%= description %></li>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <img class="logo" src="/images/viewer/logo.png" alt="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud" width="200" height="40" />
+        </li>
+        <li class="name"><%= name %></li>
+        <li class="description"><%= description %></li>
+      </ul>
+
+      <div class="footer">
+        <p>&copy; 2012-2015 <a href="https://logicpull.com" target="_blank">LogicPull</a></p>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-nav-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" id="back" href="#"><span class="icon" title="Go back the previous question"><i class="fa fa-arrow-circle-o-left"></i> Back</span></a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div id="top-nav-1" class="collapse navbar-collapse">
+            <div class="col-md-5">
+              <select class="form-control" id="progress"></select>
+            </div>
+            
+            <ul class="nav navbar-nav">
+              <li>
+                <a href="#" id="fraction" class="notranslate"><i class="fa fa-spinner fa-spin"></i></a>
+              </li>
             </ul>
+            
 
-            <div class="footer">
-                <p>&copy; 2012-2015 <a href="https://logicpull.com" target="_blank">LogicPull</a></p>
-            </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
+  
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a id="open" href="#">
+                  <span class="icon" title="Open a previously saved interview"><i class="fa fa-folder-open-o"></i></span> Open
+                </a>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-nav-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" id="back" href="#"><span class="icon" title="Go back the previous question"><i class="fa fa-arrow-circle-o-left"></i> Back</span></a>
+                <div class="modal fade" id="open-saves" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel">Saved Interviews</h3>
+                      </div>
+                      <div class="modal-body">
+                        <div id="saves-data-payload"></div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
                     </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a id="save" href="#">
+                  <span class="icon" title="Save your interview and complete it at a later time"><i class="fa fa-save"></i></span> Save
+                </a>
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div id="top-nav-1" class="collapse navbar-collapse">
-                        <div class="col-md-5">
-                            <select class="form-control" id="progress"></select>
+                <div class="modal fade" id="save-interview" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel">Save Interview</h3>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label>Optional Note:</label>
+                          <textarea name="t-d-note" class="form-control"></textarea>
                         </div>
-                        
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="#" id="fraction" class="notranslate"><i class="fa fa-spinner fa-spin"></i></a>
-                            </li>
-                        </ul>
-                        
-
-    
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a id="open" href="#">
-                                    <span class="icon" title="Open a previously saved interview"><i class="fa fa-folder-open-o"></i></span> Open
-                                </a>
-
-                                <div class="modal fade" id="open-saves" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h3 class="modal-title" id="myModalLabel">Saved Interviews</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div id="saves-data-payload"></div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a id="save" href="#">
-                                    <span class="icon" title="Save your interview and complete it at a later time"><i class="fa fa-save"></i></span> Save
-                                </a>
-
-                                <div class="modal fade" id="save-interview" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h3 class="modal-title" id="myModalLabel">Save Interview</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label>Optional Note:</label>
-                                                    <textarea name="t-d-note" class="form-control"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="button" id="vfh-save" class="btn btn-primary">Save Interview</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </li>
-                            <li class="dropdown">
-                                <div class="modal fade" id="login-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h3 class="modal-title" id="myModalLabel">Login or Register</h3>
-                                            </div>
-                                            <div class="modal-body">
-
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <form id="ltf-login" class="well" method="post" action="/admin/login" role="form">
-                                                            <input type="hidden" name="_csrf" value="<%= token %>"/>
-                                                            <div id="sf-g-error" class="none alert alert-danger"></div>
-
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Email</label>
-                                                                <input name="email" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPassword1">Password</label>
-                                                                <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <button id="ltf-login-btn" data-loading-text="Loading..." autocomplete="off" type="submit" class="btn btn-default">Login</button>
-                                                                <a class="modal-link" href="/admin/reset" target="_blank">Forgot Password</a>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <form id="ltf-register" class="well" method="post" action="/admin/post/register" role="form">
-                                                            <input type="hidden" name="_csrf" value="<%= token %>"/>
-                                                            <div id="sf-h-error" class="none alert alert-danger"></div>
-
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Email</label>
-                                                                <input name="email" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPassword1">Password</label>
-                                                                <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputPassword2">Verify Password</label>
-                                                                <input name="verify_password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Verify Password">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <button id="ltf-register-btn" data-loading-text="Loading..." autocomplete="off" type="submit" class="btn btn-primary">Register</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-            </nav>
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <div id="question" class="row"><div style="text-align:center;"><i class="fa fa-spinner fa-spin fa-3"></i></div></div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="vfh-save" class="btn btn-primary">Save Interview</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-lg-6">
-                   <div class="learnmore"></div>
+
+              </li>
+              <li class="dropdown">
+                <div class="modal fade" id="login-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel">Login or Register</h3>
+                      </div>
+                      <div class="modal-body">
+
+                        <div class="row">
+                          <div class="col-md-6">
+                            <form id="ltf-login" class="well" method="post" action="/admin/login" role="form">
+                              <input type="hidden" name="_csrf" value="<%= token %>"/>
+                              <div id="sf-g-error" class="none alert alert-danger"></div>
+
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input name="email" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              </div>
+                              <div class="form-group">
+                                <button id="ltf-login-btn" data-loading-text="Loading..." autocomplete="off" type="submit" class="btn btn-default">Login</button>
+                                <a class="modal-link" href="/admin/reset" target="_blank">Forgot Password</a>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="col-md-6">
+                            <form id="ltf-register" class="well" method="post" action="/admin/post/register" role="form">
+                              <input type="hidden" name="_csrf" value="<%= token %>"/>
+                              <div id="sf-h-error" class="none alert alert-danger"></div>
+
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input name="email" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword2">Verify Password</label>
+                                <input name="verify_password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Verify Password">
+                              </div>
+                              <div class="form-group">
+                                <button id="ltf-register-btn" data-loading-text="Loading..." autocomplete="off" type="submit" class="btn btn-primary">Register</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-    
-            </div>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div id="question" class="row"><div style="text-align:center;"><i class="fa fa-spinner fa-spin fa-3"></i></div></div>
         </div>
-
+        <div class="col-lg-6">
+           <div class="learnmore"></div>
+        </div>
+  
+      </div>
     </div>
 
-	<div id="vars" class="none">
-		<div id="interview-id" class="notranslate"><%= id %></div>
-	</div>
+  </div>
 
-	<script>
-		window.onload = function() {
-			Viewer.interview.init();
-		};
-	</script>
+  <div id="vars" class="none">
+    <div id="interview-id" class="notranslate"><%= id %></div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      Viewer.interview.init();
+    };
+  </script>
 </body>
 </html>
