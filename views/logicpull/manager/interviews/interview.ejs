@@ -245,12 +245,23 @@
                 <tbody>
                   <% for (var j = 0; j < saved.length; j++) { %>
                   <tr>
-                    <td><%= saved[j].user_id %></td>
+                    <td><%= (saved[j].user_name) ? saved[j].user_name : saved[j].user_id %></td>
                     <td><%= saved[j].name || '' %></td>
                     <td><%= saved[j].note %></td>
                     <td><%= saved[j].data.state.distance[saved[j].qid] %></td>
                     <td><%= saved[j].created %></td>
-                    <td></td>
+                    <td>
+                      <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                          <i class="fa fa-gear"></i>
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li title="Move to another user" class="download"><a href="/manager/users/saved/<%= saved[j].user_id %>/copy/<%= saved[j].id %>">Move to another user</a></li>
+                        </ul>
+                      </div>
+                    </td>
                   </tr>
                   <% } %>
                 </tbody>
