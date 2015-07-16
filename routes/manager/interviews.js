@@ -233,18 +233,37 @@ module.exports = function (app) {
 
     saved = saved.where('interview_id').equals(interview);
     saved = saved.limit(500).sort('-created');
-
     saved.exec(function (err, saved) {
       if (err) {
         console.log(err);
         throw err;
-      } 
-      // send the output to the view
-      res.render('manager/layout', { 
-        title: 'LogicPull - Saved Interviews',
-        name: req.session.user.name,
-        layout: 'saved-interviews',
-        saved: saved
+      }
+
+      // Get all the users so we can inject the name into the saves
+      models.Users.find({}).exec(function (err, users) {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+
+        // Attach the user to each saved interview using the user_id
+        for (var i = 0; i < saved.length; i+=1) {
+          for (var j = 0; j < users.length; j+=1) { 
+            if (users[j].id === saved[i].user_id) {
+              saved[i].user_email = users[j].email;
+              saved[i].user_name = users[j].name;
+              saved[i].user_group = users[j].group;
+            }
+          }
+        }
+
+        // send the output to the view
+        res.render('manager/layout', { 
+          title: 'LogicPull - Saved Interviews',
+          name: req.session.user.name,
+          layout: 'saved-interviews',
+          saved: saved
+        });
       });
     });
   });
