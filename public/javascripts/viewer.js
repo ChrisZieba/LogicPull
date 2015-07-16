@@ -461,6 +461,7 @@ Viewer.interview = (function() {
           // This gets sent back to the server, it is the id of the tmp interview record
           id: id,
           qid: current_qid,
+          name: $.trim($("input[name=t-d-name]").val()),
           note: $.trim($("textarea[name=t-d-note]").val()),
           // The id of the interview
           interview: interview,
