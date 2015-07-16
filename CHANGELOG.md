@@ -1,9 +1,10 @@
 #Changelog
 
-##Version 0.9.4 (2015-07-09)
+##Version 0.9.4 (2015-07-15)
 
 - Feature: Ability to assign partial interviews to other users
 - Feature: Show the number of characters left in textareas
+- Add user name and email to list of saved interview
 - Update the default selected text in dropdowns
 
 ##Version 0.9.3 (2015-05-31)
