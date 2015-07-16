@@ -106,7 +106,7 @@ module.exports = function (app) {
 
       var saved = models.Saves.find({});
       saved = saved.where('interview_id').equals(interview);
-      saved = saved.limit(100).sort('-created');
+      saved = saved.limit(10).sort('-created');
       saved.exec(function (err, saved) {
         if (err) {
           console.log(err);
