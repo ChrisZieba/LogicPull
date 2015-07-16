@@ -137,6 +137,7 @@ Viewer.socket = (function() {
 
       socket.on('insert_saved_note', function (packet) {
         $("textarea[name=t-d-note]").val(packet.note);
+        $("input[name=t-d-name]").val(packet.name);
       });
 
       // this is when the server returns with wither the question to display, or the error from the question that failed validate
