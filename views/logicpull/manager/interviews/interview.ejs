@@ -235,18 +235,22 @@
                 <thead>
                   <tr>
                     <th>User</th>
+                    <th>Client</th>
                     <th>Note</th>
                     <th>Progress</th>
                     <th>Date Last Saved</th>
+                    <th>Options</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% for (var j = 0; j < saved.length; j++) { %>
                   <tr>
                     <td><%= saved[j].user_id %></td>
+                    <td><%= saved[j].name || '' %></td>
                     <td><%= saved[j].note %></td>
                     <td><%= saved[j].data.state.distance[saved[j].qid] %></td>
                     <td><%= saved[j].created %></td>
+                    <td></td>
                   </tr>
                   <% } %>
                 </tbody>
