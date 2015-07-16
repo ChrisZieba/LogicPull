@@ -113,24 +113,41 @@ module.exports = function (app) {
           throw err;
         } 
 
-        // send the output to the view
-        var data = {
-          title: 'LogicPull',
-          name: req.session.user.name,
-          layout:'interview',
-          env: app.settings.env,
-          email_notification: res.locals.interview.on_complete.email_notification,
-          email_deliverables: res.locals.interview.on_complete.email_deliverables,
-          user: {
-            name: req.session.user.name,
-            email: req.session.user.email,
-            privledges: req.session.user.privledges
-          },
-          outputs: outputs,
-          saved: saved
-        };
+        // Get all the users so we can inject the name into the saves
+        models.Users.find({}).exec(function (err, users) {
+          if (err) {
+            console.log(err);
+            throw err;
+          }
 
-        res.render('manager/layout', data); 
+          // Attach the user to each saved interview using the user_id
+          for (var i = 0; i < saved.length; i+=1) {
+            for (var j = 0; j < users.length; j+=1) { 
+              if (users[j].id === saved[i].user_id) {
+                saved[i].user_name = users[j].name;
+              }
+            }
+          }
+
+          // send the output to the view
+          var data = {
+            title: 'LogicPull',
+            name: req.session.user.name,
+            layout:'interview',
+            env: app.settings.env,
+            email_notification: res.locals.interview.on_complete.email_notification,
+            email_deliverables: res.locals.interview.on_complete.email_deliverables,
+            user: {
+              name: req.session.user.name,
+              email: req.session.user.email,
+              privledges: req.session.user.privledges
+            },
+            outputs: outputs,
+            saved: saved
+          };
+
+          res.render('manager/layout', data);
+        });
       });
     });
   });
