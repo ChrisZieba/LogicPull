@@ -96,7 +96,7 @@ module.exports = function (app) {
     var outputs = models.Outputs.find({});
 
     outputs = outputs.where('interview.group').equals(group_id).where('interview.id').equals(interview);
-    outputs = outputs.limit(100).sort('-date');
+    outputs = outputs.limit(10).sort('-date');
 
     outputs.exec(function (err, outputs) {
       if (err) {
