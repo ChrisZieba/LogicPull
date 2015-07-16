@@ -124,7 +124,9 @@ module.exports = function (app) {
           for (var i = 0; i < saved.length; i+=1) {
             for (var j = 0; j < users.length; j+=1) { 
               if (users[j].id === saved[i].user_id) {
+                saved[i].user_email = users[j].email;
                 saved[i].user_name = users[j].name;
+                saved[i].user_group = users[j].group;
               }
             }
           }
