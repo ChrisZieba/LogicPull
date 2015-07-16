@@ -245,10 +245,13 @@
                 <tbody>
                   <% for (var j = 0; j < saved.length; j++) { %>
                   <tr>
-                    <td><%= (saved[j].user_name) ? saved[j].user_name : saved[j].user_id %>
+                    <td>
+                      <a href="/manager/users/edit/<%= saved[j].user_id %>" title="Edit this user."><%= (saved[j].user_name) ? saved[j].user_name : saved[j].user_id %></a>
+                      
                       <% if (saved[j].user_email) { %>
-                        <span data-toggle="tooltip" title="<%= saved[j].user_email %>" data-original-title="<%= saved[j].user_email %>"><i class="fa fa-envelope-o"></i></span>
+                        <span class="small">(<%= saved[j].user_email %>)</span>
                       <% } %>
+
                     </td>
                     <td><%= saved[j].name || '' %></td>
                     <td><%= saved[j].note %></td>
