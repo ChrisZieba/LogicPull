@@ -1,41 +1,41 @@
 <div class="row">
-	<div class="col-lg-12">
+  <div class="col-lg-12">
 
-		<h1>Clone</h1>
+    <h1>Clone</h1>
 
-		<div class="row">
-			<div class="col-lg-8">
-				<% if (msg) { %>
-					<div class="alert alert-danger" role="alert">
-						<%- msg %>
-					</div>
-				<% } %>
+    <div class="row">
+      <div class="col-lg-8">
+        <% if (msg) { %>
+          <div class="alert alert-danger" role="alert">
+            <%- msg %>
+          </div>
+        <% } %>
 
-				<p>Cloning an interview will copy all stylesheet and deliverable data as well.</p>
+        <p>Cloning an interview will copy all stylesheet and deliverable data as well.</p>
 
-				<form role="form" method="post" action="">
-					<input type="hidden" name="_csrf" value="<%= token %>"/>
-					<input type="hidden" name="interview" value="<%= interview.id %>"/>
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" name="name" value="<%= interview.name %>" />
-					</div>
-					<div class="form-group">
-						<label for="form-description">Description</label>
-						<textarea name="description" class="form-control" rows="3"><%= interview.description %></textarea>
-					</div>
+        <form role="form" method="post" action="">
+          <input type="hidden" name="_csrf" value="<%= token %>"/>
+          <input type="hidden" name="interview" value="<%= interview.id %>"/>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name" value="<%= interview.name %>" />
+          </div>
+          <div class="form-group">
+            <label for="form-description">Description</label>
+            <textarea name="description" class="form-control" rows="3"><%= interview.description %></textarea>
+          </div>
 
-					<button type="submit" class="btn btn-primary">Submit</button>
-					<a class="btn btn-default pull-right" href="/manager">Cancel</a>
-				</form>
-			</div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a class="btn btn-default pull-right" href="/manager">Cancel</a>
+        </form>
+      </div>
 
-			<div class="col-lg-4">
-				<div class="well">
-					<h3>Help</h3>
-					<p>You must name the interview something else, and it is recommended that you change the description. This will also make copies of the style sheets used for the deliverables.</p>
-				</div>
-			</div>			
-		</div>
-	</div>
+      <div class="col-lg-4">
+        <div class="well">
+          <h3>Help</h3>
+          <p>You must name the interview something else, and it is recommended that you change the description. This will also make copies of the style sheets used for the deliverables.</p>
+        </div>
+      </div>      
+    </div>
+  </div>
 </div>

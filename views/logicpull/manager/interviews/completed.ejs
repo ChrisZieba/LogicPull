@@ -1,62 +1,62 @@
 <div class="row">
-	<div class="col-lg-12">
+  <div class="col-lg-12">
 
-		<h1>Completed Interviews</h1>
+    <h1>Completed Interviews</h1>
 
-		<div class="row">
-			<div class="col-lg-12">
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>Last Name</th>
-							<th>First Name</th>
-							<th>Interview</th>
-							<th>Deliverables</th>
-							<th>Answers</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% for (var k = 0; k < outputs.length; k++) { %>
-						<tr>
-							<td><%= outputs[k].client_lastname.toUpperCase() %></td>
-							<td><%= outputs[k].client_firstname %></td>
-							<td><a href="/manager/interview/<%= outputs[k].interview.id %>"><%=  outputs[k].interview.name %></a></td>
-							<td>
-								
-									<% for (var l = 0; l < outputs[k].deliverables.length; l++) { 
-										deliverable_type = "fa-file-o";
+    <div class="row">
+      <div class="col-lg-12">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Interview</th>
+              <th>Deliverables</th>
+              <th>Answers</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (var k = 0; k < outputs.length; k++) { %>
+            <tr>
+              <td><%= outputs[k].client_lastname.toUpperCase() %></td>
+              <td><%= outputs[k].client_firstname %></td>
+              <td><a href="/manager/interview/<%= outputs[k].interview.id %>"><%=  outputs[k].interview.name %></a></td>
+              <td>
+                
+                  <% for (var l = 0; l < outputs[k].deliverables.length; l++) { 
+                    deliverable_type = "fa-file-o";
 
-										if (outputs[k].deliverables[l].type.toUpperCase() === 'PDF' || outputs[k].deliverables[l].type.toUpperCase() === 'PDF_FORM') { 
-											deliverable_type = "fa-file-pdf-o"; 
-										} 
+                    if (outputs[k].deliverables[l].type.toUpperCase() === 'PDF' || outputs[k].deliverables[l].type.toUpperCase() === 'PDF_FORM') { 
+                      deliverable_type = "fa-file-pdf-o"; 
+                    } 
 
-										if (outputs[k].deliverables[l].type.toUpperCase() === 'XML' || outputs[k].deliverables[l].type.toUpperCase() === 'XML_MSACCESS') {
-											deliverable_type = "fa-file-code-o";
-										}
+                    if (outputs[k].deliverables[l].type.toUpperCase() === 'XML' || outputs[k].deliverables[l].type.toUpperCase() === 'XML_MSACCESS') {
+                      deliverable_type = "fa-file-code-o";
+                    }
 
-										if (outputs[k].deliverables[l].type.toUpperCase() === 'RTF' || outputs[k].deliverables[l].type.toUpperCase() === 'ODT') {
-											deliverable_type = "fa-file-text-o";
-										}
+                    if (outputs[k].deliverables[l].type.toUpperCase() === 'RTF' || outputs[k].deliverables[l].type.toUpperCase() === 'ODT') {
+                      deliverable_type = "fa-file-text-o";
+                    }
 
-										if (outputs[k].deliverables[l].type.toUpperCase() === 'DOC' || outputs[k].deliverables[l].type.toUpperCase() === 'DOCX') {
-											deliverable_type = "fa-file-word-o";
-										}
-									%>
-										<div>
-											<a href="/manager/download/deliverable/output/<%= outputs[k].id %>/<%= outputs[k].interview.id %>/<%= outputs[k].deliverables[l].id %>" target="_blank"><i class="fa <%= deliverable_type %>"></i> <%= outputs[k].deliverables[l].name %></a>
-										</div>
-									<% } %>
+                    if (outputs[k].deliverables[l].type.toUpperCase() === 'DOC' || outputs[k].deliverables[l].type.toUpperCase() === 'DOCX') {
+                      deliverable_type = "fa-file-word-o";
+                    }
+                  %>
+                    <div>
+                      <a href="/manager/download/deliverable/output/<%= outputs[k].id %>/<%= outputs[k].interview.id %>/<%= outputs[k].deliverables[l].id %>" target="_blank"><i class="fa <%= deliverable_type %>"></i> <%= outputs[k].deliverables[l].name %></a>
+                    </div>
+                  <% } %>
 
 
-							</td>
-							<td><a href="/manager/download/completed/answers/<%= outputs[k].id %>/<%= outputs[k].interview.id %>/<%= outputs[k].answers.id %>" target="_blank"><i class="fa fa-file-code-o"></i> JSON</a></td>
-							<td><%= outputs[k].date.toLocaleDateString() %> <em><%= outputs[k].date.toLocaleTimeString() %></em></td>
-						</tr>
-						<% } %>
-					</tbody>
-				</table>
-			</div>			
-		</div>
-	</div>
+              </td>
+              <td><a href="/manager/download/completed/answers/<%= outputs[k].id %>/<%= outputs[k].interview.id %>/<%= outputs[k].answers.id %>" target="_blank"><i class="fa fa-file-code-o"></i> JSON</a></td>
+              <td><%= outputs[k].date.toLocaleDateString() %> <em><%= outputs[k].date.toLocaleTimeString() %></em></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>      
+    </div>
+  </div>
 </div>
