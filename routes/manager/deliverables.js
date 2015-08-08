@@ -286,6 +286,44 @@ module.exports = function (app) {
       res.render(template, data);
     }
 
+    function update () {
+      // Replace the old deliverable
+      interview.deliverables[req.params.deliverable] = {
+        // Use this when downloading a style sheet from the server
+        id: old_deliverable.id,
+        input : {
+          type: old_deliverable.input.type,
+          name: old_deliverable.input.name,
+          path: old_deliverable.input.path,
+          creator: {
+            id: req.session.user.id,
+            name: req.session.user.name
+          },
+          modified: new Date(),
+          form: old_deliverable.input.form,
+          looper: old_deliverable.input.looper
+        },
+        output: {
+          type: old_deliverable.output.type,
+          // Keep this an empty string since we wont know the name until we are done the interview (user input)
+          name: old_deliverable.output.name,
+          file: {
+            prepend_interview: (req.body.filename_prepend_interview === 'yes') ? true : false 
+          }
+        },
+        description: old_deliverable.description
+      };
+
+      // Update the interview in the database
+      models.Interviews.update({id: interview.id}, {'deliverables': interview.deliverables}, function (err) {
+        if(err){
+          console.log(err);
+          throw err;
+        }
+        res.redirect('manager/interview/' + interview.id);
+      }); 
+    }
+
     // If the deliverable given to use is not good, go to admin
     if (! interview.deliverables[req.params.deliverable]) {
       res.redirect('/manager/interview/' + interview.id);
@@ -297,9 +335,9 @@ module.exports = function (app) {
     // Take the file entered and replace it with the new one
     if (req.method === 'POST') {
       // Validate the input that came from the form, and make sure a file was chosen for upload, and that the deliverable exists
-      if (req.files.file) {
+      if (req.files.file && req.files.file.size !== 0) {
         // Have to do another check for the filename 
-        if (req.files.file.name !== '' && req.files.file.size !== 0 && req.files.file.size !== 'application/octet-stream') {
+        if (req.files.file.name !== ''  && req.files.file.size !== 'application/octet-stream') {
           // Ignore the name of the file entered and use the name from the deliverable
           // this will move the uploaded file from the tmp folder to the uploads folder
           fs.rename(req.files.file.path, app.get('base_location') + "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + old_deliverable.input.name, function (err) {
@@ -307,52 +345,18 @@ module.exports = function (app) {
               console.log(err);
               throw err;
             }
+            update();
 
-            // Replace the old deliverable
-            interview.deliverables[req.params.deliverable] = {
-              // use this when downloading  a style sheet from the server
-              id: old_deliverable.id,
-              input : {
-                type: old_deliverable.input.type,
-                name: old_deliverable.input.name,
-                path: old_deliverable.input.path,
-                // update
-                creator: {
-                  id: req.session.user.id,
-                  name: req.session.user.name
-                },
-                modified: new Date(),
-                form: old_deliverable.input.form,
-                looper: old_deliverable.input.looper
-              },
-              output: {
-                type: old_deliverable.output.type,
-                // Keep this an empty string since we wont know the name until we are done the interview (use input)
-                name: old_deliverable.output.name,
-                file: {
-                  prepend_interview: (req.body.filename_prepend_interview === 'yes') ? true : false 
-                }
-              },
-              description: old_deliverable.description
-            };
-
-            // Update the interview in the database
-            models.Interviews.update({id: interview.id}, {'deliverables': interview.deliverables}, function (err) {
-              if(err){
-                console.log(err);
-                throw err;
-              }
-              res.redirect('manager/interview/' + interview.id);
-            }); 
           });
         } else {
           view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
         }
       } else {
-        view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
+        // Update the other settings if no stylesheet was given
+        update();
       }
     } else {
-      // This is a get request...just show the form
+      // This is a GET request...just show the form
       view('manager/layout', null);
     }
   }); 
