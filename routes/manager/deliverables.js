@@ -89,7 +89,7 @@ module.exports = function (app) {
                 type: req.body.output,
                 name: req.body.outname,
                 file: {
-                  prepend_interview: (req.body.filename_prepend_interview === 'yes') ? true : false 
+                  prepend_interview: (req.body.filename_prepend_interview === 'yes') ? true : false
                 }
               },
               description: req.body.description
@@ -119,7 +119,7 @@ module.exports = function (app) {
     }
   });
 
-  // remove a deliverable
+  // Remove a deliverable
   app.all('/manager/interview/:interview/deliverables/remove/:deliverable', [auth.validated, auth.validateInterview, auth.validateUserGroup, auth.validateDeliverable, auth.privledges('remove_deliverable')], function (req, res) {
     if (req.method === 'POST') {
       // this is the interview id
@@ -152,7 +152,7 @@ module.exports = function (app) {
     }
   });
 
-  // this is the link we go to when we want to download a file
+  // This is the link we go to when we want to download a file
   app.get('/manager/download/deliverable/output/:id/:interview/:hash', auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('download_deliverable'), function (req, res) {
     // this is the id of the output 
     var id = req.params.id;
@@ -269,7 +269,7 @@ module.exports = function (app) {
     return null;
   });
 
-  // When the update button option gets clicked
+  // Update a deliverable
   app.all('/manager/interview/:interview/deliverables/update/:deliverable',[auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('update_deliverable')], function (req, res) {
     // this is the interview attached in the auth.validateInterview middleware
     var interview = res.locals.interview;
@@ -286,7 +286,7 @@ module.exports = function (app) {
       res.render(template, data);
     }
 
-    // if the deliverable given to use is not good, go to admin
+    // If the deliverable given to use is not good, go to admin
     if (! interview.deliverables[req.params.deliverable]) {
       res.redirect('/manager/interview/' + interview.id);
       return null;
@@ -294,20 +294,21 @@ module.exports = function (app) {
     
     old_deliverable = interview.deliverables[req.params.deliverable];
     
-    // take the file entered and replace it with the new one
+    // Take the file entered and replace it with the new one
     if (req.method === 'POST') {
-      // validate the input that came from the form, and make sure a file was chosen for upload, and that the deliverable exists
+      // Validate the input that came from the form, and make sure a file was chosen for upload, and that the deliverable exists
       if (req.files.file) {
-        // have to do another check her for the filename 
+        // Have to do another check for the filename 
         if (req.files.file.name !== '' && req.files.file.size !== 0 && req.files.file.size !== 'application/octet-stream') {
-          //ignore the name of the file entered and use the name fro the deliverable
+          // Ignore the name of the file entered and use the name from the deliverable
           // this will move the uploaded file from the tmp folder to the uploads folder
           fs.rename(req.files.file.path, app.get('base_location') + "uploads/deliverables/" + interview.name + "-" + interview.id + "/" + old_deliverable.input.name, function (err) {
             if (err) {
               console.log(err);
               throw err;
-            } 
-            // replace the old deliverable
+            }
+
+            // Replace the old deliverable
             interview.deliverables[req.params.deliverable] = {
               // use this when downloading  a style sheet from the server
               id: old_deliverable.id,
@@ -326,12 +327,16 @@ module.exports = function (app) {
               },
               output: {
                 type: old_deliverable.output.type,
-                // keep this an empty string since we wont know the name until we re done the interview (use input)
-                name: old_deliverable.output.name
+                // Keep this an empty string since we wont know the name until we are done the interview (use input)
+                name: old_deliverable.output.name,
+                file: {
+                  prepend_interview: (req.body.filename_prepend_interview === 'yes') ? true : false 
+                }
               },
               description: old_deliverable.description
             };
-            //update the interview in the database
+
+            // Update the interview in the database
             models.Interviews.update({id: interview.id}, {'deliverables': interview.deliverables}, function (err) {
               if(err){
                 console.log(err);
@@ -347,7 +352,7 @@ module.exports = function (app) {
         view('manager/layout', '<ul><li>The input file must have an <strong>extenstion of .ejs</strong> and be a valid template file.</li><li>Please make sure the input type you selected matches the template language of the file uploaded.</li><li>The Description field is required.</li><li>The output type will be what format the final document will be created in, so you must make sure your template file is correct.</li></ul>');
       }
     } else {
-      // this is a get request...just show the form
+      // This is a get request...just show the form
       view('manager/layout', null);
     }
   }); 
