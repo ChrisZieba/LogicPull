@@ -21,7 +21,7 @@ var bcrypt = require('bcrypt'),
 module.exports = function (app) {
   "use strict";
 
-  // add a new deliverable to an interview
+  // Add a new deliverable to an interview
   app.all('/manager/interview/:interview/deliverables/add',[auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('add_deliverable')], function (req, res) {
     var form = null;
 
@@ -37,10 +37,10 @@ module.exports = function (app) {
     }
 
     if (req.method === 'POST') {
-      // this is the interview attached in the auth.validateInterview middleware
+      // This is the interview attached in the auth.validateInterview middleware
       var interview = res.locals.interview;
 
-      // validate the input that came from the form, and make sure a file was chosen for upload
+      // Validate the input that came from the form, and make sure a file was chosen for upload
       if (validator.check(sanitizor.clean(req.body.description), ['required',{'maxlength': 100}]) && validator.check(sanitizor.clean(req.body.outname), ['required','filename',{'maxlength': 35}]) && req.files.file ) {
         // have to do another check here for the filename 
         if (req.files.file.name !== '' && req.files.file.size !== 0) {
@@ -70,7 +70,7 @@ module.exports = function (app) {
             }
 
             var deliverable = {
-              // use this when downloading  a style sheet from the server
+              // Use this when downloading a style sheet from the server
               id: require('crypto').createHash('md5').update(req.files.file.name + interview.id + interview.deliverables.length).digest("hex"),
               input : {
                 // the type refers to what is being produced
@@ -83,11 +83,14 @@ module.exports = function (app) {
                 },
                 modified: new Date(),
                 form: form,
-                looper: (req.body.looper === 'yes') ? true : false 
+                looper: (req.body.looper === 'yes') ? true : false
               },
               output: {
                 type: req.body.output,
-                name: req.body.outname
+                name: req.body.outname,
+                file: {
+                  prepend_interview: (req.body.filename_prepend_interview === 'yes') ? true : false 
+                }
               },
               description: req.body.description
             };
