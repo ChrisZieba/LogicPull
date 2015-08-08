@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-	  	<meta charset="utf-8"/>
-	  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	  	<title>404</title>
-	 	<meta name="robots" content="noindex, nofollow" />
-		<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <head>
+      <meta charset="utf-8"/>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+      <title>404</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-	    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<% if (settings.env === 'development') { %>
-			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
-			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
-		<% } else { %>
-			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
-			<script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
-		<% } %>
+      <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <% if (settings.env === 'development') { %>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
+      <script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
+    <% } else { %>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
+      <script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
+    <% } %>
 
-	    <!--[if lt IE 9]>
-	      <script src="/javascripts/lib/html5shiv.min.js"></script>
-	      <script src="/javascripts/lib/respond.min.js"></script>
-	    <![endif]-->
-	    
-	</head>
+      <!--[if lt IE 9]>
+        <script src="/javascripts/lib/html5shiv.min.js"></script>
+        <script src="/javascripts/lib/respond.min.js"></script>
+      <![endif]-->
+      
+  </head>
 
-	<body>
-		<div class="container">
-			<div class="jumbotron error-template">
-			    <div class="row">
-			        <div class="col-md-12">
-			            <div>
-			                <h1>Oops!</h1>
-			                <h2>404 Not Found</h2>
-			                <p>Sorry, an error has occured, Requested page not found!</p>
-			                <p><a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Take Me Home</a></p>
-			            </div>
-			        </div>
-			    </div>
-			</div>
-		</div>
-	</body>
+  <body>
+    <div class="container">
+      <div class="jumbotron error-template">
+          <div class="row">
+              <div class="col-md-12">
+                  <div>
+                      <h1>Oops!</h1>
+                      <h2>404 Not Found</h2>
+                      <p>Sorry, an error has occured, Requested page not found!</p>
+                      <p><a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Take Me Home</a></p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </body>
 </html>
