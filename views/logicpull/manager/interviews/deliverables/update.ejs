@@ -25,7 +25,7 @@
           <div class="form-group">
             <div class="checkbox">
               <label>
-                <% if (deliverable.output.file.prepend_interview === true) { %>
+                <% if (deliverable.output.hasOwnProperty('file') && deliverable.output.file.hasOwnProperty('prepend_interview') && deliverable.output.file.prepend_interview === true || (!deliverable.output.hasOwnProperty('file') || !deliverable.output.file.hasOwnProperty('prepend_interview'))) { %>
                   <input type="checkbox" name="filename_prepend_interview" value="yes" checked="checked" />
                 <% } else { %>
                   <input type="checkbox" name="filename_prepend_interview" value="yes" />
