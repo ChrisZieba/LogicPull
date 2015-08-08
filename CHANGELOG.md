@@ -1,5 +1,9 @@
 #Changelog
 
+##Version 0.9.5 (2015-07-15)
+
+- Feature: Ability to control whether the output deliverable filename contains the interview name
+
 ##Version 0.9.4 (2015-07-15)
 
 - Feature: Ability to assign partial interviews to other users
