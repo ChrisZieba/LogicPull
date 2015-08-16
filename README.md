@@ -51,7 +51,7 @@ FAQ
   >  * Google Chrome
   >  * Safari
   >  * Firefox
-  >  * Opera 9.5+
+  >  * Opera
   >  * Microsoft Internet Explorer 8.0+
 
 Installation
