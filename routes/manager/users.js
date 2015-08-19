@@ -24,7 +24,7 @@ module.exports = function (app) {
 
   // View the users page
   app.get('/manager/users', [auth.validated, auth.privledges('view_users')], function (req, res) {
-    // get all the interviews from the database and feed the info to the layout
+    // Get all the interviews from the database and feed the info to the layout
     models.Users.find({}).exec(function (err, users) {
       if (err) {
         console.log(err);
