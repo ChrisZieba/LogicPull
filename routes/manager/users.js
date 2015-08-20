@@ -56,7 +56,7 @@ module.exports = function (app) {
             throw err;
           }
 
-          // if there is no user for that email OR there is a user but there group is different
+          // If there is no user for that email OR there is a user but there group is different
           if (!user || (user && user.group !== group_id)) {
             // look up the group id of the user who is trying to add a new user
             models.Groups.findOne({ 'id': group_id }, function (err, group) {
