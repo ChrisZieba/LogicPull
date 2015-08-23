@@ -1,18 +1,18 @@
 <div class="row">
-	<div class="col-lg-12">
+  <div class="col-lg-12">
 
-		<h1>Remove Interview</h1>
+    <h1>Remove Interview</h1>
 
-		<div class="row">
-			<div class="col-lg-8">
-			<p>This action will remove an entire interview from our system. This includes every output ever produced from the live interview, the editable graph, and any data that was attached to the interview. If you are unsure about this, just leave it. Once removed it is gone forever, and there is no way of getting the data back!</p>
-				<form role="form" method="post" action="">
-					<input type="hidden" name="_csrf" value="<%= token %>"/>
-					<input type="hidden" name="interview" value="<%= interview.id %>"/>
-					<button type="submit"name="confirm"  class="btn btn-primary">Delete</button>
-					<a class="btn btn-default pull-right" href="/manager">Cancel</a>
-				</form>
-			</div>		
-		</div>
-	</div>
+    <div class="row">
+      <div class="col-lg-8">
+      <p>This action will remove an entire interview from our system. This includes every output ever produced from the live interview, the editable graph, and any data that was attached to the interview. If you are unsure about this, just leave it. Once removed it is gone forever, and there is no way of getting the data back!</p>
+        <form role="form" method="post" action="">
+          <input type="hidden" name="_csrf" value="<%= token %>"/>
+          <input type="hidden" name="interview" value="<%= interview.id %>"/>
+          <button type="submit"name="confirm"  class="btn btn-primary">Delete</button>
+          <a class="btn btn-default pull-right" href="/manager">Cancel</a>
+        </form>
+      </div>    
+    </div>
+  </div>
 </div>
