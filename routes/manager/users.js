@@ -47,9 +47,9 @@ module.exports = function (app) {
       var group_id = req.session.user.group;
       var clean_email = sanitizor.clean(req.body.email);
 
-      // validate the input that came from the form
+      // Validate the input that came from the form
       if (validator.check(clean_email, ['required','email'])) {
-        // check that the email is not already in the database
+        // Check that the email is not already in the database
         models.Users.findOne({ 'email': clean_email }, function (err, user) {
           if (err) {
             console.log(err);
@@ -168,7 +168,7 @@ module.exports = function (app) {
                       
                       models.Counters.findOne({}, function (err, doc) {
                         var user = new models.Users();
-                        // get the current count from the database and increment by to get the next interview
+                        // Get the current count from the database and increment by to get the next interview
                         var count = doc.user_count + 1; 
 
                         user.id = count;
@@ -187,7 +187,7 @@ module.exports = function (app) {
                             throw err;
                           } 
 
-                          //update the counter in the database
+                          // Update the counter in the database
                           models.Counters.update({user_count: count}, function (err) {
                             if (err){
                               console.log(err);
