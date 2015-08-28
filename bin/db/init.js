@@ -31,9 +31,9 @@ db.groups.insert({
 db.users.insert({
     "id" : 1,
     "name": "Admin",
-    // the username is admin
+    // The username is admin
     "email": "admin@fake.com",
-    // the password is admin
+    // The password is admin
     "password": "$2a$10$3kMpzJvLoXuhfH.e5ovJCuULLpawqUXkZYTYi/AYO2TLDSDWPW3ra",
     "group": 1,
     "privledges": {
