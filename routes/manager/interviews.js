@@ -18,7 +18,8 @@ var bcrypt = require('bcrypt'),
   utils = require('../../lib/utils'),
   auth = require('../../middleware/manager/auth');
 
-/*  The reason for this function is performance related
+/* 
+  The reason for this function is performance related
   Using JSON.stringify has shown to be significant slower than 
   creating a file and writing the object to it, rather than including
   it with the HTML 
