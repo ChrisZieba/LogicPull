@@ -147,7 +147,6 @@ if (process.env.NODE_ENV === 'development') {
   db = mongoose.createConnection(config.production.mongo_host, config.production.mongo_db);
 }
 
-// MONGO APPENDS AN 'S' SO JUST MAKE NAMES THAT END IN 'S"' TO AVOID CONFUSION
 var Inactives = db.model('Inactives', inactive_schema);
 var Tmps = db.model('Tmps', tmps_schema);
 var States = db.model('States', states_schema);
