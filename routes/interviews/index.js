@@ -1,4 +1,4 @@
-/*  Copyright 2014 Chris Zieba <zieba.chris@gmail.com>
+/*  Copyright 2015 Chris Zieba <zieba.chris@gmail.com>
 
   This program is free software: you can redistribute it and/or modify it under the terms of the GNU
   Affero General Public License as published by the Free Software Foundation, either version 3 of the
@@ -26,7 +26,7 @@ module.exports = function (app) {
   app.get('/interviews/active/:interview', [auth.validateInterview], function (req, res) {
     var interview = res.locals.interview;
 
-    // this checks to see if the interview is live
+    // This checks to see if the interview is live
     if (interview.live) {
       res.render('interviews/viewer', {
         title: 'LogicPull - Interview ' + interview.name,
