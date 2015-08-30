@@ -1,4 +1,4 @@
-/*  Copyright 2014 Chris Zieba <zieba.chris@gmail.com>
+/*  Copyright 2015 Chris Zieba <zieba.chris@gmail.com>
 
   This program is free software: you can redistribute it and/or modify it under the terms of the GNU
   Affero General Public License as published by the Free Software Foundation, either version 3 of the
@@ -15,7 +15,7 @@ var models = require('../../models/models'),
   validator = require('../../lib/validation/validator');
 
 /**
- * Validate a user is logged in
+ * Validate that a user is logged in
  *
  */
 exports.validated = function (req, res, next) {
@@ -32,7 +32,7 @@ exports.validated = function (req, res, next) {
 
 /**
  * If the user is already authenticated, skip the login screen, and 
- * go to the admin section...this gets called when visiting the login page
+ * go to the admin section. This gets called when visiting the login page.
  *
  */
 exports.login = function (req, res, next) {
@@ -48,30 +48,30 @@ exports.login = function (req, res, next) {
 };
 
 /**
- * This gets called before showing an interview to see if the URL parameter was valid
- * attach the interview data to the locals object so we don't have to query the database again later
+ * This gets called before showing an interview to see if the URL parameter was valid.
+ * Attach the interview data to the locals object so we don't have to query the database again later.
  *
  */
 exports.validateInterview = function (req, res, next) {
-  // this is the id of the interview the user is trying to view
+  // This is the id of the interview the user is trying to view
   var interview = req.params.interview;
 
-  // validate the id, if its not valid we don't even bother checking the privileges
+  // Validate the id, if its not valid we don't even bother checking the privileges
   if (!validator.check(sanitizor.clean(interview), ['required','integer'])) {
     res.status(404).render('admin/404', {name: ''});  
     return;
   }
 
-  // if the input is valid, get the data for the interview being requested
+  // If the input is valid, get the data for the interview being requested
   models.Interviews.findOne({ 'id': interview }, function (err, doc) {
     if (err) {
       console.log(err);
       throw err;
     }
 
-    // check to see if anything was returned
+    // Check to see if anything was returned
     if (doc) {
-      // attach the interview data to the locals object, so we don't have to query the database again
+      // Attach the interview data to the locals object, so we don't have to query the database again
       res.locals.interview = doc;
       next();
     } else {
