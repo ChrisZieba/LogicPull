@@ -10,9 +10,7 @@
   <http://www.gnu.org/licenses/>.
 */
 
-/**
- * Module dependencies.
- */
+// Module dependencies
 var format = require('util').format;
 
 /**
