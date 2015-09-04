@@ -1,70 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<title>LogicPull - Login</title>
-	  	<meta charset="utf-8">
-	  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	 	<meta name="description" content="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud."/>
-	 	<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
-	    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<% if (settings.env === 'development') { %>
-			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
-			<script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
-		<% } else { %>
-			<link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
-			<script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
-		<% } %>	
+  <head>
+    <title>LogicPull - Login</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="LogicPull - The smart and simple solution for automated document assembly, editing, and management, all in the cloud."/>
+    <link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <% if (settings.env === 'development') { %>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
+      <script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
+    <% } else { %>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
+      <script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
+    <% } %> 
 
-	<body>
-		<div class="container">
-		    <div class="row">
-		        <div class="col-md-4 col-md-offset-4">
-		            <div class="panel panel-default login">
-		                <div class="panel-heading"> 
-		                	<strong class="">Login</strong>
-		                </div>
-		                <div class="panel-body">
-							<% if (msg) { %>
-								<div class="alert alert-danger" role="alert">
-									<%= msg %>
-								</div>
-							<% } %>
+  <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default login">
+                    <div class="panel-heading"> 
+                      <strong class="">Login</strong>
+                    </div>
+                    <div class="panel-body">
+              <% if (msg) { %>
+                <div class="alert alert-danger" role="alert">
+                  <%= msg %>
+                </div>
+              <% } %>
 
-		                    <form method="post" action="/admin/login" class="form-horizontal" role="form">
-		                    	<input type="hidden" name="_csrf" value="<%= token %>"/>
+                        <form method="post" action="/admin/login" class="form-horizontal" role="form">
+                          <input type="hidden" name="_csrf" value="<%= token %>"/>
 
-		                        <div class="form-group">
-		                            <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
-		                            <div class="col-sm-9">
-		                                <input name="email" type="text" class="form-control" id="inputEmail3" placeholder="Email" >
-		                            </div>
-		                        </div>
-		                        <div class="form-group">
-		                            <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
-		                            <div class="col-sm-9">
-		                                <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="Password" required="">
-		                            </div>
-		                        </div>
-		                        <div class="form-group">
-		                            <div class="col-sm-offset-3 col-sm-9">
-		                                <div class="checkbox">
-		                                    <label class="">
-		                                        <input type="checkbox" class="">Remember me</label>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <div class="form-group last">
-		                            <div class="col-sm-offset-3 col-sm-9">
-		                               	<input type="submit" value="login" class="btn btn-primary" />
-		                               	<a href="/admin/reset">Reset Password</a>
-		                            </div>
-		                        </div>
-		                    </form>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-	</body>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input name="email" type="text" class="form-control" id="inputEmail3" placeholder="Email" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="Password" required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox">
+                                        <label class="">
+                                            <input type="checkbox" class="">Remember me</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group last">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <input type="submit" value="login" class="btn btn-primary" />
+                                    <a href="/admin/reset">Reset Password</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
 </html>
