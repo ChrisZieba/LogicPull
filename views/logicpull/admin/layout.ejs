@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<title><%= title %></title>
-	  	<meta charset="utf-8"/>
-	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	 	<meta name="robots" content="noindex, nofollow" />
+  <head>
+    <title><%= title %></title>
+      <meta charset="utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="robots" content="noindex, nofollow" />
 
-		<script src="/javascripts/lib/jquery.min.js"></script>
-		<script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
-		<link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
-	    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="/javascripts/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-		<% if (settings.env === 'development') { %>
-			<link rel="stylesheet" type="text/css" href="/stylesheets/interviews.css?v=<%= settings.version %>">
-		<% } else { %>
-			<link rel="stylesheet" type="text/css" href="/stylesheets/interviews.min.css?v=<%= settings.version %>">
-		<% } %>
+    <% if (settings.env === 'development') { %>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/interviews.css?v=<%= settings.version %>">
+    <% } else { %>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/interviews.min.css?v=<%= settings.version %>">
+    <% } %>
 
-	    <!--[if lt IE 9]>
-	      <script src="/javascripts/lib/html5shiv.min.js"></script>
-	      <script src="/javascripts/lib/respond.min.js"></script>
-	      <script src="/javascripts/lib/fontshiv.min.js"></script>
-	    <![endif]-->
+      <!--[if lt IE 9]>
+        <script src="/javascripts/lib/html5shiv.min.js"></script>
+        <script src="/javascripts/lib/respond.min.js"></script>
+        <script src="/javascripts/lib/fontshiv.min.js"></script>
+      <![endif]-->
 
-	</head>
+  </head>
 
-	<body>
+  <body>
 
-	<div id="wrapper">
+  <div id="wrapper">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -55,52 +55,52 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
 
-				<nav class="navbar navbar-default">
-					<div class="container-fluid">
-						<!-- Brand and toggle get grouped for better mobile display -->
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="/admin"><i class="fa fa-home"></i></a>
-						</div>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/admin"><i class="fa fa-home"></i></a>
+            </div>
 
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav navbar-right">
-								<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> <%= name %> <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
-								<li><a href="/admin/logout">Logout</a></li>
-								</ul>
-								</li>
-							</ul>
-						</div><!-- /.navbar-collapse -->
-					</div><!-- /.container-fluid -->
-				</nav>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> <%= name %> <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                <li><a href="/admin/logout">Logout</a></li>
+                </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
 
-				<% if (layout === 'dashboard') { %>
-					<% include dashboard %>
-				<% } %>
+        <% if (layout === 'dashboard') { %>
+          <% include dashboard %>
+        <% } %>
 
-				<% if (layout === 'interviews') { %>
-					<% include interviews/interviews %>
-				<% } %>
+        <% if (layout === 'interviews') { %>
+          <% include interviews/interviews %>
+        <% } %>
 
-				<% if (layout === 'account') { %>
-					<% include account/account %>
-				<% } %>
+        <% if (layout === 'account') { %>
+          <% include account/account %>
+        <% } %>
 
-				<% if (layout === 'error') { %>
-					<% include error %>
-				<% } %>
+        <% if (layout === 'error') { %>
+          <% include error %>
+        <% } %>
             </div>
         </div>
 
     </div>
     <!-- /#wrapper -->
-	</body>
+  </body>
 </html>
