@@ -25,7 +25,7 @@ module.exports = function (app) {
   // This is the live interview available to anyone
   app.get('/interviews/active/:interview', [auth.validateInterview], function (req, res) {
     var interview = res.locals.interview;
-console.log(req.session.user)
+
     // This checks to see if the interview is live
     if (interview.live) {
       res.render('interviews/viewer', {
