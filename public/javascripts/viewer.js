@@ -324,17 +324,17 @@ Viewer.interview = (function() {
         var text_selector = $('.text');
         var interview = $('#interview-id').html();
         var qid = $(this).data('qid');
-        var destination = $(this).data('destination') || null;
+        var destination = $(this).data('destination');
 
         var socket = Viewer.socket.getSocket();
         var data = {
           id: id,
-          destinaton: destination,
+          destination: destination,
           interview: interview, 
           qid: qid,
           fields: Viewer.interview.collectFieldData(qid)
         };
-        
+
         $(this).button('loading');
 
         click_continue_allowed = false;
