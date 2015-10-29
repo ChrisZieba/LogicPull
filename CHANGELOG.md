@@ -1,5 +1,9 @@
 #Changelog
 
+##Version 0.9.6 (2015-10-28)
+
+- Fix #27: Multiple continue buttons not working
+
 ##Version 0.9.5 (2015-07-15)
 
 - Feature: Ability to control whether the output deliverable filename contains the interview name
