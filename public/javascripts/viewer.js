@@ -324,10 +324,12 @@ Viewer.interview = (function() {
         var text_selector = $('.text');
         var interview = $('#interview-id').html();
         var qid = $(this).data('qid');
+        var bid = $(this).data('bid');
 
         var socket = Viewer.socket.getSocket();
         var data = {
           id: id,
+          button: bid
           interview: interview, 
           qid: qid,
           fields: Viewer.interview.collectFieldData(qid)
