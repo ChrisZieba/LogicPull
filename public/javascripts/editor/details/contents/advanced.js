@@ -277,20 +277,14 @@ Editor.details.contents.advanced = (function () {
       var list;
       var qid = Editor.main.getCurrentQuestion();
 
-      if (Editor.validation.check(value, ['condition'])) {
-        questions[qid].advanced[active_advanced].actions[active_advanced_action].value = value;
-        $(this).val(value);
+      questions[qid].advanced[active_advanced].actions[active_advanced_action].value = value;
+      $(this).val(value);
 
-        // redraw the list
-        list = $('#advanced-actions-list'); 
-        list.html(advancedActionList(questions[qid].advanced[active_advanced].actions));
-        list.find("[data-action-item-index='" + active_advanced_action + "']").addClass("active");
-      } else {
-        // put the old value back in
-        $(this).val(questions[qid].advanced[active_advanced].actions[active_advanced_action].value);
-        alert("This field is required\n\n\n");
-        e.preventDefault();
-      }
+      // redraw the list
+      list = $('#advanced-actions-list'); 
+      list.html(advancedActionList(questions[qid].advanced[active_advanced].actions));
+      list.find("[data-action-item-index='" + active_advanced_action + "']").addClass("active");
+
       Editor.thumbnail.buildThumbnail(qid);
     });
 
