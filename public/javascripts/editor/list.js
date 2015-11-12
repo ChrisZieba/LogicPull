@@ -23,7 +23,7 @@ Editor.list = (function () {
     $(".mli").live("click", function () {
       var qid;
 
-      //if there is a question details open ,ignore single click events on the list
+      // If there is a question details open ,ignore single click events on the list
       if ( ! Editor.main.getDetailsStatus()) {
         qid = $(this).data('qid');  
         Editor.list.activateItem(qid, true, false);
@@ -170,6 +170,7 @@ Editor.list = (function () {
       return active_item;
     },
 
+    // Order by option selected
     orderList: function (type, qid) {
       if (type) {
         order = type;
