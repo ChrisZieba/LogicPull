@@ -575,6 +575,7 @@ ul.checkbox-list li label {
 .learnmore .lm-body-sm {
   color: #333;
   font-size: 0.95em;
+  white-space: pre;
 }
 
 .learnmore .lm-body-sm div {
