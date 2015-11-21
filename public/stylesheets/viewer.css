@@ -12,30 +12,30 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
 }
 b,strong {font-weight:bold;}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+  display: block;
 }
 
 body {
-	color: black;
-	font-size: 16px;
-	font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
-	background-color: #fbfbfb;
-	line-height: 1;
+  color: black;
+  font-size: 16px;
+  font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
+  background-color: #fbfbfb;
+  line-height: 1;
     margin:0;
     height:100%
 }
 
 label {
-	color: #333;
+  color: #333;
 }
 
 #sidebar-wrapper {
@@ -62,12 +62,12 @@ label {
 }
 
 #sidebar-wrapper .footer p {
-	font-size: 11px;
-	color: #757575;
+  font-size: 11px;
+  color: #757575;
 }
 
 #sidebar-wrapper .footer a {
-	color: #5a5a5a;
+  color: #5a5a5a;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -140,8 +140,8 @@ label {
     color: #505050;
     padding-right: 20px;
     max-height: 200px;
-  	overflow: hidden;
-  	text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .sidebar-nav .name {
@@ -151,9 +151,9 @@ label {
     font-weight: bold;
     max-height: 18px;
     width:210px;
-  	white-space: nowrap;
-  	overflow: hidden;
-  	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom: 8px;
 }
 
@@ -165,96 +165,96 @@ label {
 }*/
 
 .navbar-brand {
-	font-size: 16px;
+  font-size: 16px;
 }
 .navbar-default {
     border-color: #cfcfcf;
 }
 
 .navbar-default .navbar-nav>li>a {
-	color: #666;
+  color: #666;
 }
 
 .red {
-	color: red;
+  color: red;
 }
 
 .green {
-	color: green;
+  color: green;
 }
 
 .light-grey {
-	color: #999;
+  color: #999;
 }
 
 
 .panel-title {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 .panel-heading a {
-	color: #333;
-	text-decoration: none;
+  color: #333;
+  text-decoration: none;
 }
 
 .panel-heading a:hover {
-	color:#000;
-	text-decoration: none;
+  color:#000;
+  text-decoration: none;
 }
 
 .well h3 {
-	font-size:20px;
-	font-weight: 700;
-	margin-top: 0
+  font-size:20px;
+  font-weight: 700;
+  margin-top: 0
 }
 
 .well p:last-child {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .margin-20-bottom {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .margin-20-top {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 .interview-deliverable:hover {
-/*	cursor: pointer;
-	border-color:#ccc;*/
+/*  cursor: pointer;
+  border-color:#ccc;*/
 }
 
 .interview-deliverable .media p {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	-ms-word-break: break-all;
-	word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -ms-word-break: break-all;
+  word-break: break-all;
 
-	/* Non standard for webkit */
-	word-break: break-word;
+  /* Non standard for webkit */
+  word-break: break-word;
 
-	-webkit-hyphens: auto;
-	-moz-hyphens: auto;
-	hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 
 .interview-deliverable .media-body {
-	font-size: 0.9em;
-	color:#333;
+  font-size: 0.9em;
+  color:#333;
 }
 
 .fa-2 {
-	font-size: 2em;
+  font-size: 2em;
 }
 
 .fa-3 {
-	font-size: 3em;
+  font-size: 3em;
 }
 
 .fa-4 {
-	font-size: 4em;
+  font-size: 4em;
 }
 
 .login {
@@ -271,9 +271,9 @@ label {
         padding-left: 225px;
     }
 
-	#topbar-wrapper {
-	    left: 225px;
-	}
+  #topbar-wrapper {
+      left: 225px;
+  }
 
     #wrapper.toggled {
         padding-left: 0;
@@ -299,23 +299,23 @@ label {
 }
 
 ol, ul {
-	list-style: none;
+  list-style: none;
 }
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 p {
-	font-size: 1.0em;
+  font-size: 1.0em;
 }
 i { font-style: italic; }
 
@@ -323,40 +323,40 @@ i { font-style: italic; }
 /* GOOGLE TRANSLATE
 */
 #google_translate_element {
-	float: right;
-	width:140px !important;
-	height:29px !important;
-	overflow: hidden !important;
-	background-color: #525455;
-	padding:6px 10px 10px 10px;
-	text-align: center;
-	vertical-align: middle;
-	background: url('../images/viewer/sprite.png') -1px -154px no-repeat;
+  float: right;
+  width:140px !important;
+  height:29px !important;
+  overflow: hidden !important;
+  background-color: #525455;
+  padding:6px 10px 10px 10px;
+  text-align: center;
+  vertical-align: middle;
+  background: url('../images/viewer/sprite.png') -1px -154px no-repeat;
 }
 
 #google_translate_element .goog-te-gadget {
-	float: right;
-	width:140px !important;
-	height:25px !important;
-	overflow: hidden !important;
+  float: right;
+  width:140px !important;
+  height:25px !important;
+  overflow: hidden !important;
 }
 
 #google_translate_element select {
-	width:124px;
-	height:25px;
-	margin:0 0 0 8px;
-	display: block;
-	padding:3px;
-	font-size:12px;
-	border:2px solid white;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	background-color:white;
-	outline: 0;
+  width:124px;
+  height:25px;
+  margin:0 0 0 8px;
+  display: block;
+  padding:3px;
+  font-size:12px;
+  border:2px solid white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-color:white;
+  outline: 0;
 }
 #google_translate_element select option {
-	font-size: 12px;
+  font-size: 12px;
 }
 
 /*******************************************************************************************************************
@@ -365,25 +365,25 @@ i { font-style: italic; }
 .text a, .learnmore a,
 .text a:link, .learnmore a:link,
 .text a:focus,.learnmore a:focus{
-	color: #11C;
-	outline: 0;
-	text-decoration:none;
-	font-weight: bold;
+  color: #11C;
+  outline: 0;
+  text-decoration:none;
+  font-weight: bold;
 }
 .text a:visited, .learnmore a:visited {
-	color: #11C
+  color: #11C
 }
 .text a:hover, .learnmore a:hover {
-	color: #11C;
-	text-decoration: underline;
+  color: #11C;
+  text-decoration: underline;
 }
 
 /*******************************************************************************************************************
 *  TITLES                                                                                                          *
 *******************************************************************************************************************/
 h1, h2, h3, h4, h5 {
-	margin: 0 0 15px 0;
-	font-weight:bold;
+  margin: 0 0 15px 0;
+  font-weight:bold;
 }
 h1 {font-size: 24px;color: #333;}
 h2 {font-size: 22px;color: #333;}
@@ -405,226 +405,227 @@ h5 {font-size: 1em;color: #333;}
 .undefined {color:red; font-weight: 900;}
 
 .character-count {
-	font-size: 0.9em;
-	margin: 3px 0;
-	padding: 3px 0;
-	text-align: right;
-	color: #666;
+  font-size: 0.9em;
+  margin: 3px 0;
+  padding: 3px 0;
+  text-align: right;
+  color: #666;
 }
 
 #top-nav-1 .col-md-5{
-	padding-right: 0;
-	padding-left: 0;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 #progress {
-	margin:8px 0 0 0px;
-	font-size: 0.75em;
-	letter-spacing: 0.05em;
+  margin:8px 0 0 0px;
+  font-size: 0.75em;
+  letter-spacing: 0.05em;
 }
 
 #question .well {
-	background-color: #FFF;
-	webkit-box-shadow: 0;
-	box-shadow: 0;
-	padding: 15px 15px 0 15px;
-	border-color: #cfcfcf;
+  background-color: #FFF;
+  webkit-box-shadow: 0;
+  box-shadow: 0;
+  padding: 15px 15px 0 15px;
+  border-color: #cfcfcf;
 }
 
 .learnmore .well {
-	webkit-box-shadow: none;
-	box-shadow: none;
-	padding: 15px;
+  webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 15px;
 }
 
 .question-footer {
-	padding: 15px;
-	border-top:1px solid #cfcfcf;
-	background-color: #f5f5f5;
-	margin-top:20px;
+  padding: 15px;
+  border-top:1px solid #cfcfcf;
+  background-color: #f5f5f5;
+  margin-top:20px;
 }
 
 
 .question-footer .btn {
-	margin-left:15px;
+  margin-left:15px;
 }
 
 #question .form-group {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 #question .form-group label {
-	color: #000;
-	font-weight: normal;
-	font-size: 1em;
-	letter-spacing: 0.05em;
+  color: #000;
+  font-weight: normal;
+  font-size: 1em;
+  letter-spacing: 0.05em;
 }
 
 #main .help {
-	color:#ce7049;
-	font-weight:700;
-	cursor:pointer;
+  color:#ce7049;
+  font-weight:700;
+  cursor:pointer;
 }
 
 #main .help:hover {color:#5a301a}
 
 .var-label {
-	font-size:1em;
-	margin:4px 0 4px 2px;
-	letter-spacing:0.05em;
-	padding: 5px 2px 2px 0px;
+  font-size:1em;
+  margin:4px 0 4px 2px;
+  letter-spacing:0.05em;
+  padding: 5px 2px 2px 0px;
 }
 
 
 .var-container {
-	padding:10px 5px 10px 5px;
+  padding:10px 5px 10px 5px;
 }
 
 .step-progress .step {
-	font-size: 26px;
-	color: #424242;
-	font-weight: bolder;
+  font-size: 26px;
+  color: #424242;
+  font-weight: bolder;
 }
 
 .text {
-	margin-bottom:10px;
-	font-size:120%;
-	line-height:120%;
+  margin-bottom: 10px;
+  font-size: 120%;
+  line-height: 120%;
+  white-space: pre;
 }
 
 .modal-body {
-	font-size: 0.85em;
-	line-height: 150%
+  font-size: 0.85em;
+  line-height: 150%;
 }
 
 .text .modal-body div {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .prompt p {
-	font-size:0.9em;
-	line-height:1.2em;
-	margin-bottom: 11px;
+  font-size:0.9em;
+  line-height:1.2em;
+  margin-bottom: 11px;
 }
 
 
 ul.radio-list {
-	list-style-type:none;
-	padding: 3px 0 2px 3px;
+  list-style-type:none;
+  padding: 3px 0 2px 3px;
 }
 
 ul.checkbox-list {
-	list-style-type:none;
-	padding: 3px 0 2px 3px;
+  list-style-type:none;
+  padding: 3px 0 2px 3px;
 }
 
 ul.radio-list li {
-	margin: 0 0 10px 0;
-	font-size:1em;
+  margin: 0 0 10px 0;
+  font-size:1em;
 }
 
 ul.radio-list li input {
-	float:left;
-	clear:left;
+  float:left;
+  clear:left;
 }
 
 ul.radio-list li label {
-	display:block; 
-	margin-left: 30px;
-	clear:right;
+  display:block; 
+  margin-left: 30px;
+  clear:right;
 }
 
 ul.checkbox-list li {
-	margin: 0 0 10px 0;
-	font-size:1em;
+  margin: 0 0 10px 0;
+  font-size:1em;
 }
 
 ul.checkbox-list li input {
-	float:left;
-	clear:left;
+  float:left;
+  clear:left;
 }
 
 ul.checkbox-list li label {
-	display:block; 
-	margin-left: 30px;
-	clear:right;
+  display:block; 
+  margin-left: 30px;
+  clear:right;
 }
 
 /* these are the radio lists for the text prompt */
 .text ul {
-	list-style-type:disc;
-	margin: 6px 0 7px 35px;
-	
+  list-style-type:disc;
+  margin: 6px 0 7px 35px;
+  
 }
 /* these are the radio lists for the text prompt */
 .learnmore .lm-body-sm ul {
-	list-style-type:disc;
-	margin: 0 0 15px 15px;
-	
+  list-style-type:disc;
+  margin: 0 0 15px 15px;
+  
 }
 
 .text ul li, .learnmore .lm-body-sm ul {
-	margin: 0 0 5px 15px;
+  margin: 0 0 5px 15px;
 }
 
 .learnmore .lm-title-sm {
-	margin-bottom:15px;
+  margin-bottom:15px;
 }
 
 .learnmore .lm-body-sm {
-	color: #333;
-	font-size: 0.95em;
+  color: #333;
+  font-size: 0.95em;
 }
 
 .learnmore .lm-body-sm div {
-	margin-bottom:8px;
+  margin-bottom:8px;
 }
 
 .text ol {
-	margin: 0 0 15px 55px;
-	list-style-type: decimal
+  margin: 0 0 15px 55px;
+  list-style-type: decimal
 }
 
 .learnmore .lm-body-sm ol {
-	margin: 0 0 15px 15px;
-	list-style-type: decimal
+  margin: 0 0 15px 15px;
+  list-style-type: decimal
 }
 
 
 .text ol li, .learnmore .lm-body-sm ol li {
-	margin: 0 0 5px 15px;
+  margin: 0 0 5px 15px;
 }
 
 .loading {
-	background:url('../images/viewer/loader.gif') no-repeat;
-	height:25px;
-	width:27px;
-	float:right;
-	display: inline-block;
-	margin: 10px 0 0 3px;
+  background:url('../images/viewer/loader.gif') no-repeat;
+  height:25px;
+  width:27px;
+  float:right;
+  display: inline-block;
+  margin: 10px 0 0 3px;
 }
 
 .loop {
-	display:none;
+  display:none;
 }
 
 .help-modal {
-	color:green !important;
+  color:green !important;
 }
 
 .var-label .help-modal {
-	color:red !important;
+  color:red !important;
 }
 
 .youtube-modal {
-	color:#b1510a !important;
+  color:#b1510a !important;
 }
 
 
 .var-label .help-tooltip .display {
-	font-weight: 700;
-	cursor: default;
-	border-bottom: 1px dotted red;
+  font-weight: 700;
+  cursor: default;
+  border-bottom: 1px dotted red;
 }
 
 .wysiwyg-color-black {color: black;}
@@ -1004,5 +1005,5 @@ ul.checkbox-list li label {
 }
 
 .hasDatepicker:hover {
-	cursor: pointer !important;
+  cursor: pointer !important;
 }
