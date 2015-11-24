@@ -490,7 +490,7 @@ h5 {font-size: 1em;color: #333;}
   margin-bottom: 10px;
   font-size: 120%;
   line-height: 120%;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .modal-body {
@@ -575,7 +575,7 @@ ul.checkbox-list li label {
 .learnmore .lm-body-sm {
   color: #333;
   font-size: 0.95em;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .learnmore .lm-body-sm div {
