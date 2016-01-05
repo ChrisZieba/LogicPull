@@ -40,7 +40,7 @@ module.exports = function (app) {
           } 
 
           if (user) {
-            // if a users group is 0 than it is just a regular user and does not have access to the manager
+            // If a users group is 0 than it is just a regular user and does not have access to the manager
             if (user.group > 0) {
               bcrypt.compare(clean_password, user.password, function(err, found) {
                 if (err) {
