@@ -16,36 +16,81 @@ var mongoose = require('mongoose'),
 
 // For interviews that are being working on
 var tmps_schema = new Schema({
-  id : { type: Number, required: true },
-  current : { type: Number, required: true },
-  created: { type: Date, default: Date.now },
-  last_modified: { type: Date, default: Date.now },
-  // this will hold an array containing the id to each question_schema, which has the state of the interview after each question
-  progress : { type: Schema.Types.Mixed, required: true },
-  history : { type: Schema.Types.Mixed, required: true }
+  id: {
+    type: Number, 
+    required: true,
+    index: true
+  },
+  current: {
+    type: Number,
+    required: true,
+    index: true
+  },
+  created: {
+    type: Date, default: Date.now
+  },
+  last_modified: {
+    type: Date,
+    default: Date.now
+  },
+
+  // This will hold an array containing the id to each question_schema, which has the state of the interview after each question
+  progress: {
+    type: Schema.Types.Mixed,
+    required: true
+  },
+  history: {
+    type: Schema.Types.Mixed,
+    required: true
+  }
 });
 
 // Store each question in its own document to increase performance while the interview is being worked on
 var states_schema = new Schema({
-  id : { type: Number, required: true },
-  loop_id : { type: Number, required: false },
-  // used to find states for a given question. Primarily
+  id: {
+    type: Number,
+    required: true,
+    index: true
+  },
+  loop_id: {
+    type: Number,
+    required: false
+  },
+
+  // Used to find states for a given question. Primarily
   // used to get a previous answer when we go forward.
   // It is the qid of the question where answered.
-  base_qid : { type: String, required: false },
+  base_qid : {
+    type: String,
+    required: false,
+    index: true
+  },
+
   //run_qid : { type: String, required: false },
   // reference to the master record
-  tmp_id : { type: Number, required: false },
-  created: { type: Date, default: Date.now },
-  last_modified: { type: Date, default: Date.now },
-  // contains the mater object, which holds the the state of the interview
-  data : { type: Schema.Types.Mixed, required: true }
+  tmp_id : {type: Number,
+    required: false
+  },
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  last_modified: {
+    type: Date,
+    default: Date.now
+  },
+
+  // Contains the mater object, which holds the the state of the interview
+  data: {
+    type: Schema.Types.Mixed,
+    required: true
+  }
 });
 
 
 // For interviews that are to be saved
 var saves_schema = new Schema({
-  id : { type: Number, required: true },
+  id : { type: Number, required: true, index: true },
   user_id : { type: Number, required: true },
   interview_id : { type: Number, required: true },
   socket_id : { type: String, required: true },
@@ -61,9 +106,9 @@ var saves_schema = new Schema({
 
 // The Counter model
 var counter_schema = new Schema({
-  tmp_count : { type: Number, required: true },
-  saved_count : { type: Number, required: true },
-  state_count : { type: Number, required: true },
+  tmp_count : { type: Number, required: true, index: true },
+  saved_count : { type: Number, required: true, index: true },
+  state_count : { type: Number, required: true, index: true },
   user_count : { type: Number, required: true },
   group_count : { type: Number, required: true },
   interview_count : { type: Number, required: true },
@@ -72,15 +117,15 @@ var counter_schema = new Schema({
 
 // The Group model
 var group_schema = new Schema({
-  id : { type: Number, required: true },
+  id : { type: Number, required: true, index: true },
   name : { type: String, required: true },
   description : { type: String, required: true }
 });
 
 // The Interview model
 var interview_schema = new Schema({
-  id : { type: Number, required: true },
-  name  : { type: String, required: true },
+  id : { type: Number, required: true, index: true },
+  name  : { type: String, required: true, index: true },
   // this is for internal use only, when an interview is deleted, dont remove it just disable it
   disabled : { type: Boolean, default: false, required: true },
   creator : { type: Number, required: true },
@@ -102,9 +147,9 @@ var interview_schema = new Schema({
 
 // The output model
 var output_schema = new Schema({
-  id : { type: Number, required: true },
+  id : { type: Number, required: true, index: true },
   // Not required since unregistered users can also create documents.
-  user_id : { type: Number, required: false },
+  user_id : { type: Number, required: false, index: true },
   client_lastname : { type: String, required: true },
   client_firstname : { type: String, required: true },
   client_fullname : { type: String, required: true },
@@ -116,9 +161,9 @@ var output_schema = new Schema({
 
 // The User model
 var user_schema = new Schema({
-  id : { type: Number, required: true },
-  name : { type: String, required: true },
-  email : { type: String, required: true },
+  id : { type: Number, required: true, index: true },
+  name : { type: String, required: true, index: true },
+  email : { type: String, required: true, index: true },
   password : { type: String, required: true },
   group : { type: Number, required: true },
   privledges : { type: Schema.Types.Mixed, required: true },
@@ -130,7 +175,7 @@ var user_schema = new Schema({
 
 // Store users info who have been added via the manager and who must activate their account 
 var inactive_schema = new Schema({
-  type : { type: String, required: true },
+  type : { type: String, required: true, index: true },
   email : { type: String, required: true },
   group : { type: Number, required: true },
   privledges : { type: Schema.Types.Mixed, required: true },
