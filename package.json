@@ -23,7 +23,7 @@
 		"socket.io": "0.9.10",
 		"bcrypt": "0.7.3",
 		"ejs": "0.8.2",
-		"mongoose": "3.8.38",
+		"mongoose": "3.0.3",
 		"connect-mongo": "0.3.3",
 		"graphviz": "0.0.8",
 		"esprima": "0.9.9",

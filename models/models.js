@@ -90,17 +90,47 @@ var states_schema = new Schema({
 
 // For interviews that are to be saved
 var saves_schema = new Schema({
-  id : { type: Number, required: true, index: true },
-  user_id : { type: Number, required: true },
-  interview_id : { type: Number, required: true },
-  socket_id : { type: String, required: true },
-  qid : { type: String, required: false },
-  name : { type: String, required: false },
-  note : { type: String, required: false },
-  created: { type: Date },
-  last_modified: { type: Date },
-  interview : { type: Schema.Types.Mixed, required: true },
-  data : { type: Schema.Types.Mixed, required: true }
+  id : {
+    type: Number,
+    required: true,
+    index: true
+  },
+  user_id: {
+    type: Number, required: true
+  },
+  interview_id: {
+    type: Number,
+    required: true
+  },
+  socket_id: {
+    type: String,
+    required: true
+  },
+  qid: {
+    type: String,
+    required: false
+  },
+  name: {
+    type: String,
+    required: false
+  },
+  note: {
+    type: String,
+    required: false
+  },
+  created: {
+    type: Date
+  },
+  last_modified: {
+    type: Date
+  },
+  interview: {
+    type: Schema.Types.Mixed, required: true
+  },
+  data: {
+    type: Schema.Types.Mixed,
+    required: true
+  }
 });
 
 
