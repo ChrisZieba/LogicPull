@@ -1,12 +1,12 @@
 {
-  	"name": "LogicPull",
-  	"version": "0.9.9",
-  	"description": "Automated document assembly.",
-  	"private": false,
-  	"license" : "AGPLv3",
-  	"engines" : { 
-  		"node" : ">=0.8.8"
-  	},
+    "name": "LogicPull",
+    "version": "0.9.9",
+    "description": "Automated document assembly.",
+    "private": false,
+    "license" : "AGPLv3",
+    "engines" : { 
+      "node" : ">=0.8.8"
+    },
     "devDependencies": {
         "grunt": "~0.4.1",
         "grunt-contrib-jshint": "~0.6.3",
@@ -18,19 +18,19 @@
         "chai": "~1.8.1",
         "sinon": "~1.14.1"
     },
-  	"dependencies": {
-		"express": "3.3.6",
-		"socket.io": "0.9.10",
-		"bcrypt": "0.7.3",
-		"ejs": "0.8.2",
-		"mongoose": "3.0.3",
-		"connect-mongo": "0.3.3",
-		"graphviz": "0.0.8",
-		"esprima": "0.9.9",
-		"escodegen": "0.0.6",
-		"async": "0.1.22",
-		"nodemailer": "0.3.27",
-		"moment": "1.7.2",
-		"accounting": "0.3.2"
-  	}
+    "dependencies": {
+    "express": "3.3.6",
+    "socket.io": "0.9.10",
+    "bcrypt": "0.7.3",
+    "ejs": "0.8.2",
+    "mongoose": "3.0.3",
+    "connect-mongo": "0.3.3",
+    "graphviz": "0.0.8",
+    "esprima": "0.9.9",
+    "escodegen": "0.0.6",
+    "async": "0.1.22",
+    "nodemailer": "0.3.27",
+    "moment": "1.7.2",
+    "accounting": "0.3.2"
+    }
 }
