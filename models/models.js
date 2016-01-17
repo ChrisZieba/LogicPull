@@ -191,16 +191,16 @@ var output_schema = new Schema({
 
 // The User model
 var user_schema = new Schema({
-  id : { type: Number, required: true, index: true },
-  name : { type: String, required: true, index: true },
-  email : { type: String, required: true, index: true },
-  password : { type: String, required: true },
-  group : { type: Number, required: true },
-  privledges : { type: Schema.Types.Mixed, required: true },
+  id: { type: Number, required: true, index: true },
+  name: { type: String, required: true, index: true },
+  email: { type: String, required: true, index: true },
+  password: { type: String, required: true },
+  group: { type: Number, required: true },
+  privledges: { type: Schema.Types.Mixed, required: true },
   created: { type: Date, default: Date.now },
   last_login: { type: Date, default: Date.now },
   reset_date: { type: Date, required: false },
-  reset_token :  { type: String, required: false }
+  reset_token:  { type: String, required: false }
 });
 
 // Store users info who have been added via the manager and who must activate their account 

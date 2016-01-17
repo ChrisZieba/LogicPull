@@ -19,18 +19,19 @@
         "sinon": "~1.14.1"
     },
     "dependencies": {
-    "express": "3.3.6",
-    "socket.io": "0.9.10",
-    "bcrypt": "0.7.3",
-    "ejs": "0.8.2",
-    "mongoose": "3.0.3",
-    "connect-mongo": "0.3.3",
-    "graphviz": "0.0.8",
-    "esprima": "0.9.9",
-    "escodegen": "0.0.6",
-    "async": "0.1.22",
-    "nodemailer": "0.3.27",
-    "moment": "1.7.2",
-    "accounting": "0.3.2"
+      "lodash": "4.0.0",
+      "express": "3.21.2",
+      "socket.io": "1.4.4",
+      "bcrypt": "0.8.5",
+      "ejs": "0.8.2",
+      "mongoose": "4.3.6",
+      "connect-mongo": "0.8.2",
+      "graphviz": "0.0.8",
+      "esprima": "0.9.9",
+      "escodegen": "0.0.6",
+      "async": "0.1.22",
+      "nodemailer": "0.3.27",
+      "moment": "1.7.2",
+      "accounting": "0.3.2"
     }
 }

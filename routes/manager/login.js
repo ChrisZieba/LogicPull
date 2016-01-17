@@ -23,72 +23,68 @@ module.exports = function (app) {
 
   app.all('/manager/login', auth.login, function (req, res) {
     function view (msg) { 
-      var data = { msg : msg };
+      var data = { msg : msg || null};
       res.render('manager/login', data);
     }
 
-    if (req.method === 'POST') {
-      var clean_email = sanitizor.clean(req.body.email);
-      var clean_password = sanitizor.clean(req.body.password);
+    if (req.method !== 'POST') {
+      return view();
+    }
 
-      // make sure the input is valid and then sanitize it
-      if (validator.check(clean_email, ['required']) && validator.check(clean_password, ['required'])) {  
-        models.Users.findOne({ 'email': clean_email }, function (err, user) {
+    // Make sure the input is valid and then sanitize it
+    if (!validator.check(req.body.email, ['required']) || !validator.check(req.body.password, ['required'])) {
+      return view("Both fields are required to proceed.");
+    }
+
+    models.Users.findOne({ 'email': req.body.email }, function (err, user) {
+      if (err) {
+        console.log(err);
+        throw new Error(err);
+      }
+
+      if (!user) {
+        // The password is not in the database or is wrong
+        return view("The username is not in our database.");
+      }
+
+      // If a users group is 0 than it is just a regular user and does not have access to the manager
+      if (!user.group) {
+        return view("Access Denied.");
+      }
+
+      bcrypt.compare(req.body.password, user.password, function(err, found) {
+        if (err) {
+          console.log(err);
+          throw new Error(err);
+        }
+
+        if (!found) {
+          // the password is not in the database or is wrong
+          return view("The password entered is incorrect.");
+        }
+
+        // The password was found!
+        req.session.user = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          group: user.group,
+          privledges: user.privledges,
+          authenticated: true
+        };
+
+        // Update the user login date
+        user.last_login = new Date();
+        user.save(function(err) {
           if (err) {
             console.log(err);
-            throw err;
+            throw new Error(err);
           } 
 
-          if (user) {
-            // If a users group is 0 than it is just a regular user and does not have access to the manager
-            if (user.group > 0) {
-              bcrypt.compare(clean_password, user.password, function(err, found) {
-                if (err) {
-                  console.log(err);
-                  throw err;
-                } 
-
-                if (found) {
-                  // the password was found!
-                  req.session.user = {
-                    id: user.id,
-                    name: user.name,
-                    email: user.email,
-                    group: user.group,
-                    privledges: user.privledges,
-                    authenticated: true
-                  };
-
-                  // update the user login date
-                  user.last_login = new Date();
-                  user.save(function(err) {
-                    if (err) {
-                      console.log(err);
-                      throw err;
-                    } 
-
-                    res.redirect('/manager');
-                  });
-                } else {
-                  // the password is not in the database or is wrong
-                  view("The password entered is incorrect.");
-                }
-              });
-            } else {
-              // the password is not in the database or is wrong
-              view("Access Denied.");
-            }
-          } else {
-            // the password is not in the database or is wrong
-            view("The username is not in our database.");
-          }
+          res.redirect('/manager');
         });
-      } else {
-        view("Both fields are required to proceed.");
-      }
-    } else {
-      view(null);
-    }
+      });
+    });
   });
 
   // When a user logs out
@@ -97,7 +93,7 @@ module.exports = function (app) {
     res.redirect('/manager');
   });
 
-  // the error page for insufficient privileges
+  // The error page for insufficient privileges
   app.get('/manager/error', auth.validated, function (req, res) {
     res.render('manager/layout', { 
       title: 'Error',

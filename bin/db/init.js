@@ -34,7 +34,7 @@ db.users.insert({
     // The username is admin
     "email": "admin@fake.com",
     // The password is admin
-    "password": "$2a$10$3kMpzJvLoXuhfH.e5ovJCuULLpawqUXkZYTYi/AYO2TLDSDWPW3ra",
+    "password": "$2a$10$6r6e74CXgfkiCSvX5NbG3eCPt3Eyw39pgh21K/.QvP9EQJxOWBWq6",
     "group": 1,
     "privledges": {
         "add_interview": true,
