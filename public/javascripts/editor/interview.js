@@ -41,7 +41,7 @@ Editor.interview = (function () {
 
     socket.on('saved', function (data) {
       $('.nf-pnd').remove();
-      // this is when the user does not have privileges to save an interview in the editor 
+      // This is when the user does not have privileges to save an interview in the editor 
       if (!data) {
         alert('Saving is currently disabled. All changes have been discarded.');
       }
