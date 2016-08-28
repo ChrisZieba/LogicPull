@@ -10,7 +10,7 @@
   <http://www.gnu.org/licenses/>.
 */
 
-var bcrypt = require('bcrypt'),
+var bcrypt = require('bcryptjs'),
   fs = require('fs'),
   sanitizor = require('../../lib/validation/sanitizor'),
   validator = require('../../lib/validation/validator'),

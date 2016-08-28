@@ -1,9 +1,10 @@
 {
     "name": "LogicPull",
     "version": "0.9.10",
+    "repository": "https://github.com/ChrisZieba/LogicPull",
     "description": "Automated document assembly.",
     "private": false,
-    "license" : "AGPLv3",
+    "license" : "AGPL-3.0",
     "engines" : { 
       "node" : ">=0.8.8"
     },
@@ -22,7 +23,7 @@
       "lodash": "4.0.0",
       "express": "3.21.2",
       "socket.io": "1.4.4",
-      "bcrypt": "0.8.5",
+      "bcryptjs": "2.3.0",
       "ejs": "0.8.2",
       "mongoose": "4.3.6",
       "connect-mongo": "0.8.2",

@@ -60,10 +60,9 @@ app.configure(function () {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   
-  // this attaches the session to the req object
+  // This attaches the session to the req object
   app.use(express.session({
     store: sessionStore,
-    // change this
     secret: app.get('session_secret'),
     cookie: {  
       path: app.get('cookie_path'),  
@@ -76,7 +75,7 @@ app.configure(function () {
   
   app.use(express.csrf());
 
-  // generate a token for the form...the form input must be created
+  // Generate a token for the form...the form input must be created
   app.use(function(req, res, next) {
     res.locals.token = req.csrfToken();
     next();

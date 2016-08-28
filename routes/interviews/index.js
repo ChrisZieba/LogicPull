@@ -11,7 +11,7 @@
 */
 
 var mongoose = require('mongoose'),
-  bcrypt = require('bcrypt'),
+  bcrypt = require('bcryptjs'),
   auth = require('../../middleware/interviews/auth'),
   fs = require('fs'),
   nodemailer = require("nodemailer"),
