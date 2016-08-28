@@ -22,7 +22,7 @@ var tmps_schema = new Schema({
     index: true
   },
   current: {
-    type: Number,
+    type: String,
     required: true,
     index: true
   },
@@ -48,7 +48,7 @@ var tmps_schema = new Schema({
 // Store each question in its own document to increase performance while the interview is being worked on
 var states_schema = new Schema({
   id: {
-    type: Number,
+    type: String,
     required: true,
     index: true
   },
@@ -66,7 +66,6 @@ var states_schema = new Schema({
     index: true
   },
 
-  //run_qid : { type: String, required: false },
   // reference to the master record
   tmp_id : {type: Number,
     required: false
