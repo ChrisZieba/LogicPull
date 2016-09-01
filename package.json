@@ -1,6 +1,6 @@
 {
     "name": "LogicPull",
-    "version": "0.9.10",
+    "version": "0.9.11",
     "repository": "https://github.com/ChrisZieba/LogicPull",
     "description": "Automated document assembly.",
     "private": false,

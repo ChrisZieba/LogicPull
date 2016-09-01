@@ -1,5 +1,9 @@
 #Changelog
 
+##Version 0.9.11 (2016-09-01)
+
+- Use unique state id's to prevent data leakage into other interviews
+
 ##Version 0.9.6 (2015-10-28)
 
 - Fix #27: Multiple continue buttons not working
