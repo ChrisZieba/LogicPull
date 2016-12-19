@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-lg-12">
+
+    <h1>Process Saved Interview</h1>
+
+    <div class="row">
+      <div class="col-lg-8">
+
+        <p>The partially saved interview by user <strong><%= user.name %> (<%= user.email %>)</strong> for interview <%= save.interview.name %>, will be processed.</p>
+
+        <form role="form" method="post" action="">
+          <input type="hidden" name="_csrf" value="<%= token %>"/>
+
+          <div class="form-group">
+            <label for="form-description">Note</label>
+            <div><%= save.note %></div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a class="btn btn-default pull-right" href="/manager/interviews/">Cancel</a>
+        </form>
+      </div>      
+    </div>
+  </div>
+</div>

@@ -28,7 +28,7 @@ module.exports = function (app) {
     var group_id = req.session.user.group;
     var user_id = req.session.user.id;
 
-    models.Saves.find({}).where('user_id').equals(user_id).exec(function(err, saved) {
+    models.Saves.find({}).where('user_id').equals(user_id).sort('-created').exec(function(err, saved) {
       if (err) {
         console.log(err);
         throw err;

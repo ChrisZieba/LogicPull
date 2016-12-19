@@ -203,6 +203,10 @@
           <% include users/copy_saved_interview %>
         <% } %>
 
+        <% if (layout === 'process-saved-user-interview') { %>
+          <% include interviews/process_saved_interview %>
+        <% } %>
+
         <% if (layout === 'account') { %>
           <% include account/account %>
         <% } %>
