@@ -938,7 +938,7 @@ module.exports = function (app) {
     res.render('manager/layout', data);
   });
 
-  app.get('/manager/interview/:interview/saved/process/:save', [auth.validated, auth.validateInterview, auth.privledges('view_saved_interviews')], function (req, res) {
+  app.get('/manager/interview/saved/:interview/process/:save', [auth.validated, auth.validateInterview, auth.privledges('view_saved_interviews')], function (req, res) {
     models.Saves.findOne({id: req.params.save}, function (err, save) {
       if (err) {
         console.log(err);
@@ -951,12 +951,24 @@ module.exports = function (app) {
         if (req.method === 'POST') {
           // Process the saved interview as if it were completed
         } else {
-          res.render('manager/layout', { 
-            title: 'LogicPull Manager | Process Saved User Interview',
-            name: req.session.user.name,
-            layout: 'process-saved-user-interview'
+          models.Users.findOne({ id: save.user_id }).exec(function (err, user) {
+            if (err) {
+              console.log(err);
+              throw err;
+            }
+            console.log(user)
+            if (!user) {
+              return res.status(404).render('404', { name: '' });
+            }
+console.log(save.data.state)
+            res.render('manager/layout', { 
+              title: 'LogicPull Manager | Process Saved User Interview',
+              name: req.session.user.name,
+              layout: 'process-saved-user-interview',
+              user: user,
+              save: save
+            });
           });
-
         }
       }
     });
