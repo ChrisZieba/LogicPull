@@ -16,7 +16,8 @@ var bcrypt = require('bcryptjs'),
   validator = require('../../lib/validation/validator'),
   models = require('../../models/models'),
   utils = require('../../lib/utils'),
-  auth = require('../../middleware/manager/auth');
+  auth = require('../../middleware/manager/auth'),
+  process = require('../../lib/interviews/process');
 
 /* 
   The reason for this function is performance related
@@ -938,7 +939,7 @@ module.exports = function (app) {
     res.render('manager/layout', data);
   });
 
-  app.get('/manager/interview/saved/:interview/process/:save', [auth.validated, auth.validateInterview, auth.privledges('view_saved_interviews')], function (req, res) {
+  app.all('/manager/interview/saved/:interview/process/:save', [auth.validated, auth.validateInterview, auth.privledges('view_saved_interviews')], function (req, res) {
     models.Saves.findOne({id: req.params.save}, function (err, save) {
       if (err) {
         console.log(err);
@@ -950,17 +951,35 @@ module.exports = function (app) {
       } else {
         if (req.method === 'POST') {
           // Process the saved interview as if it were completed
+          process.output(res.locals.interview, save.data.state.master.vars, save.data.history, app.get('base_location'), app, req.session.user.id, function (err, data) {
+            if (err) {
+              // if any stylesheet was not procure send back some error to the client
+              console.log(err);
+            } else {
+              var client = {
+                full: req.session.user.name
+              };
+
+              process.email(null, res.locals.interview.name, app.get('base_location'), res.locals.interview, res.locals.interview.on_complete, res.locals.interview.deliverables, client, app, function (err, response) {
+                if (err) {
+                  console.log(err);
+                }
+
+                res.redirect('manager/interview/' + res.locals.interview.id);
+              });
+            }
+          });
         } else {
           models.Users.findOne({ id: save.user_id }).exec(function (err, user) {
             if (err) {
               console.log(err);
               throw err;
             }
-            console.log(user)
+
             if (!user) {
               return res.status(404).render('404', { name: '' });
             }
-console.log(save.data.state)
+
             res.render('manager/layout', { 
               title: 'LogicPull Manager | Process Saved User Interview',
               name: req.session.user.name,
