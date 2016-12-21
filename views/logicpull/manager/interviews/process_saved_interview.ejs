@@ -9,15 +9,16 @@
         <p>The partially saved interview by user <strong><%= user.name %> (<%= user.email %>)</strong> for interview <%= save.interview.name %>, will be processed.</p>
 
         <% if (save.note) { %>
-          Note: <div><%= save.note %></div>
+          <div><strong>Note:</strong> <%= save.note %></div>
         <% } %>
 
-        <div><%= save.data.state.distance[save.qid] %></div>
+        <br/>
+        <div><strong>Process:</strong> <%= save.data.state.distance[save.qid] %></div>
+        <br/>
 
         <form role="form" method="post" action="">
           <input type="hidden" name="_csrf" value="<%= token %>"/>
           <button type="submit" class="btn btn-primary">Submit</button>
-          <a class="btn btn-default pull-right" href="/manager/interviews/">Cancel</a>
         </form>
       </div>      
     </div>
