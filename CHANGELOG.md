@@ -1,5 +1,9 @@
 #Changelog
 
+##Version 0.9.12 (2016-12-20)
+
+- Add route for processing a saved interview with its deliverables
+
 ##Version 0.9.11 (2016-09-01)
 
 - Use unique state id's to prevent data leakage into other interviews
