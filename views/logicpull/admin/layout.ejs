@@ -10,12 +10,14 @@
     <script src="/javascripts/lib/jquery.min.js"></script>
     <script type="text/javascript" src="/javascripts/plugins/jquery-ui-1.11.2/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="/stylesheets/lib/bootstrap.min.css" rel="stylesheet" type="text/css">
-      <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/lib/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <% if (settings.env === 'development') { %>
-      <link rel="stylesheet" type="text/css" href="/stylesheets/interviews.css?v=<%= settings.version %>">
+      <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css?v=<%= settings.version %>">
+      <script src="/javascripts/admin.js?v=<%= settings.version %>"></script>
     <% } else { %>
-      <link rel="stylesheet" type="text/css" href="/stylesheets/interviews.min.css?v=<%= settings.version %>">
+      <link rel="stylesheet" type="text/css" href="/stylesheets/admin.min.css?v=<%= settings.version %>">
+      <script src="/javascripts/admin.min.js?v=<%= settings.version %>"></script>
     <% } %>
 
       <!--[if lt IE 9]>

@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-lg-12">
+
+    <h1>Process Saved Interview</h1>
+
+    <div class="row">
+      <div class="col-lg-8">
+
+        <p>The partially saved interview by user <strong><%= user.name %> (<%= user.email %>)</strong> for interview <%= save.interview.name %>, will be processed.</p>
+
+        <% if (save.note) { %>
+          <div><strong>Note:</strong> <%= save.note %></div>
+        <% } %>
+
+        <br/>
+        <div><strong>Process:</strong> <%= save.data.state.distance[save.qid] %></div>
+        <br/>
+
+        <form role="form" method="post" action="">
+          <input type="hidden" name="_csrf" value="<%= token %>"/>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>      
+    </div>
+  </div>
+</div>
