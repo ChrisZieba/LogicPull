@@ -953,8 +953,8 @@ module.exports = function (app) {
           // Process the saved interview as if it were completed
           process.output(res.locals.interview, save.data.state.master.vars, save.data.history, app.get('base_location'), app, req.session.user.id, function (err, data) {
             if (err) {
-              // if any stylesheet was not procure send back some error to the client
               console.log(err);
+              res.redirect('manager/interview/' + res.locals.interview.id);
             } else {
               var client = {
                 full: req.session.user.name
