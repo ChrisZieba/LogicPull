@@ -1,5 +1,9 @@
 #Changelog
 
+##Version 0.9.13 (2016-12-27)
+
+- Add option to process saved interview
+
 ##Version 0.9.12 (2016-12-20)
 
 - Add route for processing a saved interview with its deliverables
