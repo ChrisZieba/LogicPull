@@ -135,6 +135,15 @@ Viewer.socket = (function() {
         }
       });
 
+      // Show the user their saved interviews
+      socket.on('process_saved', function (packet) {
+        if (packet.valid) {
+          alert('The saved interview was processed successfully.');
+        } else {
+          alert('There was a problem retrieving your saved interviews. Please try again.');
+        }
+      });
+
       socket.on('insert_saved_note', function (packet) {
         $("textarea[name=t-d-note]").val(packet.note);
         $("input[name=t-d-name]").val(packet.name);
@@ -305,6 +314,20 @@ Viewer.interview = (function() {
         // This makes sure we don't try to load the interview multiple times
         click_partial_allowed = false;
       }
+    });
+
+    // When the user clicks an options icon to process an interview
+    $("body").on('click', ".partial-process-int", function () {
+      var interview = $('#interview-id').html();
+      var partial_id = this.id;
+      var socket = Viewer.socket.getSocket();
+      var data = {
+        id: id,
+        interview: interview,
+        partial_id: partial_id
+      };
+
+      socket.emit('process_saved', data);
     });
 
     // When youtube video links are clicked
