@@ -124,6 +124,11 @@ module.exports = function (app) {
 
           // Attach the user to each saved interview using the user_id
           for (var i = 0; i < saved.length; i+=1) {
+            saved[i].distance = '';
+            if (saved[i].qid && saved[i].data && saved[i].data.state && saved[i].data.state.distance && saved[i].data.state.distance[saved[i].qid]) {
+              saved[i].distance = saved[i].data.state.distance[saved[i].qid]
+            }
+
             for (var j = 0; j < users.length; j+=1) { 
               if (users[j].id === saved[i].user_id) {
                 saved[i].user_email = users[j].email;
