@@ -140,7 +140,7 @@ Viewer.socket = (function() {
         if (packet.valid) {
           alert('The saved interview was processed successfully.');
         } else {
-          alert('There was a problem retrieving your saved interviews. Please try again.');
+          alert('There was a problem processing your saved interview. Please try again.');
         }
       });
 
