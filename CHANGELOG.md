@@ -1,5 +1,9 @@
 #Changelog
 
+##Version 0.9.15 (2017-01-29)
+
+- Fix bug when reference to distance in interview is used, but it is not set in configuration
+
 ##Version 0.9.13 (2016-12-27)
 
 - Add option to process saved interview
