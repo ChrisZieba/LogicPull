@@ -32,7 +32,7 @@
     "escodegen": "0.0.6",
     "async": "0.1.22",
     "nodemailer": "0.7.1",
-    "moment": "1.7.2",
+    "moment": "2.19.3",
     "accounting": "0.3.2"
   }
 }
