@@ -27,17 +27,17 @@ module.exports = function (app) {
     var interview = res.locals.interview;
 
     // This checks to see if the interview is live
-    if (interview.live) {
-      res.render('interviews/viewer', {
-        title: 'LogicPull - Interview ' + interview.name,
-        id: interview.id,
-        description: interview.description,
-        name: interview.name,
-        env: app.settings.env,
-        user: (req.session.user && req.session.user.name) ? req.session.user.name : null
-      });
-    } else {
-      res.status(404).render('interviews/404', {name: ''}); 
+    if (!interview.live) {
+      return res.status(404).render('interviews/404', {name: ''});
     }
+
+    res.render('interviews/viewer', {
+      title: 'LogicPull - Interview ' + interview.name,
+      id: interview.id,
+      description: interview.description,
+      name: interview.name,
+      env: app.settings.env,
+      user: (req.session.user && req.session.user.name) ? req.session.user.name : null
+    });
   });
 };

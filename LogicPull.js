@@ -1,4 +1,4 @@
-/*  Copyright 2015 Chris Zieba
+/*  Copyright 2012-2018 Chris Zieba
 
   This program is free software: you can redistribute it and/or modify it under the terms of the GNU
   Affero General Public License as published by the Free Software Foundation, either version 3 of the
@@ -46,11 +46,12 @@ var sessionStore = new MongoStore({
   autoReconnect: true
 });
 
-// these settings are common to both environments
+// These settings are common to both environments
 app.configure(function () {
+  app.use(express.static(__dirname + '/public/'));
   app.use(express.favicon(__dirname + '/public/favicon.ico'));
   app.engine('.html', require('ejs').__express);
-  app.set('views', __dirname + '/views/site');
+  app.set('views', __dirname + '/views/logicpull');
   // Without this you would need to supply the extension to res.render()
   app.set('view engine', 'ejs');
   // used in CSS and JavaScript as query string
@@ -84,7 +85,21 @@ app.configure(function () {
 
   app.use(flash());
   app.use(app.router);
-  app.use(express.vhost(app.get('base_vhost'), require('./subdomains/LogicPull')));
+
+  //app.use(express.vhost(app.get('base_vhost'), require('./subdomains/LogicPull')));
+  require('./routes/index')(app);
+  require('./routes/interviews/index')(app);
+
+  // Non manager admin users (clients completing interviews)
+  require('./routes/admin/login')(app);
+  require('./routes/admin/index')(app);
+
+  // Manager users
+  require('./routes/manager/login')(app);
+  require('./routes/manager/interviews')(app);
+  require('./routes/manager/deliverables')(app);
+  require('./routes/manager/users')(app);
+  require('./routes/manager/index')(app);
 
 });
 
