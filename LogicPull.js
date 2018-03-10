@@ -86,7 +86,6 @@ app.configure(function () {
   app.use(flash());
   app.use(app.router);
 
-  //app.use(express.vhost(app.get('base_vhost'), require('./subdomains/LogicPull')));
   require('./routes/index')(app);
   require('./routes/interviews/index')(app);
 
@@ -97,6 +96,7 @@ app.configure(function () {
   // Manager users
   require('./routes/manager/login')(app);
   require('./routes/manager/interviews')(app);
+  require('./routes/manager/editor')(app);
   require('./routes/manager/deliverables')(app);
   require('./routes/manager/users')(app);
   require('./routes/manager/index')(app);
