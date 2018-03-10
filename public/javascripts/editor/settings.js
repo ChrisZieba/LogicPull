@@ -22,6 +22,7 @@ Editor.settings = (function () {
   var description = '';
   var start = '';
   var steps = [];
+  var token = null;
   var colors = [
     "#18C27A",
     "#FA0530",
@@ -191,12 +192,13 @@ Editor.settings = (function () {
       eventListeners();
     },
 
-    set: function (interview, nam, desc, strt, step) {
+    set: function (interview, nam, desc, strt, step, csrf) {
       id = interview;
       name = nam;
       description = desc;
       start = strt;
       steps = JSON.parse(step);
+      token = csrf;
     },
 
     get: function () {
@@ -223,6 +225,10 @@ Editor.settings = (function () {
 
     getSteps: function () {
       return steps;
+    },
+
+    getToken: function () {
+      return token;
     },
 
     insertStep: function (step) {

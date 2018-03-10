@@ -39,14 +39,6 @@ Editor.interview = (function () {
       $('#container').scrollLeft(0).scrollTop(0);
     }); 
 
-    socket.on('saved', function (data) {
-      $('.nf-pnd').remove();
-      // This is when the user does not have privileges to save an interview in the editor 
-      if (!data) {
-        alert('Saving is currently disabled. All changes have been discarded.');
-      }
-    }); 
-
     // Dom listeners
     $("#m-preview-close").live("click", function () {
       previewClose();
@@ -68,7 +60,7 @@ Editor.interview = (function () {
 
   // show the notification that the interview is saving and then save it
   var saveInterview = function () {
-    var socket = Editor.socket.getSocket();
+    //var socket = Editor.socket.getSocket();
     var interview = {
       id: Editor.settings.getID(), 
       data: questions,
@@ -76,8 +68,28 @@ Editor.interview = (function () {
     };
 
     $("body").prepend('<div class="nf-pnd">Saving ...</div>');
-    // push the changes to the server
-    socket.emit('save', interview);
+
+    $.ajax({
+      type: 'POST',
+      beforeSend: function(request) {
+        request.setRequestHeader('x-csrf-token', Editor.settings.getToken());
+      },
+      url: BASE_URL + '/manager/interview/' + Editor.settings.getID() + '/edit/save',
+      data: JSON.stringify(interview),
+      contentType: 'application/json',
+      cache: false,
+      success: function (res) {
+        $('.nf-pnd').remove();
+
+        // This is when the user does not have privileges to save an interview in the editor 
+        if (!data) {
+          alert('Saving is currently disabled. All changes have been discarded.');
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus);
+      }
+    });
   };
 
   return {
