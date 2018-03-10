@@ -19,21 +19,6 @@ var bcrypt = require('bcryptjs'),
   auth = require('../../middleware/manager/auth'),
   process = require('../../lib/interviews/process');
 
-/* 
-  The reason for this function is performance related
-  Using JSON.stringify has shown to be significant slower than 
-  creating a file and writing the object to it, rather than including
-  it with the HTML 
-*/
-function writeData (data) {
-  var out = [];
-  out.push('function data(){return');
-
-  out.push(JSON.stringify(data));
-  out.push('};');
-  return out.join("");
-}
-
 // this is used to check a semi-colon delimited list for valid emails
 function validateEmails (input) {
   if (input.length === 0) {
@@ -171,41 +156,6 @@ module.exports = function (app) {
     };
 
     res.render('manager/interviews/viewer', data);
-  });
-
-  // This is editor
-  app.get('/manager/interview/:interview/edit', [auth.validated, auth.validateInterview, auth.validateUserGroup, auth.privledges('edit_interviews')], function (req, res) {
-    var interview = res.locals.interview;
-    // write the data to a file first, seems to be faster this way
-    var filename = 'data_' + interview.id + '.js';
-    var path = app.get('base_location') +  'public/javascripts/preload/' + filename;
-    // this gets the current data from the database and writes it to a file
-    var write = writeData(interview.data), data;
-
-    fs.writeFile(path, write, function (err) {
-      if (err) {
-        console.log(err);
-        throw err;
-      } 
-
-      // the steps and the description nned to be encoded to prevent character errors when loading
-      for (var i = 0; i < interview.steps.length; i+=1) {
-        interview.steps[i] = interview.steps[i].replace(/'/g, "&apos;").replace(/"/g, "&quot;");
-      }
-
-      data = {
-        interview: interview.id,
-        data: filename,
-        env: app.settings.env,
-        interview_settings: {
-          name: interview.name,
-          description: interview.description.replace(/'/g, "&apos;").replace(/"/g, "&quot;").replace(/(\r\n|\n|\r)/gm, ""),
-          start: interview.start,
-          steps: JSON.stringify(interview.steps)
-        }
-      };
-      res.render('manager/interviews/editor', data);
-    });
   });
 
   app.get('/manager/interview/:interview/completed', [auth.validated, auth.validateInterview, auth.privledges('view_completed_interviews')], function (req, res) {
