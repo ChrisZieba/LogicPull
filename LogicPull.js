@@ -70,7 +70,7 @@ app.configure(function () {
       httpOnly: app.get('cookie_http_only'),  
       maxAge: app.get('cookie_max_age'),
       secure: app.get('cookie_secure'),
-      domain: app.get('base_vhost')
+      domain: app.get('domain')
     }
   }));
   
