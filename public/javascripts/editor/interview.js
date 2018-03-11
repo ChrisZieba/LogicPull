@@ -19,26 +19,6 @@ Editor.interview = (function () {
   var eventListeners = function () {
     var socket = Editor.socket.getSocket();
 
-    socket.on('graph', function (data) {
-
-      var qid;
-
-      // the nodes need to be drawn first, because the paths are bases on their positions
-      for (qid in data) {
-        if (data.hasOwnProperty(qid)) {
-          Editor.graph.moveNode(qid, data[qid].x, data[qid].y);
-        }
-      }
-      // read above comment for why this loop is run again
-      for (qid in data) {
-        if (data.hasOwnProperty(qid)) {
-          Editor.graph.movePaths(qid);
-        }
-      }
-
-      $('#container').scrollLeft(0).scrollTop(0);
-    }); 
-
     // Dom listeners
     $("#m-preview-close").live("click", function () {
       previewClose();
@@ -59,7 +39,7 @@ Editor.interview = (function () {
   }; 
 
   // show the notification that the interview is saving and then save it
-  var saveInterview = function () {
+  var saveInterview = function (cb) {
     //var socket = Editor.socket.getSocket();
     var interview = {
       id: Editor.settings.getID(), 
@@ -84,6 +64,10 @@ Editor.interview = (function () {
         // This is when the user does not have privileges to save an interview in the editor 
         if (!data) {
           alert('Saving is currently disabled. All changes have been discarded.');
+        }
+
+        if (cb) {
+          cb();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -124,7 +108,39 @@ Editor.interview = (function () {
     graph: function () {
       var socket = Editor.socket.getSocket();
       var graph = Editor.graph.orderGraph();
-      socket.emit('graph', graph);
+
+      $.ajax({
+        type: 'POST',
+        beforeSend: function(request) {
+          request.setRequestHeader('x-csrf-token', Editor.settings.getToken());
+        },
+        url: BASE_URL + '/manager/interview/' + Editor.settings.getID() + '/edit/order_graph',
+        data: JSON.stringify(graph),
+        contentType: 'application/json',
+        cache: false,
+        success: function (res) {
+          var data = res.graph;
+          var qid;
+
+          // The nodes need to be drawn first, because the paths are bases on their positions
+          for (qid in data) {
+            if (data.hasOwnProperty(qid)) {
+              Editor.graph.moveNode(qid, data[qid].x, data[qid].y);
+            }
+          }
+
+          for (qid in data) {
+            if (data.hasOwnProperty(qid)) {
+              Editor.graph.movePaths(qid);
+            }
+          }
+
+          $('#container').scrollLeft(0).scrollTop(0);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert(textStatus);
+        }
+      });
     },
 
     save: function () {
